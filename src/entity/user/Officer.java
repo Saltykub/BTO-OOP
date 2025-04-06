@@ -11,9 +11,8 @@ public class Officer extends Applicant {
     private List<Project> officerProject;
     private Map<String, RegistrationStatus> registrationStatus;
 
-    // No-argument constructor
     public Officer() {
-        super(); // calls Applicant’s no-arg constructor
+        super();
         this.officerProject = new ArrayList<>();
         this.registrationStatus = new HashMap<>();
     }
