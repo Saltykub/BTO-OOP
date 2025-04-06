@@ -7,6 +7,14 @@ public class User {
     private int age;
     private MaritalStatus maritalStatus;
 
+    public User() {
+        this.userID = "";
+        this.name = "";
+        this.hashedPassword = "";
+        this.age = 0;
+        this.maritalStatus = MaritalStatus.SINGLE; // or null if you prefer
+    }
+
     public User(String userID, String name, String hashedPassword, int age, MaritalStatus maritalStatus) {
         this.userID = userID;
         this.name = name;

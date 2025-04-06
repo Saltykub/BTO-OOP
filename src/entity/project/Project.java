@@ -1,6 +1,7 @@
 package entity.project;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
@@ -18,6 +19,21 @@ public class Project {
     private List<String> officerID;
     private List<String> applicantID;
     private boolean visibility;
+
+    public Project() {
+        this.projectID = "";
+        this.name = "";
+        this.neighborhood = "";
+        this.availableUnit = new HashMap<>();
+        this.price = new HashMap<>();
+        this.openDate = new Date();
+        this.closeDate = new Date();
+        this.managerID = "";
+        this.availableOfficer = 0;
+        this.officerID = new ArrayList<>();
+        this.applicantID = new ArrayList<>();
+        this.visibility = false;
+    }
 
     public Project(String projectID, String name, String neighbourhood, Map<FlatType, Integer> availableUnit,
             Map<FlatType, Integer> price,
