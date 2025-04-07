@@ -1,4 +1,4 @@
-package entity.project
+package entity.project;
 
 public class OfficerList extends ModelList {
   private String filepPath;
