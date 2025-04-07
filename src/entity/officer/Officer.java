@@ -1,4 +1,4 @@
-package entity.project
+package entity.project;
 
 public class Officer extends Applicant {
   public enum RegistrationStatus {
