@@ -1,3 +1,9 @@
+package entity.request;
+
+import entity.user.ModelList;
+import java.util.ArrayList;
+import java.util.List;
+
 public class RequestList extends ModelList {
     private String filePath;
     private List<Request> requests;

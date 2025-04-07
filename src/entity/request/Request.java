@@ -1,20 +1,21 @@
 package entity.request;
 
-public enum RequestType {
-    BTO_APPLICATION,  // Represents a BTO application request
-    BTO_WITHDRAWAL,   // Represents a BTO withdrawal request
-    REGISTRATION,     // Represents a registration request
-    ENQUIRY          // Represents an enquiry request
-}
-
-public enum RequestStatus {
-    PENDING;
-    DONE;
-}
-
 // Request class
 public class Request {
     // Attributes
+
+    public enum RequestType {
+        BTO_APPLICATION, // Represents a BTO application request
+        BTO_WITHDRAWAL, // Represents a BTO withdrawal request
+        REGISTRATION, // Represents a registration request
+        ENQUIRY // Represents an enquiry request
+    }
+
+    public enum RequestStatus {
+        PENDING,
+        DONE;
+    }
+
     private String requestID;
     private RequestType requestType;
     private String userID;
@@ -22,12 +23,23 @@ public class Request {
     private RequestStatus requestStatus;
 
     // Constructor (not specified in UML, but adding a basic one for completeness)
-    public Request(String requestID, RequestType requestType, String userID, String projectID, RequestStatus requestStatus) {
+    public Request(String requestID, RequestType requestType, String userID, String projectID,
+            RequestStatus requestStatus) {
         this.requestID = requestID;
         this.requestType = requestType;
         this.userID = userID;
         this.projectID = projectID;
         this.requestStatus = requestStatus;
+    }
+
+    // Default constructor
+    public Request() {
+        // Default values can be set here if needed
+        this.requestID = "";
+        this.requestType = RequestType.ENQUIRY; // Default to ENQUIRY
+        this.userID = "";
+        this.projectID = "";
+        this.requestStatus = RequestStatus.PENDING; // Default to PENDING
     }
 
     // Getter for requestID

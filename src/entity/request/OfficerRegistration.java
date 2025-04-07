@@ -1,3 +1,5 @@
+package entity.request;
+
 public class OfficerRegistration extends Request {
     private ApprovedStatus registrationStatus;
 
