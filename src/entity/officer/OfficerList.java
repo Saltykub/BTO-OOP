@@ -1,3 +1,5 @@
+package entity.project
+
 public class OfficerList extends ModelList {
   private String filepPath;
   private List<Officer> officers;
