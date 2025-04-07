@@ -1,3 +1,5 @@
+package entity.user;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.io.*;
@@ -17,7 +19,8 @@ public class ModelList<T> {
 
     // Public methods
     public T getById(String id) {
-        // Implementation depends on how T identifies itself (e.g., via an interface like Identifiable)
+        // Implementation depends on how T identifies itself (e.g., via an interface
+        // like Identifiable)
         // This is a placeholder - you'll need to adapt it to your specific model class
         for (T item : list) {
             if (item.toString().contains(id)) { // Simple example

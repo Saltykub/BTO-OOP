@@ -1,5 +1,7 @@
+package entity.request;
+
 public enum ApprovedStatus {
-  PENDING;
-  SUCCESSFUL;
+  PENDING,
+  SUCCESSFUL,
   UNSUCCESSFUL;
 }
