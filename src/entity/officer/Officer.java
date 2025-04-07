@@ -7,23 +7,32 @@ public class Officer extends Applicant {
     UNSUCCECESSFUL;
   }
   
-  private List<Project> officeProject;
+  private List<Project> officerProject;
   private Map<String, RegistrationStatus> registrationStatus;
-  
-  // Getters and setters
-  public List<Project> getOfficeProject() {
-    return officeProject;
+
+  Officer() {
+    //Implementation to be done
   }
   
-  public void setOfficeProject(List<Project> officeProject) {
-    this.officeProject = officeProject;
+  public List<Project> getOfficerProject() {
+    return officerProject;
+  }
+  
+  public void setOfficerProject(List<Project> officeProjects) {
+    this.officerProject = officeProject;
   }
   
   public Map<String, RegistrationStatus> getRegistrationStatus() {
     return registrationStatus;
   }
+
+  public Map<String, RegistrationStatus> getRegistrationStatusbyID() {
+    //Implementation to be done
+    return registrationStatus;
+  }
   
-  public void setRegistrationStatus(Map<String, RegistrationStatus> registrationStatus) {
+  public void setRegistrationStatusbyID(Map<String, RegistrationStatus> registrationStatus) {
+    //Implementation to be done
     this.registrationStatus = registrationStatus;
   }
 }
