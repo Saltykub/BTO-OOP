@@ -1,4 +1,7 @@
-package entity.project;
+package entity.user;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApplicantList extends ModelList {
   private String filePath;

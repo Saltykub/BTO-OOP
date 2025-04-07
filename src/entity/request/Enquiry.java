@@ -1,3 +1,5 @@
+package entity.request;
+
 public class Enquiry extends Request {
     private String query;
     private String answer;
