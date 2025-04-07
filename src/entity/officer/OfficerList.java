@@ -1,7 +1,7 @@
 package entity.project;
 
 public class OfficerList extends ModelList {
-  private String filepPath;
+  private String filePath;
   private List<Officer> officers;
   
   public OfficerList() {
