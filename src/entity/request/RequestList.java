@@ -1,4 +1,4 @@
-public class RequestList {
+public class RequestList extends ModelList {
     private String filePath;
     private List<Request> requests;
 
