@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Project {
     private String projectID;
     private String name;
-    private String neighborhood;
+    private List<String> neighborhood;
     private Map<FlatType, Integer> availableUnit;
     private Map<FlatType, Integer> price;
     private Date openDate;
@@ -23,7 +23,7 @@ public class Project {
     public Project() {
         this.projectID = "";
         this.name = "";
-        this.neighborhood = "";
+        this.neighborhood = new ArrayList<>();
         this.availableUnit = new HashMap<>();
         this.price = new HashMap<>();
         this.openDate = new Date();
@@ -35,10 +35,10 @@ public class Project {
         this.visibility = false;
     }
 
-    public Project(String projectID, String name, String neighbourhood, Map<FlatType, Integer> availableUnit,
+    public Project(String projectID, String name, List<String> neighbourhood, Map<FlatType, Integer> availableUnit,
             Map<FlatType, Integer> price,
-            Date openDate, Date closeDate, String managerID, int availableOfficer, List<String> officerID,
-            List<String> applicantID, boolean visibility) {
+            Date openDate, Date closeDate, String managerID, int availableOfficer, boolean visibility) {
+
         this.projectID = projectID;
         this.name = name;
         this.neighborhood = neighbourhood;
@@ -48,8 +48,8 @@ public class Project {
         this.closeDate = closeDate;
         this.managerID = managerID;
         this.availableOfficer = availableOfficer;
-        this.officerID = officerID;
-        this.applicantID = applicantID;
+        this.officerID = new ArrayList<>();
+        this.applicantID = new ArrayList<>();
         this.visibility = visibility;
     }
 
@@ -69,11 +69,11 @@ public class Project {
         this.name = name;
     }
 
-    public String getNeighborhood() {
+    public List<String> getNeighborhood() {
         return neighborhood;
     }
 
-    public void setNeighborhood(String neighborhood) {
+    public void setNeighborhood(List<String> neighborhood) {
         this.neighborhood = neighborhood;
     }
 

@@ -1,17 +1,16 @@
-package entity.user;
+package entity.list;
 
-import java.util.ArrayList;
-import java.util.List;
+import entity.user.Officer;
 
-public class OfficerList extends ModelList {
+public class OfficerList extends ModelList<Officer> {
   private String filePath;
-  private List<Officer> officers;
-
-  public OfficerList() {
-    this.officers = new ArrayList<>();
+  
+  public OfficerList(String filePath) {
+    super(filePath);
   }
 
   public String getFilePath() {
     return filePath;
   }
+  
 }

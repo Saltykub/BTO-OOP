@@ -4,6 +4,11 @@ public class Enquiry extends Request {
     private String query;
     private String answer;
 
+    public Enquiry(String requestID, RequestType requestType, String userID, String projectID, RequestStatus requestStatus, String query){
+        super(requestID, requestType, userID, projectID, requestStatus);
+        this.query = query;
+    }
+
     public String getQuery() {
         return query;
     }

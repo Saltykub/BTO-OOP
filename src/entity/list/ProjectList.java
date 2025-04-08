@@ -1,15 +1,13 @@
-package entity.project;
+package entity.list;
 
-import entity.user.ModelList;
-import java.util.ArrayList;
-import java.util.List;
+import entity.project.Project;
 
-public class ProjectList extends ModelList {
+
+public class ProjectList extends ModelList<Project> {
     private String filePath;
-    private List<Project> projects;
 
-    public ProjectList() {
-        this.projects = new ArrayList<>();
+    public ProjectList(String filePath) {
+        super(filePath);
     }
 
     public String getFilePath() {
@@ -17,7 +15,7 @@ public class ProjectList extends ModelList {
     }
 
     public Project getByID(String id) {
-        for (Project project : projects) {
+        for (Project project : this.getAll()) {
             if (project.getProjectID().equals(id)) {
                 return project;
             }

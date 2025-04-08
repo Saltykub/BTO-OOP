@@ -1,14 +1,12 @@
-package entity.user;
+package entity.list;
 
-import java.util.ArrayList;
-import java.util.List;
+import entity.user.Applicant;
 
-public class ApplicantList extends ModelList {
+public class ApplicantList extends ModelList<Applicant> {
   private String filePath;
-  private List<Applicant> applicants;
 
-  public ApplicantList() {
-    this.applicants = new ArrayList<>();
+  public ApplicantList(String filePath) {
+    super(filePath);
   }
 
   public String getFilePath() {

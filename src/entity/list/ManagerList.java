@@ -1,11 +1,12 @@
-package entity.project;
+package entity.list;
 
-public class ManagerList extends ModelList {
+import entity.user.Manager;
+
+public class ManagerList extends ModelList<Manager> {
   private String filePath;
-  private List<Manager> managers;
   
-  public ManagerList() {
-    this.managers = new ArrayList<>();
+  public ManagerList(String filePath) {
+    super(filePath);
   }
 
   public String getFilePath() {

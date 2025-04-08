@@ -1,15 +1,12 @@
-package entity.request;
+package entity.list;
 
-import entity.user.ModelList;
-import java.util.ArrayList;
-import java.util.List;
+import entity.request.Request;
 
-public class RequestList extends ModelList {
+public class RequestList extends ModelList<Request> {
     private String filePath;
-    private List<Request> requests;
 
-    public RequestList() {
-        this.requests = new ArrayList<>();
+    public RequestList(String filePath) {
+        super(filePath);
     }
 
     public String getFilePath() {
@@ -17,7 +14,7 @@ public class RequestList extends ModelList {
     }
 
     public Request getByID(String requestID) {
-        for (Request request : requests) {
+        for (Request request : this.getAll()) {
             if (request.getRequestID().equals(requestID)) {
                 return request;
             }
