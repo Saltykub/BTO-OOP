@@ -11,6 +11,77 @@ public class ManagerPage {
     }
     
     // Page management methods
+    public void allOptions() {
+        System.out.println("Options:"
+                           +"\n1. View Registered Projects"
+                           +"\n2. View Enquiries"
+                           +"\n3. Answer Enquiries"
+                           +"\n4. View Project List"
+                           +"\n5. View Applicant Application Status"
+                           +"\n6. View Requests"
+                           +"\n7. Change Request Status"
+                           +"\n8. Change Applicant Application"
+                           +"\n9. View All Enquiries"
+                           +"\n10. Create Project
+                           +"\n11. Edit Project"
+                           +"\n12. Delete Project"
+                           +"\n13. Toggle Visibility"
+                           +"\n14. View Officer Registration Status"
+                           +"\n15. Generate Report");
+        System.out.print("Option selection: ");
+        int option = scanner.nextInt();
+        switch (option) {
+            case 1:
+                viewEnquiries();
+                break;
+            case 2:
+                answerEnquiries();
+                break;
+            case 3:
+                viewProjectList();
+                break;
+            case 4:
+                viewApplicantApplicationStatus();
+                break;
+            case 5:
+                viewRequest();
+                break;
+            case 6:
+                changeRequestStatus()
+                break;
+            case 7:
+                changeApplicantApplication();
+                break;
+            case 8:
+                viewAllEnquiries();
+                break;
+            case 9:
+                createProject();
+                break;
+            case 10:
+                editProject();
+                break;
+            case 11:
+                deleteProject();
+                break;
+            case 12:
+                toggleVisibility();
+                break;
+            case 13:
+                viewOfficerRegistrationStatus();
+                break;
+            case 14:
+                viewProjectList();
+                break;
+            case 15:
+                generateReport();
+                break;
+        }
+        option = null;
+    }
+                            
+            
+            
     public void viewRegisteredProject() {
         OfficerRequestController.viewRegisteredProject();
     }
@@ -104,4 +175,5 @@ public class ManagerPage {
         requestID = scanner.next();
         ManagerProjectController.generateReport(requestID);
     }
+    scanner.close()
 }
