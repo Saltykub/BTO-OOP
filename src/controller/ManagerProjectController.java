@@ -15,8 +15,8 @@ public class ManagerProjectController {
     }
     
     public static void createProject(String projectID, String name, List<String> neighbourhood,Map<FlatType, Integer> availableUnit, 
-                              Map<FlatType, Integer> price,Date openDate, Date closeDate, int availableOfficer) {
-      Project newProject = new Project(projectID,name,neighbourhood,availableUnit,price,openDate,closeDate,managerID,availableOfficer,true);
+                              Map<FlatType, Integer> price, Date openDate, Date closeDate, int availableOfficer) {
+      Project newProject = new Project(projectID, name, neighbourhood, availableUnit, price, openDate, closeDate, managerID, availableOfficer, true);
     }
     
     public static void editProject(String projectID, Project project) {
