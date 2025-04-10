@@ -4,10 +4,14 @@ import entity.project.Project;
 
 
 public class ProjectList extends ModelList<Project> {
-    private String filePath;
+    private static String filePath;
 
     public ProjectList(String filePath) {
         super(filePath);
+    }
+
+    public static ProjectList getInstance() {
+        return new ProjectList(filePath);
     }
 
     public String getFilePath() {

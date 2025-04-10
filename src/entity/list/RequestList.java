@@ -3,10 +3,14 @@ package entity.list;
 import entity.request.Request;
 
 public class RequestList extends ModelList<Request> {
-    private String filePath;
+    private static String filePath;
 
     public RequestList(String filePath) {
         super(filePath);
+    }
+
+    public static RequestList getInstance() {
+        return new RequestList(filePath);
     }
 
     public String getFilePath() {
