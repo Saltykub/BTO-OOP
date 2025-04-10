@@ -29,11 +29,11 @@ public class Officer extends Applicant {
         return registrationStatus;
     }
 
-    public RegistrationStatus getRegistrationStatusByID(String id) {
-        return registrationStatus.get(id);
+    public RegistrationStatus getRegistrationStatusByID(String ID) {
+        return registrationStatus.get(ID);
     }
 
-    public void setRegistrationStatusByID(String id, RegistrationStatus status) {
-        registrationStatus.put(id, status);
+    public void setRegistrationStatusByID(String ID, RegistrationStatus status) {
+        registrationStatus.put(ID, status);
     }
 }

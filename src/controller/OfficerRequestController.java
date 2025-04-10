@@ -3,8 +3,8 @@ package controller;
 public class OfficerRequestController {
     private static String officerID;
 
-    public static void setOfficerID(String id) {
-        officerID = id;
+    public static void setOfficerID(String ID) {
+        officerID = ID;
     }
 
     public static void registerProject() {

@@ -21,12 +21,12 @@ public abstract class ModelList<T> {
     public abstract String getFilePath();
 
     // Public methods
-    public T getById(String id) {
+    public T getById(String ID) {
         // Implementation depends on how T identifies itself (e.g., via an interface
         // like Identifiable)
         // This is a placeholder - you'll need to adapt it to your specific model class
         for (T item : list) {
-            if (item.toString().contains(id)) { // Simple example
+            if (item.toString().contains(ID)) { // Simple example
                 return item;
             }
         }
@@ -37,16 +37,16 @@ public abstract class ModelList<T> {
         return new ArrayList<>(list); // Return a copy to protect internal list
     }
 
-    public void delete(String id) {
-        T item = getById(id);
+    public void delete(String ID) {
+        T item = getById(ID);
         if (item != null) {
             list.remove(item);
         }
         save(getFilePath());
     }
 
-    public void update(String id, T newItem) {
-        delete(id); // Remove old version
+    public void update(String ID, T newItem) {
+        delete(ID); // Remove old version
         add(newItem); // Add new version
         save(getFilePath());
     }

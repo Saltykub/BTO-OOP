@@ -18,9 +18,9 @@ public class ProjectList extends ModelList<Project> {
         return filePath;
     }
 
-    public Project getByID(String id) {
+    public Project getByID(String ID) {
         for (Project project : this.getAll()) {
-            if (project.getProjectID().equals(id)) {
+            if (project.getProjectID().equals(ID)) {
                 return project;
             }
         }
