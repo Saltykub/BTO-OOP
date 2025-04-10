@@ -23,7 +23,7 @@ public class User {
         this.maritalStatus = maritalStatus;
     }
 
-    public String getUserId() {
+    public String getUserID() {
         return userID;
     }
 
