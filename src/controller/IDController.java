@@ -4,6 +4,14 @@ public class IDController {
     private static int projectCount;
     private static int reqeustCount;
 
+    public static void setProjectCount(int count) {
+        projectCount = count;
+    }
+
+    public static void setRequestCount(int count) {
+        reqeustCount = count;
+    }
+
     public static String newProjectID() {
         String projectID = Integer.toString(++projectCount);
         while (projectID.length() < 4) {
