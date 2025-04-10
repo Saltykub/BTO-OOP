@@ -1,0 +1,61 @@
+sequenceDiagram
+    participant User as User/Applicant
+    participant AP as ApplicantPage
+    participant AC as ApplicantController
+    participant RL as RequestList
+    participant RC as Request
+    participant BTOA as BTOApplication
+    participant IDC as IDController
+    participant PL as ProjectList
+    participant MP as ManagerPage
+    participant MRC as ManagerRequestController
+    participant OP as OfficerPage
+    participant OPC as OfficerProjectController
+    
+    User->>AP: applyProject()
+    AP->>AP: get projectID input
+    AP->>AC: applyProject(projectID)
+    AC->>IDC: newRequestID()
+    IDC-->>AC: return new requestID
+    AC->>BTOA: create BTOApplication(requestID, BTO_APPLICATION, applicantID, projectID, PENDING)
+    AC->>RL: add(BTOApplication)
+    RL->>RL: save(filePath)
+    
+    Note over User, RL: Manager reviews application
+    
+    User->>MP: viewRequest()
+    MP->>MRC: viewRequest()
+    MRC->>RL: getAll()
+    RL-->>MRC: return all requests
+    MRC-->>MP: display requests
+    
+    User->>MP: changeRequestStatus()
+    MP->>MP: get requestID input
+    MP->>MRC: changeRequestStatus(requestID)
+    MRC->>RL: getByID(requestID)
+    RL-->>MRC: return BTOApplication
+    MRC->>BTOA: setApplicationStatus(SUCCESSFUL)
+    MRC->>RL: update(requestID, BTOApplication)
+    RL->>RL: save(filePath)
+    
+    Note over User, RL: Officer books a flat for successful applicant
+    
+    User->>OP: viewApplicantApplicationStatus()
+    OP->>OPC: viewApplicantApplicationStatus()
+    OPC->>RL: getAll()
+    RL-->>OPC: return all requests
+    OPC-->>OP: display applications with SUCCESSFUL status
+    
+    User->>OP: bookFlat()
+    OP->>OP: get applicantID input
+    OP->>OPC: bookFlat(applicantID)
+    OPC->>PL: getById(projectID)
+    PL-->>OPC: return Project
+    OPC->>PL: update project details (reduce available units)
+    OPC->>RL: getByID(requestID)
+    RL-->>OPC: return BTOApplication
+    OPC->>BTOA: setApplicationStatus(BOOKED)
+    OPC->>RL: update(requestID, BTOApplication)
+    RL->>RL: save(filePath)
+    OPC-->>OP: confirm booking
+    OP-->>User: display booking confirmation
