@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.*;
 
-public class ModelList<T> {
+public abstract class ModelList<T> {
     private List<T> list;
 
     // Constructors
@@ -17,6 +17,8 @@ public class ModelList<T> {
         this();
         this.load(filePath);
     }
+
+    public abstract String getFilePath();
 
     // Public methods
     public T getById(String id) {
@@ -40,20 +42,24 @@ public class ModelList<T> {
         if (item != null) {
             list.remove(item);
         }
+        save(getFilePath());
     }
 
     public void update(String id, T newItem) {
         delete(id); // Remove old version
         add(newItem); // Add new version
+        save(getFilePath());
     }
 
     public void updateAll(List<T> newItems) {
         clear();
         list.addAll(newItems);
+        save(getFilePath());
     }
 
     public void add(T item) {
         list.add(item);
+        save(getFilePath());
     }
 
     public int size() {
