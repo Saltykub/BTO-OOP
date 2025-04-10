@@ -6,7 +6,7 @@ public class ManagerList extends ModelList<Manager> {
   private static String filePath;
   
   public ManagerList(String filePath) {
-    super(filePath);
+    super(filePath, Manager.class);
   }
 
   public static ManagerList getInstance() {
@@ -15,5 +15,14 @@ public class ManagerList extends ModelList<Manager> {
 
   public String getFilePath() {
     return filePath;
+  }
+
+  public Manager getByID(String ID) {
+      for (Manager manager : this.getAll()) {
+          if (manager.getUserID().equals(ID)) {
+              return manager;
+          }
+      }
+      return null;
   }
 }

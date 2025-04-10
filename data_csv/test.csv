@@ -1,0 +1,2 @@
+projectID,name,neighborhood,availableUnit,price,openDate,closeDate,managerID,availableOfficer,officerID,applicantID,visibility
+P001,justin,ZoneA::LIST::ZoneB,TWO_ROOM::MAP::10,TWO_ROOM::MAP::500000,4::DATE::10::DATE::2025,5::DATE::10::DATE::2025,M001,3,O1::LIST::O2::LIST::O3,U1::LIST::U2,TRUE

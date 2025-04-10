@@ -22,7 +22,7 @@ public class ManagerPage {
                            +"\n7. Change Request Status"
                            +"\n8. Change Applicant Application"
                            +"\n9. View All Enquiries"
-                           +"\n10. Create Project
+                           +"\n10. Create Project"
                            +"\n11. Edit Project"
                            +"\n12. Delete Project"
                            +"\n13. Toggle Visibility"

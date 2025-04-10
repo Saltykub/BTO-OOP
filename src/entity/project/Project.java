@@ -1,9 +1,9 @@
 package entity.project;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Project {
@@ -12,8 +12,8 @@ public class Project {
     private List<String> neighborhood;
     private Map<FlatType, Integer> availableUnit;
     private Map<FlatType, Integer> price;
-    private Date openDate;
-    private Date closeDate;
+    private LocalDate openDate;
+    private LocalDate closeDate;
     private String managerID;
     private int availableOfficer;
     private List<String> officerID;
@@ -26,8 +26,8 @@ public class Project {
         this.neighborhood = new ArrayList<>();
         this.availableUnit = new HashMap<>();
         this.price = new HashMap<>();
-        this.openDate = new Date();
-        this.closeDate = new Date();
+        this.openDate = LocalDate.now(); // default as current time
+        this.closeDate = LocalDate.now(); // default as current time 
         this.managerID = "";
         this.availableOfficer = 0;
         this.officerID = new ArrayList<>();
@@ -37,7 +37,7 @@ public class Project {
 
     public Project(String projectID, String name, List<String> neighbourhood, Map<FlatType, Integer> availableUnit,
             Map<FlatType, Integer> price,
-            Date openDate, Date closeDate, String managerID, int availableOfficer, boolean visibility) {
+            LocalDate openDate, LocalDate closeDate, String managerID, int availableOfficer, boolean visibility) {
 
         this.projectID = projectID;
         this.name = name;
@@ -93,19 +93,19 @@ public class Project {
         this.price = price;
     }
 
-    public Date getOpenDate() {
+    public LocalDate getOpenDate() {
         return openDate;
     }
 
-    public void setOpenDate(Date openDate) {
+    public void setOpenDate(LocalDate openDate) {
         this.openDate = openDate;
     }
 
-    public Date getCloseDate() {
+    public LocalDate getCloseDate() {
         return closeDate;
     }
 
-    public void setCloseDate(Date closeDate) {
+    public void setCloseDate(LocalDate closeDate) {
         this.closeDate = closeDate;
     }
 
@@ -163,4 +163,33 @@ public class Project {
         this.applicantID = project.getApplicantID();
         this.visibility = project.getVisibility();
     }
+
+    public void print() {
+        System.out.println("===== Project Info =====");
+        System.out.println("Project ID: " + this.projectID);
+        System.out.println("Name: " + this.name);
+    
+        System.out.println("Neighborhood: " + String.join(", ", this.neighborhood));
+    
+        System.out.println("Available Units:");
+        for (Map.Entry<FlatType, Integer> entry : this.availableUnit.entrySet()) {
+            System.out.println("  " + entry.getKey() + " = " + entry.getValue());
+        }
+    
+        System.out.println("Price:");
+        for (Map.Entry<FlatType, Integer> entry : this.price.entrySet()) {
+            System.out.println("  " + entry.getKey() + " = $" + entry.getValue());
+        }
+    
+        System.out.println("Open Date: " + this.openDate);
+        System.out.println("Close Date: " + this.closeDate);
+        System.out.println("Manager ID: " + this.managerID);
+        System.out.println("Available Officers: " + this.availableOfficer);
+    
+        System.out.println("Officer IDs: " + String.join(", ", this.officerID));
+        System.out.println("Applicant IDs: " + String.join(", ", this.applicantID));
+        System.out.println("Visible to public? " + (this.visibility ? "Yes" : "No"));
+        System.out.println("=========================");
+    }
+    
 }

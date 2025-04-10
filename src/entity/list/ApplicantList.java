@@ -6,7 +6,7 @@ public class ApplicantList extends ModelList<Applicant> {
   private static String filePath;
 
   public ApplicantList(String filePath) {
-    super(filePath);
+    super(filePath,Applicant.class);
   }
 
   public static ApplicantList getInstance() {
@@ -15,6 +15,15 @@ public class ApplicantList extends ModelList<Applicant> {
 
   public String getFilePath() {
     return filePath;
+  }
+
+  public Applicant getByID(String ID) {
+      for (Applicant applicant : this.getAll()) {
+          if (applicant.getUserID().equals(ID)) {
+              return applicant;
+          }
+      }
+      return null;
   }
 
 }

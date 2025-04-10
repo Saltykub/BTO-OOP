@@ -7,7 +7,7 @@ public class ProjectList extends ModelList<Project> {
     private static String filePath;
 
     public ProjectList(String filePath) {
-        super(filePath);
+        super(filePath,Project.class);
     }
 
     public static ProjectList getInstance() {

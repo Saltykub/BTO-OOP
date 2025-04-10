@@ -6,7 +6,7 @@ public class OfficerList extends ModelList<Officer> {
   private static String filePath;
   
   public OfficerList(String filePath) {
-    super(filePath);
+    super(filePath,Officer.class);
   }
 
   public static OfficerList getInstance() {
@@ -17,4 +17,12 @@ public class OfficerList extends ModelList<Officer> {
     return filePath;
   }
   
+  public Officer getByID(String ID) {
+      for (Officer officer : this.getAll()) {
+          if (officer .getUserID().equals(ID)) {
+              return officer;
+          }
+      }
+      return null;
+  }
 }

@@ -2,43 +2,30 @@ package entity.list;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.io.*;
 
 public abstract class ModelList<T> {
+    private Class<T> clazz;
     private List<T> list;
 
     // Constructors
-    public ModelList() {
+    public ModelList(String filePath, Class<T> clazz) {
+        this.clazz = clazz;
         this.list = new ArrayList<>();
-    }
-
-    public ModelList(String filePath) {
-        this();
-        this.load(filePath);
+        this.load(filePath, true);
     }
 
     public abstract String getFilePath();
 
     // Public methods
-    public T getById(String ID) {
-        // Implementation depends on how T identifies itself (e.g., via an interface
-        // like Identifiable)
-        // This is a placeholder - you'll need to adapt it to your specific model class
-        for (T item : list) {
-            if (item.toString().contains(ID)) { // Simple example
-                return item;
-            }
-        }
-        return null;
-    }
+    public abstract T getByID(String ID); 
 
     public List<T> getAll() {
         return new ArrayList<>(list); // Return a copy to protect internal list
     }
 
     public void delete(String ID) {
-        T item = getById(ID);
+        T item = getByID(ID);
         if (item != null) {
             list.remove(item);
         }
@@ -59,7 +46,7 @@ public abstract class ModelList<T> {
 
     public void add(T item) {
         list.add(item);
-        save(getFilePath());
+        //save(getFilePath());
     }
 
     public int size() {
@@ -79,21 +66,19 @@ public abstract class ModelList<T> {
     //     }
     // }
     // new load
-     protected void load(String filePath){
-        List<List<String>> data = new ArrayList<>();
+    protected void load(String filePath, boolean hasHeader){
+        List<String> data = new ArrayList<>();
         try ( BufferedReader br = new BufferedReader(new FileReader(filePath))){
-            String line;
-            while((line = br.readLine()) != null){
-                System.out.println(line);
-                String[] values = line.split(",");
-                List<String> lineData = Arrays.asList(values);
-                data.add(lineData);
+            if(hasHeader){
+                br.readLine();
             }
-            for (int i = 0; i < data.size(); i++) {
-                for(int j = 0; j < data.get(i).size(); j++){
-                    System.out.print(data.get(i).get(j) + " ");
-                }
-                System.out.println();
+            String line;
+            while((line = br.readLine()) != null){;
+                data.add(line);
+            }
+            for(String d: data){
+                T val = Converter.StringtoObj(d, clazz);
+                list.add(val);
             }
 
         } catch(IOException e){

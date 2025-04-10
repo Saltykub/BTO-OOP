@@ -6,7 +6,7 @@ public class RequestList extends ModelList<Request> {
     private static String filePath;
 
     public RequestList(String filePath) {
-        super(filePath);
+        super(filePath, Request.class);
     }
 
     public static RequestList getInstance() {
