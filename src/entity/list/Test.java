@@ -25,32 +25,13 @@ public class Test {
         ProjectList p = new ProjectList("data_csv\\test.csv");
         for(Project pp: p.getAll()){
             pp.print();
+            String test = Converter.objToString(pp);
+            System.out.println(test);
         }
     }
     
-    public static void load(String filePath, boolean hasHeader){
-        List<List<String>> data = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(filePath))){
-            if(hasHeader){
-                br.readLine();
-            }
-            String line;
-            while((line = br.readLine()) != null){
-                String[] values = line.split(",");
-                List<String> lineData = Arrays.asList(values);
-                data.add(lineData);
-            }
-            for (int i = 0; i < data.size(); i++) {
-                for(int j = 0; j < data.get(i).size(); j++){
-                    // Read List
-                    
-                }
-            }
-
-        } catch(IOException e){
-            System.err.println("Error reading the CSV file: " + e.getMessage());
-            e.printStackTrace();
-        }
+    public static void save(String filePath){
+        
     }
      
 }

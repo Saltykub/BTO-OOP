@@ -47,8 +47,7 @@ public class ManagerPage {
                 viewRequest();
                 break;
             case 6:
-                changeRequestStatus()
-                break;
+                changeRequestStatus();
             case 7:
                 changeApplicantApplication();
                 break;

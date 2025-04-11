@@ -15,9 +15,9 @@ public abstract class ModelList<T> {
         this.load(filePath, true);
     }
 
+    // abstract method
     public abstract String getFilePath();
 
-    // Public methods
     public abstract T getByID(String ID); 
 
     public List<T> getAll() {
@@ -58,14 +58,6 @@ public abstract class ModelList<T> {
     }
 
     // Protected methods (for persistence)
-    // protected void load(String filePath) {
-    //     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-    //         this.list = (List<T>) ois.readObject();
-    //     } catch (Exception e) {
-    //         System.err.println("Error loading data: " + e.getMessage());
-    //     }
-    // }
-    // new load
     protected void load(String filePath, boolean hasHeader){
         List<String> data = new ArrayList<>();
         try ( BufferedReader br = new BufferedReader(new FileReader(filePath))){
@@ -77,7 +69,7 @@ public abstract class ModelList<T> {
                 data.add(line);
             }
             for(String d: data){
-                T val = Converter.StringtoObj(d, clazz);
+                T val = Converter.stringtoObj(d, clazz);
                 list.add(val);
             }
 
@@ -88,10 +80,6 @@ public abstract class ModelList<T> {
     }
 
     protected void save(String filePath) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
-            oos.writeObject(list);
-        } catch (Exception e) {
-            System.err.println("Error saving data: " + e.getMessage());
-        }
+        
     }
 }

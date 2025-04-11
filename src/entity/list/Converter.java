@@ -17,7 +17,7 @@ public class Converter<T> {
     public static final String DATE_SEPARATOR = "::DATE::";
     public static final String MAP_SEPARATOR = "::MAP::";
 
-    public static <T> T StringtoObj(String line, Class<T> clazz){
+    public static <T> T stringtoObj(String line, Class<T> clazz){
 
         try {
             T obj = clazz.getDeclaredConstructor().newInstance();
@@ -49,7 +49,7 @@ public class Converter<T> {
                     LocalDate date = stringToDate(lineData.get(idx));
                     field.set(obj,date);
                 }
-                // handle int 
+                // handle other
                 else {
                     Object value = convert(lineData.get(idx), fieldType);
                     field.set(obj,value);
@@ -64,10 +64,49 @@ public class Converter<T> {
         }
        
     }
-
-    // public String objToString(T obj){
-
-    // }
+    public static <T> String objToString(T obj){
+        String ret = "";
+        try {
+            Class<?> clazz = obj.getClass();
+            Field[] fields = clazz.getDeclaredFields();
+            for(Field field: fields){
+                field.setAccessible(true);
+                Object val = field.get(obj);
+                Class<?> fieldType = field.getType();
+                if(List.class.isAssignableFrom(fieldType)){
+                    @SuppressWarnings("unchecked")
+                    List<String> lsval = (List<String>) val; 
+                    String ls = listToString(lsval);
+                    ret+=ls;
+                }
+                // handle map
+                else if(Map.class.isAssignableFrom(fieldType)){
+                    @SuppressWarnings("unchecked")
+                    Map<Object, Object> mpval = (Map<Object, Object>) val;
+                    String mp = mapToString(mpval); 
+                    ret+=mp;
+                }
+                // handle date
+                else if(fieldType.equals(LocalDate.class)){
+                    LocalDate dateval = (LocalDate) val;
+                    String date = dateToString(dateval);
+                    ret+=date;
+                }
+                // handle other
+                else {
+                    String s = val.toString();
+                    ret+=s;
+                }
+                ret+=",";
+            }
+            ret = ret.substring(0, ret.length()-1);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return ret;
+    }
     public static List<String> stringToList(String data){
         String[] values = data.split(LIST_SEPARATOR);
         List<String> ret = Arrays.asList(values);
@@ -108,9 +147,15 @@ public class Converter<T> {
         return ret;
     }
       
-    public static String mapToString(Map<String,String> mp){
-        Map.Entry<String, String> pair = mp.entrySet().iterator().next();
-        return pair.getKey() + MAP_SEPARATOR + pair.getValue();
+    public static <A,B> String mapToString(Map<A,B> mp){
+        String ret = "";
+        int cnt = 0;
+        for(Map.Entry<A,B> entry: mp.entrySet()){
+            if(cnt == mp.size()-1) ret += entry.getKey() + MAP_SEPARATOR + entry.getValue();
+            else ret += entry.getKey() +  MAP_SEPARATOR + entry.getValue() + LIST_SEPARATOR;
+            cnt++;
+        }
+        return ret;
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -121,7 +166,5 @@ public class Converter<T> {
         if (type.isEnum()) return (T) Enum.valueOf((Class<Enum>) type.asSubclass(Enum.class), value);
         return (T) value; // fallback to String
     }
-    
-
-     
+  
 }
