@@ -50,10 +50,10 @@ public class LoginPage {
         }
         System.out.println("Press ENTER to try again, or any other key to go back.");
         String choice = IOController.nextLine();
-        if (choice.equals("\n")) {
-            welcome();
-        } else {
+        if (choice.isEmpty()) {
             login();
+        } else {
+            welcome();
         }
     }
 
@@ -63,7 +63,7 @@ public class LoginPage {
         System.out.println("\t1. Applicant");
         System.out.println("\t2. Officer");
         System.out.println("\t3. Manager");
-        System.out.println("Your choice (1-3): ");
+        System.out.print("Your choice (1-3): ");
         UserType userType = null;
         while (userType == null) {
             int type = IOController.nextInt();
@@ -74,18 +74,18 @@ public class LoginPage {
                 default -> System.out.println("Invalid choice. Please try again."); 
             }
         }
-        System.out.println("Enter ID: ");
+        System.out.print("Enter ID: ");
         String userID = IOController.nextLine();
-        System.out.println("Enter password: ");
+        System.out.print("Enter password: ");
         String password = IOController.readPassword();
-        System.out.println("Enter name: ");
+        System.out.print("Enter name: ");
         String name = IOController.nextLine();
-        System.out.println("Enter age: ");
+        System.out.print("Enter age: ");
         int age = IOController.nextInt();
-        System.out.println("Enter marital status:");
+        System.out.print("Enter marital status:");
         System.out.println("\t1. Single");
         System.out.println("\t2. Married");
-        System.out.println("Your choice (1-2): ");
+        System.out.print("Your choice (1-2): ");
         MaritalStatus maritalStatus = null;
         while (maritalStatus == null) {
             int marital = IOController.nextInt();
@@ -102,23 +102,23 @@ public class LoginPage {
         }
         System.out.println("Press ENTER to try again, or any other key to go back.");
         String choice = IOController.nextLine();
-        if (choice.equals("\n")) {
-            welcome();
-        } else {
+        if (choice.isEmpty()) {
             register();
+        } else {
+            welcome();
         }
     }
     
     public static void changePassword() {
         UIController.clearPage();
-        System.out.println("Enter ID: ");
+        System.out.print("Enter ID: ");
         String userID = IOController.nextLine();
-        System.out.println("Enter password: ");
+        System.out.print("Enter password: ");
         String password = IOController.readPassword();
         try {
             boolean correctPassword = AccountController.checkPassword(userID, password);
             if (correctPassword) {
-                System.out.println("Enter new password: ");
+                System.out.print("Enter new password: ");
                 String newPassword = IOController.readPassword();
                 AccountController.changePassword(userID, password, newPassword);
                 System.out.println("Successfully change password!");
@@ -132,10 +132,10 @@ public class LoginPage {
         }
         System.out.println("Press ENTER to try again, or any other key to go back.");
         String choice = IOController.nextLine();
-        if (choice.equals("\n")) {
-            welcome();
-        } else {
+        if (choice.isEmpty()) {
             changePassword();
+        } else {
+            welcome();
         }
     }
     

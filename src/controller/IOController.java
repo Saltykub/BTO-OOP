@@ -9,9 +9,12 @@ public class IOController {
 
     public static int nextInt() {
         try {
-            return scanner.nextInt();
+            int ret = scanner.nextInt();
+            scanner.nextLine();
+            return ret;
         } catch (Exception e) {
             System.out.println("Please enter a valid integer.");
+            scanner.nextLine();
             return nextInt();
         }
     }
@@ -32,15 +35,15 @@ public class IOController {
 
     public static LocalDate nextDate(){
         Integer d, m, y;
-        System.out.println("Date: ");
-        d = IOController.nextInt();
-        System.out.println("Month: ");
-        m = IOController.nextInt();
-        System.out.println("Year");
-        y = IOController.nextInt();
+        System.out.print("Date: ");
+        d = nextInt();
+        System.out.print("Month: ");
+        m = nextInt();
+        System.out.print("Year: ");
+        y = nextInt();
         try {
             LocalDate.of(y, m, d); 
-            return LocalDate.of(y,m,d);
+            return LocalDate.of(y, m, d);
         } catch (DateTimeException e) {
             System.out.println("Please enter a valid Date.");
             return nextDate();
