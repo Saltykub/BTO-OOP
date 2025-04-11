@@ -11,6 +11,11 @@ public class Manager extends User {
         this.project = new ArrayList<>();
     }
 
+    public Manager(String userID, String name, String hashedPassword, int age, MaritalStatus maritalStatus) {
+        super(userID, name, hashedPassword, age, maritalStatus);
+        this.project = new ArrayList<>();
+    }
+
     public List<String> getProject() {
         return project;
     }

@@ -14,6 +14,12 @@ public class Officer extends Applicant {
         this.officerProject = new ArrayList<>();
         this.registrationStatus = new HashMap<>();
     }
+    
+    public Officer(String userID, String name, String hashedPassword, int age, MaritalStatus maritalStatus) {
+        super(userID, name, hashedPassword, age, maritalStatus);
+        this.officerProject = new ArrayList<>();
+        this.registrationStatus = new HashMap<>();
+    }
 
     public List<String> getOfficerProject() {
         return officerProject;
