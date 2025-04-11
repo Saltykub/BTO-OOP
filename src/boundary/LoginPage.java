@@ -1,7 +1,5 @@
 package boundary;
 
-import java.util.Scanner;
-
 import controller.AccountController;
 import controller.IOController;
 import controller.UIController;
@@ -38,9 +36,9 @@ public class LoginPage {
 
     public static void login() {
         UIController.clearPage();
-        System.out.println("Enter ID: ");
+        System.out.print("Enter ID: ");
         String userID = IOController.nextLine();
-        System.out.println("Enter password: ");
+        System.out.print("Enter password: ");
         String password = IOController.readPassword();
         try {
             User user = AccountController.login(userID, password);

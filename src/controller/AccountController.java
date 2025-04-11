@@ -37,14 +37,14 @@ public class AccountController {
     }
 
     public static User findUser(String userID) throws UserNotFoundException {
-        for (Applicant u : ApplicantList.getInstance().getAll()) {
-            if (u.getUserID() == userID) return u;
+        for (Applicant a : ApplicantList.getInstance().getAll()) {
+            if (a.getUserID().equals(userID)) return a;
         }
         for (Officer o : OfficerList.getInstance().getAll()) {
-            if (o.getUserID() == userID) return o;
+            if (o.getUserID().equals(userID)) return o;
         }
         for (Manager m : ManagerList.getInstance().getAll()) {
-            if (m.getUserID() == userID) return m;
+            if (m.getUserID().equals(userID)) return m;
         }
         throw new UserNotFoundException();
     }

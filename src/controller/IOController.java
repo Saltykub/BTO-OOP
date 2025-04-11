@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class IOController {   
@@ -26,5 +28,22 @@ public class IOController {
             password = new String(System.console().readPassword());
         }
         return password;
+    }
+
+    public static LocalDate nextDate(){
+        Integer d, m, y;
+        System.out.println("Date: ");
+        d = IOController.nextInt();
+        System.out.println("Month: ");
+        m = IOController.nextInt();
+        System.out.println("Year");
+        y = IOController.nextInt();
+        try {
+            LocalDate.of(y, m, d); 
+            return LocalDate.of(y,m,d);
+        } catch (DateTimeException e) {
+            System.out.println("Please enter a valid Date.");
+            return nextDate();
+        } 
     }
 }
