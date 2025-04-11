@@ -6,24 +6,50 @@ import controller.ApplicantController;
 
 public class ApplicantPage {
 
-    private String applicantID;
-
     Scanner scanner = new Scanner(System.in);
 
-    public ApplicantPage() {
-        // Default constructor
+    // Page management methods
+    public void allOptions() {
+        System.out.println("Options:"
+                + "\n1. View Applicable Project"
+                + "\n2. View Applied Projects"
+                + "\n3. Apply for Project"
+                + "\n4. Withdraw Application"
+                + "\n5. Make Query"
+                + "\n6. View Query"
+                + "\n7. Edit Query"
+                + "\n8. Delete Query");
+        System.out.print("Option selection: ");
+        int option = scanner.nextInt();
+        switch (option) {
+            case 1:
+                viewApplicableProject();
+                break;
+            case 2:
+                viewAppliedProject();
+                break;
+            case 3:
+                applyProject();
+                break;
+            case 4:
+                withdrawApplication();
+                break;
+            case 5:
+                query();
+                break;
+            case 6:
+                viewQuery();
+            case 7:
+                editQuery();
+                break;
+            case 8:
+                deleteQuery();
+                break;
+        }
     }
 
-    public ApplicantPage(String applicantID) {
-        this.applicantID = applicantID;
-    }
-
-    public void setApplicantID(String applicantID) {
-        this.applicantID = applicantID;
-    }
-
-    public void viewProjectList() {
-        ApplicantController.viewProjectList();
+    public void viewApplicableProject() {
+        ApplicantController.viewApplicableProject();
     }
 
     public void viewAppliedProject() {
@@ -41,7 +67,9 @@ public class ApplicantPage {
     }
 
     public void query() {
-        ApplicantController.query();
+        System.out.println("Enter your query: ");
+        String question = scanner.nextLine();
+        ApplicantController.query(question);
     }
 
     public void viewQuery() {
@@ -51,7 +79,9 @@ public class ApplicantPage {
     public void editQuery() {
         System.out.println("Enter the request ID to edit: ");
         String requestID = scanner.nextLine();
-        ApplicantController.editQuery(requestID);
+        System.out.println("Enter the new query: ");
+        String newQuery = scanner.nextLine();
+        ApplicantController.editQuery(requestID, newQuery);
     }
 
     public void deleteQuery() {

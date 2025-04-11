@@ -7,26 +7,97 @@ import java.util.Scanner;
 
 public class OfficerPage {
 
-    private String officerID;
-
     Scanner scanner = new Scanner(System.in);
 
-    public OfficerPage() {
-        // Default constructor
-    }
-
-    public OfficerPage(String officerID) {
-        this.officerID = officerID;
-    }
-
-    public void setOfficerID(String officerID) {
-        this.officerID = officerID;
+    // Page management methods
+    public void allOptions() {
+        System.out.println("Options:"
+                + "\n1. View Applicants Projects List"
+                + "\n2. View Applied Projects"
+                + "\n3. Apply for Project"
+                + "\n4. Withdraw Application"
+                + "\n5. Make Query"
+                + "\n6. View Query"
+                + "\n7. Edit Query"
+                + "\n8. Delete Query"
+                + "\n9. Register for Project as Officer"
+                + "\n10. View Registered Project"
+                + "\n11. View All Enquiries"
+                + "\n12. View Enquiry by ID"
+                + "\n13. Answer Enquiries"
+                + "\n14. View Registrable Project List"
+                + "\n15. View Applicant Application Status"
+                + "\n16. Book Flat for Applicant"
+                + "\n17. Generate Receipt"
+                + "\n18. Generate Receipt by Applicant"
+                + "\n19. Generate Receipt by Project");
+        System.out.print("Option selection: ");
+        int option = scanner.nextInt();
+        switch (option) {
+            case 1:
+                viewApplicantProjectList();
+                break;
+            case 2:
+                viewAppliedProject();
+                break;
+            case 3:
+                applyProject();
+                break;
+            case 4:
+                withdrawApplication();
+                break;
+            case 5:
+                query();
+                break;
+            case 6:
+                viewQuery();
+                break;
+            case 7:
+                editQuery();
+                break;
+            case 8:
+                deleteQuery();
+                break;
+            case 9:
+                registerProject();
+                break;
+            case 10:
+                viewRegisteredProject();
+                break;
+            case 11:
+                viewEnquiries();
+                break;
+            case 12:
+                viewEnquiry();
+                break;
+            case 13:
+                answerEnquiries();
+                break;
+            case 14:
+                viewOfficerProjectList();
+                break;
+            case 15:
+                viewApplicantApplicationStatus();
+                break;
+            case 16:
+                bookFlat();
+                break;
+            case 17:
+                generateReceipt();
+                break;
+            case 18:
+                generateReceiptByApplicant();
+                break;
+            case 19:
+                generateReceiptByProject();
+                break;
+        }
     }
 
     // ApplicantController Methods
 
     public void viewApplicantProjectList() {
-        ApplicantController.viewProjectList();
+        ApplicantController.viewApplicableProject();
     }
 
     public void viewAppliedProject() {
@@ -44,7 +115,9 @@ public class OfficerPage {
     }
 
     public void query() {
-        ApplicantController.query();
+        System.out.println("Enter your query: ");
+        String question = scanner.nextLine();
+        ApplicantController.query(question);
     }
 
     public void viewQuery() {
@@ -54,7 +127,9 @@ public class OfficerPage {
     public void editQuery() {
         System.out.println("Enter the request ID to edit: ");
         String requestID = scanner.nextLine();
-        ApplicantController.editQuery(requestID);
+        System.out.println("Enter the new query: ");
+        String newQuery = scanner.nextLine();
+        ApplicantController.editQuery(requestID, newQuery);
     }
 
     public void deleteQuery() {
