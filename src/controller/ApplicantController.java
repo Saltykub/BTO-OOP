@@ -46,11 +46,11 @@ public class ApplicantController {
     }
 
     public static void withdrawApplication() {
-        RequestList.getInstance().add(new BTOWithdrawal(IDController.newRequestID(), RequestType.BTO_WITHDRAWAL, applicantID, ApplicantList.getInstance().getByID(applicantID).getProject().getProjectID(), RequestStatus.PENDING));
+        RequestList.getInstance().add(new BTOWithdrawal(IDController.newRequestID(), RequestType.BTO_WITHDRAWAL, applicantID, ApplicantList.getInstance().getByID(applicantID).getProject(), RequestStatus.PENDING));
     }
     
     public static void query(String text) {
-        RequestList.getInstance().add(new Enquiry(IDController.newRequestID(), RequestType.ENQUIRY, applicantID, ApplicantList.getInstance().getByID(applicantID).getProject().getProjectID(), RequestStatus.PENDING, text));
+        RequestList.getInstance().add(new Enquiry(IDController.newRequestID(), RequestType.ENQUIRY, applicantID, ApplicantList.getInstance().getByID(applicantID).getProject(), RequestStatus.PENDING, text));
     }
 
     public static void viewQuery() {
@@ -63,7 +63,7 @@ public class ApplicantController {
     }
 
     public static void editQuery(String requestID, String text) {
-        RequestList.getInstance().update(requestID, new Enquiry(requestID, RequestType.ENQUIRY, applicantID, ApplicantList.getInstance().getByID(applicantID).getProject().getProjectID(), RequestStatus.PENDING, text));
+        RequestList.getInstance().update(requestID, new Enquiry(requestID, RequestType.ENQUIRY, applicantID, ApplicantList.getInstance().getByID(applicantID).getProject(), RequestStatus.PENDING, text));
     }
 
     public static void deleteQuery(String requestID) {
