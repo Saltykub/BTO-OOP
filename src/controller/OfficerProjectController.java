@@ -2,8 +2,13 @@ package controller;
 
 import java.util.List;
 
+import entity.list.ApplicantList;
 import entity.list.ProjectList;
+import entity.list.RequestList;
+import entity.project.FlatType;
 import entity.project.Project;
+import entity.request.Request;
+import entity.user.Applicant;
 import entity.user.ApplicationStatus;
 
 public class OfficerProjectController {
@@ -39,8 +44,18 @@ public class OfficerProjectController {
 
     }
 
-    public static void bookFlat(String applicantID) {
-
+    public static void bookFlat(String applicantID, String projectID) {
+        Project project = ProjectList.getInstance().getByID(projectID);
+        Applicant applicant = ApplicantList.getInstance().getByID(applicantID);
+        FlatType flat = applicant.getAppliedFlatByID(projectID);
+        int availableUnit = project.getAvailableUnit().get(flat);
+        if (availableUnit > 0) {
+            project.setAvailableUnit(flat, availableUnit - 1);
+            project.addApplicantID(applicantID);
+            applicant.setApplicationStatusByID(projectID, ApplicationStatus.BOOKED);
+        }
+        ProjectList.getInstance().update(projectID, project);
+        ApplicantList.getInstance().update(applicantID, applicant);
     }
 
     public static void generateReceipt() {

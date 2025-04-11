@@ -85,6 +85,10 @@ public class Project {
         this.availableUnit = availableUnit;
     }
 
+    public void setAvailableUnit(FlatType flat, Integer availableUnit) {
+        this.availableUnit.put(flat, availableUnit);
+    }
+
     public Map<FlatType, Integer> getPrice() {
         return price;
     }
@@ -139,6 +143,10 @@ public class Project {
 
     public void setApplicantID(List<String> applicantID) {
         this.applicantID = applicantID;
+    }
+
+    public void addApplicantID(String applicantID) {
+        this.applicantID.add(applicantID);
     }
 
     public boolean getVisibility() {

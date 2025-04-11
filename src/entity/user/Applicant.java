@@ -2,28 +2,31 @@ package entity.user;
 
 import java.util.HashMap;
 import java.util.Map;
-import entity.project.Project;
+
+import entity.project.FlatType;
 
 public class Applicant extends User {
-    private Project project;
+    private String project;
     private Map<String, ApplicationStatus> applicationStatus;
+    private Map<String, FlatType> appliedFlat;
 
     public Applicant() {
         super();
-        this.project = null;
         this.applicationStatus = new HashMap<>();
+        this.appliedFlat = new HashMap<>();
     }
 
     public Applicant(String userID, String name, String hashedPassword, int age, MaritalStatus maritalStatus) {
         super(userID, name, hashedPassword, age, maritalStatus);
         this.applicationStatus = new HashMap<>();
+        this.appliedFlat = new HashMap<>();
     }
 
-    public Project getProject() {
+    public String getProject() {
         return project;
     }
 
-    public void setProject(Project project) {
+    public void setProject(String project) {
         this.project = project;
     }
 
@@ -37,5 +40,17 @@ public class Applicant extends User {
 
     public void setApplicationStatusByID(String projectID, ApplicationStatus status) {
         applicationStatus.put(projectID, status);
+    }
+
+    public Map<String, FlatType> getAppliedFlat() {
+        return appliedFlat;
+    }
+
+    public FlatType getAppliedFlatByID(String projectID) {
+        return appliedFlat.get(projectID);
+    }
+
+    public void setAppliedFlayByID(String projectID, FlatType flat) {
+        appliedFlat.put(projectID, flat);
     }
 }
