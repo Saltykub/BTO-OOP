@@ -1,7 +1,8 @@
 package controller;
 
 public class UIController {
-
+    public static final String lineSeparator = "===================================================================";
+    
     public static void clearPage() {
         try {
             String os = System.getProperty("os.name").toLowerCase();

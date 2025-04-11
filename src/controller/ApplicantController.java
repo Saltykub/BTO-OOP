@@ -27,6 +27,12 @@ public class ApplicantController {
                 if (applicant.getAge() >= 35 && applicant.getMaritalStatus() == MaritalStatus.SINGLE && project.getAvailableUnit().get(FlatType.TWO_ROOM) == 0) {
                     available = false;
                 }
+                else if (applicant.getAge() >= 21 && applicant.getMaritalStatus() == MaritalStatus.SINGLE) {
+                    available = false;
+                }
+                else if (applicant.getAge() < 21) {
+                    available = false;
+                }
                 if (available) System.out.println(project);
             }
         }

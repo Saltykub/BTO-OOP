@@ -13,7 +13,7 @@ public class IOController {
             scanner.nextLine();
             return ret;
         } catch (Exception e) {
-            System.out.println("Please enter a valid integer.");
+            System.out.print("Please enter a valid integer: ");
             scanner.nextLine();
             return nextInt();
         }

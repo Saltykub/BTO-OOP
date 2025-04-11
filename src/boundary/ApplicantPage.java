@@ -1,48 +1,43 @@
 package boundary;
 
+import controller.AccountController;
 import controller.ApplicantController;
 import controller.IOController;
 import controller.UIController;
+import entity.list.ApplicantList;
 
 public class ApplicantPage {
 
-    // Page management methods
     public static void allOptions() {
-        System.out.println("Options:"
-                + "\n1. View Applicable Project"
-                + "\n2. View Applied Projects"
-                + "\n3. Apply for Project"
-                + "\n4. Withdraw Application"
-                + "\n5. Make Query"
-                + "\n6. View Query"
-                + "\n7. Edit Query"
-                + "\n8. Delete Query");
-        System.out.print("Option selection: ");
+        UIController.clearPage();
+        System.out.println(UIController.lineSeparator);
+        System.out.println("Applicant Page");
+        System.out.println(UIController.lineSeparator);
+        System.out.println("Welcome, " + ApplicantList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
+                + "\n\t1. View Applicable Project"
+                + "\n\t2. View Applied Projects"
+                + "\n\t3. Apply for Project"
+                + "\n\t4. Withdraw Application"
+                + "\n\t5. Make Query"
+                + "\n\t6. View Query"
+                + "\n\t7. Edit Query"
+                + "\n\t8. Delete Query");
+        System.out.print("Your choice (1-8): ");
         int option = IOController.nextInt();
         switch (option) {
-            case 1:
-                viewApplicableProject();
-                break;
-            case 2:
-                viewAppliedProject();
-                break;
-            case 3:
-                applyProject();
-                break;
-            case 4:
-                withdrawApplication();
-                break;
-            case 5:
-                query();
-                break;
-            case 6:
-                viewQuery();
-            case 7:
-                editQuery();
-                break;
-            case 8:
-                deleteQuery();
-                break;
+            case 1 -> viewApplicableProject();
+            case 2 -> viewAppliedProject();
+            case 3 -> applyProject();
+            case 4 -> withdrawApplication();
+            case 5 -> query();
+            case 6 -> viewQuery();
+            case 7 -> editQuery();
+            case 8 -> deleteQuery();
+            default -> {
+                System.out.println("Invalid choice. Press ENTER to try again.");
+                IOController.nextLine();
+                allOptions();
+            }
         }
     }
 

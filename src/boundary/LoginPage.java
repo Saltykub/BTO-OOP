@@ -1,7 +1,12 @@
 package boundary;
 
 import controller.AccountController;
+import controller.ApplicantController;
 import controller.IOController;
+import controller.ManagerProjectController;
+import controller.ManagerRequestController;
+import controller.OfficerProjectController;
+import controller.OfficerRequestController;
 import controller.UIController;
 import entity.user.Applicant;
 import entity.user.Manager;
@@ -22,8 +27,9 @@ public class LoginPage {
         System.out.println("\t3. Change Password");
         System.out.println("\t4. Exit");
         System.out.print("Your choice (1-4): ");
-        while (true) {
-            int choice = IOController.nextInt();
+        int choice = -1;
+        while (choice < 1 || choice > 5) {
+            choice = IOController.nextInt();
             switch (choice) {
                 case 1 -> login();
                 case 2 -> register();
@@ -42,9 +48,15 @@ public class LoginPage {
         String password = IOController.readPassword();
         try {
             User user = AccountController.login(userID, password);
+            ApplicantController.setApplicantID(userID);
+            OfficerProjectController.setOfficerID(userID);
+            OfficerRequestController.setOfficerID(userID);
+            ManagerProjectController.setManagerID(userID);
+            ManagerRequestController.setManagerID(userID);
             if (user instanceof Applicant) ApplicantPage.allOptions();
             else if (user instanceof Officer) OfficerPage.allOptions();
             else if (user instanceof Manager) ManagerPage.allOptions();
+            return;
         } catch (UserNotFoundException | PasswordIncorrectException e) {
             System.out.println(e.getMessage());
         }
