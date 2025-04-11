@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +22,21 @@ public class Converter<T> {
 
         try {
             T obj = clazz.getDeclaredConstructor().newInstance();
-            Field[] fields = clazz.getDeclaredFields();
+            Field[] f = clazz.getDeclaredFields();
+            List<Field> fields = new ArrayList<>();
+            // check for user super class
+            Class<?> current = clazz;
+            current = clazz.getSuperclass();
+            if(current != null){
+                Field[] ff = current.getDeclaredFields();
+                current = current.getSuperclass();
+                if(current != null){
+                    Field[] fff = current.getDeclaredFields();
+                    for(Field i: fff) fields.add(i);
+                }
+                for(Field i: ff) fields.add(i);
+            }
+            for(Field i:f) fields.add(i);
             String[] values = line.split(",");
             List<String> lineData = Arrays.asList(values);
             int idx = 0; // values iterator 
@@ -68,7 +83,20 @@ public class Converter<T> {
         String ret = "";
         try {
             Class<?> clazz = obj.getClass();
-            Field[] fields = clazz.getDeclaredFields();
+            Field[] f = clazz.getDeclaredFields();
+            List<Field> fields = new ArrayList<>();
+            // check for user super class
+            clazz = clazz.getSuperclass();
+            if(clazz != null){
+                Field[] ff = clazz.getDeclaredFields();
+                clazz = clazz.getSuperclass();
+                if(clazz != null){
+                    Field[] fff = clazz.getDeclaredFields();
+                    for(Field i: fff) fields.add(i);
+                }
+                for(Field i: ff) fields.add(i);
+            }
+            for(Field i:f) fields.add(i);
             for(Field field: fields){
                 field.setAccessible(true);
                 Object val = field.get(obj);
@@ -94,6 +122,7 @@ public class Converter<T> {
                 }
                 // handle other
                 else {
+                    if(val == null) continue;
                     String s = val.toString();
                     ret+=s;
                 }
@@ -115,6 +144,7 @@ public class Converter<T> {
 
     public static String listToString(List<String> data){
         String ret = "";
+        if(data.isEmpty()) return ret;
         for(int i = 0; i < data.size()-1; i++){
             ret+=data.get(i) + LIST_SEPARATOR;
         }
@@ -149,6 +179,7 @@ public class Converter<T> {
       
     public static <A,B> String mapToString(Map<A,B> mp){
         String ret = "";
+        if(mp.isEmpty()) return ret;
         int cnt = 0;
         for(Map.Entry<A,B> entry: mp.entrySet()){
             if(cnt == mp.size()-1) ret += entry.getKey() + MAP_SEPARATOR + entry.getValue();
@@ -171,7 +202,20 @@ public class Converter<T> {
         String ret = "";
         try {
             Class<?> clazz = obj.getClass();
-            Field[] fields = clazz.getDeclaredFields();
+            Field[] f = clazz.getDeclaredFields();
+            List<Field> fields = new ArrayList<>();
+            // check for user super class
+            clazz = clazz.getSuperclass();
+            if(clazz != null){
+                Field[] ff = clazz.getDeclaredFields();
+                clazz = clazz.getSuperclass();
+                if(clazz != null){
+                    Field[] fff = clazz.getDeclaredFields();
+                    for(Field i: fff) fields.add(i);
+                }
+                for(Field i: ff) fields.add(i);
+            }
+            for(Field i:f) fields.add(i);
             for(Field field: fields){
                 field.setAccessible(true);
                 ret+=field.getName() + ",";
@@ -184,5 +228,4 @@ public class Converter<T> {
         }
         return ret;
     }
-  
 }

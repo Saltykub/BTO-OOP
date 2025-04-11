@@ -1,2 +1,2 @@
-name,neighborhood,availableUnit2Room,sellingPrice2Room,availableUnit3Room,sellingPrice3Room,Application opening date,Application closing date,Manager,Officer Slot,Officer
-Acacia Breeze,Yishun,2,350000,3,450000,2/15/2025,12/20/2025,Jessica,3,Daniel&Emily&John
+projectID,name,neighborhood,availableUnit,price,openDate,closeDate,managerID,availableOfficer,officerID,applicantID,visibility
+P001,Acacia Breeze,Yishun,THREE_ROOM::MAP::3::LIST::TWO_ROOM::MAP::2,THREE_ROOM::MAP::450000::LIST::TWO_ROOM::MAP::350000,2::DATE::15::DATE::2025,3::DATE::20::DATE::2025,S5678901G,3,,,TRUE
