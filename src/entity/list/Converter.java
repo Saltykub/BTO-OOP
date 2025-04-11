@@ -166,5 +166,23 @@ public class Converter<T> {
         if (type.isEnum()) return (T) Enum.valueOf((Class<Enum>) type.asSubclass(Enum.class), value);
         return (T) value; // fallback to String
     }
+
+    public static <T> String getField(T obj){
+        String ret = "";
+        try {
+            Class<?> clazz = obj.getClass();
+            Field[] fields = clazz.getDeclaredFields();
+            for(Field field: fields){
+                field.setAccessible(true);
+                ret+=field.getName() + ",";
+            }
+            ret = ret.substring(0, ret.length()-1);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return ret;
+    }
   
 }

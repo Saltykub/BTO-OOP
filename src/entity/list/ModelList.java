@@ -46,7 +46,7 @@ public abstract class ModelList<T> {
 
     public void add(T item) {
         list.add(item);
-        //save(getFilePath());
+        save(getFilePath());
     }
 
     public int size() {
@@ -60,26 +60,50 @@ public abstract class ModelList<T> {
     // Protected methods (for persistence)
     protected void load(String filePath, boolean hasHeader){
         List<String> data = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(filePath))){
-            if(hasHeader){
-                br.readLine();
+        File file = new File(filePath);
+        // load data if exist
+        if(file.exists()){
+            try ( BufferedReader br = new BufferedReader(new FileReader(filePath))){
+                if(hasHeader){
+                    br.readLine();
+                }
+                String line;
+                while((line = br.readLine()) != null){;
+                    data.add(line);
+                }
+                for(String d: data){
+                    T val = Converter.stringtoObj(d, clazz);
+                    list.add(val);
+                }
+    
+            } catch(IOException e){
+                System.err.println("Error loading the CSV file: " + e.getMessage());
+                e.printStackTrace();
             }
-            String line;
-            while((line = br.readLine()) != null){;
-                data.add(line);
+        }
+        else {
+            // create file if it doesn't exist
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error creating the file: " + e.getMessage());
+                e.printStackTrace();
             }
-            for(String d: data){
-                T val = Converter.stringtoObj(d, clazz);
-                list.add(val);
-            }
-
-        } catch(IOException e){
-            System.err.println("Error reading the CSV file: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
-    protected void save(String filePath) {
-        
+    protected void save(String filePath) { 
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter(filePath))) {
+            T val = list.get(0);
+            String header = Converter.getField(val);
+            printWriter.println(header);
+            for(T item: list){
+                String line = Converter.objToString(item);
+                printWriter.println(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Data could not be saved to file: " + filePath);
+        }
+
     }
 }

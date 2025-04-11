@@ -22,11 +22,9 @@ public class Test {
     public static final String DATE_SEPARATOR = "::DATE::";
     public static final String MAP_SEPARATOR = "::MAP::";
     public static void main(String[] args){
-        ProjectList p = new ProjectList("data_csv\\test.csv");
+        ProjectList p = ProjectList.getInstance();
         for(Project pp: p.getAll()){
-            pp.print();
-            String test = Converter.objToString(pp);
-            System.out.println(test);
+            p.add(pp);
         }
     }
     

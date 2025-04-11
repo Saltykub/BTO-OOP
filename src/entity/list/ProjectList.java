@@ -4,14 +4,14 @@ import entity.project.Project;
 
 
 public class ProjectList extends ModelList<Project> {
-    private static String filePath;
+    private static final String filePath = "data_csv\\test.csv";
 
-    public ProjectList(String filePath) {
+    public ProjectList() {
         super(filePath,Project.class);
     }
 
     public static ProjectList getInstance() {
-        return new ProjectList(filePath);
+        return new ProjectList();
     }
 
     public String getFilePath() {
