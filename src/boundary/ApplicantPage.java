@@ -1,15 +1,13 @@
 package boundary;
 
-import java.util.Scanner;
-
 import controller.ApplicantController;
+import controller.IOController;
+import controller.UIController;
 
 public class ApplicantPage {
 
-    Scanner scanner = new Scanner(System.in);
-
     // Page management methods
-    public void allOptions() {
+    public static void allOptions() {
         System.out.println("Options:"
                 + "\n1. View Applicable Project"
                 + "\n2. View Applied Projects"
@@ -20,7 +18,7 @@ public class ApplicantPage {
                 + "\n7. Edit Query"
                 + "\n8. Delete Query");
         System.out.print("Option selection: ");
-        int option = scanner.nextInt();
+        int option = IOController.nextInt();
         switch (option) {
             case 1:
                 viewApplicableProject();
@@ -48,45 +46,45 @@ public class ApplicantPage {
         }
     }
 
-    public void viewApplicableProject() {
+    public static void viewApplicableProject() {
         ApplicantController.viewApplicableProject();
     }
 
-    public void viewAppliedProject() {
+    public static void viewAppliedProject() {
         ApplicantController.viewAppliedProject();
     }
 
-    public void applyProject() {
+    public static void applyProject() {
         System.out.println("Enter the project ID to apply: ");
-        String projectID = scanner.nextLine();
+        String projectID = IOController.nextLine();
         ApplicantController.applyProject(projectID);
     }
 
-    public void withdrawApplication() {
+    public static void withdrawApplication() {
         ApplicantController.withdrawApplication();
     }
 
-    public void query() {
+    public static void query() {
         System.out.println("Enter your query: ");
-        String question = scanner.nextLine();
+        String question = IOController.nextLine();
         ApplicantController.query(question);
     }
 
-    public void viewQuery() {
+    public static void viewQuery() {
         ApplicantController.viewQuery();
     }
 
-    public void editQuery() {
+    public static void editQuery() {
         System.out.println("Enter the request ID to edit: ");
-        String requestID = scanner.nextLine();
+        String requestID = IOController.nextLine();
         System.out.println("Enter the new query: ");
-        String newQuery = scanner.nextLine();
+        String newQuery = IOController.nextLine();
         ApplicantController.editQuery(requestID, newQuery);
     }
 
-    public void deleteQuery() {
+    public static void deleteQuery() {
         System.out.println("Enter the request ID to delete: ");
-        String requestID = scanner.nextLine();
+        String requestID = IOController.nextLine();
         ApplicantController.deleteQuery(requestID);
     }
 }

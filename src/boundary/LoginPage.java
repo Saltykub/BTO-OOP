@@ -1,0 +1,148 @@
+package boundary;
+
+import java.util.Scanner;
+
+import controller.AccountController;
+import controller.IOController;
+import controller.UIController;
+import entity.user.Applicant;
+import entity.user.Manager;
+import entity.user.MaritalStatus;
+import entity.user.Officer;
+import entity.user.User;
+import entity.user.UserType;
+import exception.InvalidUserFormatException;
+import exception.PasswordIncorrectException;
+import exception.UserNotFoundException;
+
+public class LoginPage {
+    public static void welcome() {
+        UIController.clearPage();
+        System.out.println("Please enter your choice to continue.");
+        System.out.println("\t1. Login");
+        System.out.println("\t2. Register");
+        System.out.println("\t3. Change Password");
+        System.out.println("\t4. Exit");
+        System.out.print("Your choice (1-4): ");
+        while (true) {
+            int choice = IOController.nextInt();
+            switch (choice) {
+                case 1 -> login();
+                case 2 -> register();
+                case 3 -> changePassword();
+                case 4 -> exit();
+                default -> System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    public static void login() {
+        UIController.clearPage();
+        System.out.println("Enter ID: ");
+        String userID = IOController.nextLine();
+        System.out.println("Enter password: ");
+        String password = IOController.readPassword();
+        try {
+            User user = AccountController.login(userID, password);
+            if (user instanceof Applicant) ApplicantPage.allOptions();
+            else if (user instanceof Officer) OfficerPage.allOptions();
+            else if (user instanceof Manager) ManagerPage.allOptions();
+        } catch (UserNotFoundException | PasswordIncorrectException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Press ENTER to try again, or any other key to go back.");
+        String choice = IOController.nextLine();
+        if (choice.equals("\n")) {
+            welcome();
+        } else {
+            login();
+        }
+    }
+
+    public static void register() {
+        UIController.clearPage();
+        System.out.println("Enter User Type: ");
+        System.out.println("\t1. Applicant");
+        System.out.println("\t2. Officer");
+        System.out.println("\t3. Manager");
+        System.out.println("Your choice (1-3): ");
+        UserType userType = null;
+        while (userType == null) {
+            int type = IOController.nextInt();
+            switch (type) {
+                case 1 -> userType = UserType.APPLICANT;
+                case 2 -> userType = UserType.OFFICER;
+                case 3 -> userType = UserType.MANAGER;
+                default -> System.out.println("Invalid choice. Please try again."); 
+            }
+        }
+        System.out.println("Enter ID: ");
+        String userID = IOController.nextLine();
+        System.out.println("Enter password: ");
+        String password = IOController.readPassword();
+        System.out.println("Enter name: ");
+        String name = IOController.nextLine();
+        System.out.println("Enter age: ");
+        int age = IOController.nextInt();
+        System.out.println("Enter marital status:");
+        System.out.println("\t1. Single");
+        System.out.println("\t2. Married");
+        System.out.println("Your choice (1-2): ");
+        MaritalStatus maritalStatus = null;
+        while (maritalStatus == null) {
+            int marital = IOController.nextInt();
+            switch (marital) {
+                case 1 -> maritalStatus = MaritalStatus.SINGLE;
+                case 2 -> maritalStatus = MaritalStatus.MARRIED;
+                default -> System.out.println("Invalid choice. Please try again."); 
+            }
+        }
+        try {
+            AccountController.register(userType, userID, password, name, age, maritalStatus);
+        } catch (InvalidUserFormatException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Press ENTER to try again, or any other key to go back.");
+        String choice = IOController.nextLine();
+        if (choice.equals("\n")) {
+            welcome();
+        } else {
+            register();
+        }
+    }
+    
+    public static void changePassword() {
+        UIController.clearPage();
+        System.out.println("Enter ID: ");
+        String userID = IOController.nextLine();
+        System.out.println("Enter password: ");
+        String password = IOController.readPassword();
+        try {
+            boolean correctPassword = AccountController.checkPassword(userID, password);
+            if (correctPassword) {
+                System.out.println("Enter new password: ");
+                String newPassword = IOController.readPassword();
+                AccountController.changePassword(userID, password, newPassword);
+                System.out.println("Successfully change password!");
+                System.out.println("Press any key to go back.");
+                IOController.nextLine(); 
+                welcome();
+            }
+            
+        } catch (UserNotFoundException | PasswordIncorrectException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Press ENTER to try again, or any other key to go back.");
+        String choice = IOController.nextLine();
+        if (choice.equals("\n")) {
+            welcome();
+        } else {
+            changePassword();
+        }
+    }
+    
+    public static void exit() {
+        UIController.clearPage();
+        System.exit(0);
+    }
+}

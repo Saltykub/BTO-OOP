@@ -49,9 +49,15 @@ public class AccountController {
         throw new UserNotFoundException();
     }
 
+    public static boolean checkPassword(String userID, String password) throws UserNotFoundException, PasswordIncorrectException {
+        User user = findUser(userID);
+        if (hashPassword(password).equals(user.getHashedPassword())) return true;
+        else throw new PasswordIncorrectException();
+    }
+
     public static User login(String userID, String password) throws UserNotFoundException, PasswordIncorrectException {
         User user = findUser(userID);
-        if (hashPassword(password).equals(user.getHashedPassword())) {
+        if (checkPassword(userID, password)) {
             setUserID(userID);
             return user;
         }
@@ -73,9 +79,9 @@ public class AccountController {
         throw new InvalidUserFormatException();
     }
 
-    private static void changePassword(String userID, String password, String oldPassword, String newPassword) throws UserNotFoundException, PasswordIncorrectException {
+    public static void changePassword(String userID, String oldPassword, String newPassword) throws UserNotFoundException, PasswordIncorrectException {
         User user = findUser(userID);
-        if (hashPassword(password).equals(user.getHashedPassword())) {
+        if (checkPassword(userID, oldPassword)) {
             user.setHashedPassoword(hashPassword(newPassword));
         }
         else throw new PasswordIncorrectException();
