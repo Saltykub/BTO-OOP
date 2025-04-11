@@ -1,6 +1,6 @@
 userID,name,hashedPassword,age,maritalStatus,project,applicationStatus,appliedFlat
-S1234567A,John,password,35,SINGLE,,
-T7654321B,Sarah,password,40,MARRIED,,
-S9876543C,Grace,password,37,MARRIED,,
-T2345678D,James,password,30,MARRIED,,
-S3456789E,Rachel,password,25,SINGLE,,
+S1234567A,John,password,35,SINGLE,null,null,null
+T7654321B,Sarah,password,40,MARRIED,null,null,null
+S9876543C,Grace,password,37,MARRIED,null,null,null
+T2345678D,James,password,30,MARRIED,null,null,null
+S3456789E,Rachel,password,25,SINGLE,null,null,null

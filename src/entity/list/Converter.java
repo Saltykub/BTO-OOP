@@ -122,9 +122,11 @@ public class Converter<T> {
                 }
                 // handle other
                 else {
-                    if(val == null) continue;
-                    String s = val.toString();
-                    ret+=s;
+                    if (val == null) {
+                        ret += "null";
+                    } else {
+                        ret += val.toString();
+                    }
                 }
                 ret+=",";
             }
@@ -137,6 +139,7 @@ public class Converter<T> {
         return ret;
     }
     public static List<String> stringToList(String data){
+        if(data == "") return new ArrayList<>();
         String[] values = data.split(LIST_SEPARATOR);
         List<String> ret = Arrays.asList(values);
         return ret;
@@ -144,7 +147,7 @@ public class Converter<T> {
 
     public static String listToString(List<String> data){
         String ret = "";
-        if(data.isEmpty()) return ret;
+        if(data.isEmpty()) return "null";
         for(int i = 0; i < data.size()-1; i++){
             ret+=data.get(i) + LIST_SEPARATOR;
         }
@@ -165,6 +168,7 @@ public class Converter<T> {
 
     public static <A,B> Map<A,B> stringToMap(String data, Class<A> keyType, Class<B> valueType){
         Map<A,B> ret = new HashMap<>();
+        if ("null".equals(data)) return ret;
         String[] values = data.split(LIST_SEPARATOR);
         List<String> valuesList = Arrays.asList(values);
         for(String value:valuesList){
@@ -179,7 +183,7 @@ public class Converter<T> {
       
     public static <A,B> String mapToString(Map<A,B> mp){
         String ret = "";
-        if(mp.isEmpty()) return ret;
+        if(mp.isEmpty()) return "null";
         int cnt = 0;
         for(Map.Entry<A,B> entry: mp.entrySet()){
             if(cnt == mp.size()-1) ret += entry.getKey() + MAP_SEPARATOR + entry.getValue();
