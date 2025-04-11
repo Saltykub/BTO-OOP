@@ -82,7 +82,7 @@ public class LoginPage {
         String name = IOController.nextLine();
         System.out.print("Enter age: ");
         int age = IOController.nextInt();
-        System.out.print("Enter marital status:");
+        System.out.println("Enter marital status:");
         System.out.println("\t1. Single");
         System.out.println("\t2. Married");
         System.out.print("Your choice (1-2): ");
