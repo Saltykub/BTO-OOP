@@ -115,7 +115,7 @@ public class ManagerPage {
             System.out.print("Please enter valid choice: ");
             option = IOController.nextInt();
         }
-        RequestStatus status;
+        RequestStatus status = null;
         switch (option) {
             case 1 -> status = RequestStatus.PENDING;
             case 2 -> status = RequestStatus.DONE;
@@ -135,7 +135,7 @@ public class ManagerPage {
             System.out.print("Please enter valid choice: ");
             option = IOController.nextInt();
         }
-        ApprovedStatus status;
+        ApprovedStatus status = null;
         switch (option) {
             case 1 -> status = ApprovedStatus.PENDING;
             case 2 -> status = ApprovedStatus.SUCCESSFUL;
