@@ -16,28 +16,28 @@ public class OfficerPage {
         System.out.println(UIController.lineSeparator);
         System.out.println("Officer Page");
         System.out.println(UIController.lineSeparator);
-        System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice.");
-        System.out.println("Options:"
-                + "\n1. View Applicants Projects List"
-                + "\n2. View Applied Projects"
-                + "\n3. Apply for Project"
-                + "\n4. Withdraw Application"
-                + "\n5. Make Query"
-                + "\n6. View Query"
-                + "\n7. Edit Query"
-                + "\n8. Delete Query"
-                + "\n9. View Registrable Project List"
-                + "\n10. View Registered Project"
-                + "\n11. Register for Project as Officer"
-                + "\n12. View All Enquiries"
-                + "\n13. View Enquiry by ProjectID"
-                + "\n14. Answer Enquiries"
-                + "\n15. View Applicant Application Status"
-                + "\n16. Book Flat for Applicant"
-                + "\n17. Generate Receipt"
-                + "\n18. Generate Receipt by Applicant"
-                + "\n19. Generate Receipt by Project");
-        System.out.print("Your choice (1-8): ");
+        System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
+                + "\n\t1. View Applicants Projects List"
+                + "\n\t2. View Applied Projects"
+                + "\n\t3. Apply for Project"
+                + "\n\t4. Withdraw Application"
+                + "\n\t5. Make Query"
+                + "\n\t6. View Query"
+                + "\n\t7. Edit Query"
+                + "\n\t8. Delete Query"
+                + "\n\t9. View Registrable Project List"
+                + "\n\t10. View Registered Project"
+                + "\n\t11. Register for Project as Officer"
+                + "\n\t12. View All Enquiries"
+                + "\n\t13. View Enquiry by ProjectID"
+                + "\n\t14. Answer Enquiries"
+                + "\n\t15. View Applicant Application Status"
+                + "\n\t16. Book Flat for Applicant"
+                + "\n\t17. Generate Receipt"
+                + "\n\t18. Generate Receipt by Applicant"
+                + "\n\t19. Generate Receipt by Project"
+                + "\n\t20. Exit");
+        System.out.print("Your choice (1-20): ");
         int option = IOController.nextInt();
         switch (option) {
             case 1 -> viewApplicableProject();
@@ -59,6 +59,7 @@ public class OfficerPage {
             case 17 -> generateReceipt();
             case 18 -> generateReceiptByApplicant();
             case 19 -> generateReceiptByProject();
+            case 20 -> UIController.exit();
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();
@@ -71,30 +72,36 @@ public class OfficerPage {
 
     public static void viewApplicableProject() {
         ApplicantController.viewApplicableProject();
+        UIController.loopManager();
     }
 
     public static void viewAppliedProject() {
         ApplicantController.viewAppliedProject();
+        UIController.loopManager();
     }
 
     public static void applyProject() {
         System.out.print("Enter the project ID to apply: ");
         String projectID = IOController.nextLine();
         ApplicantController.applyProject(projectID);
+        UIController.loopManager();
     }
 
     public static void withdrawApplication() {
         ApplicantController.withdrawApplication();
+        UIController.loopManager();
     }
 
     public static void query() {
         System.out.print("Enter your query: ");
         String question = IOController.nextLine();
         ApplicantController.query(question);
+        UIController.loopManager();
     }
 
     public static void viewQuery() {
         ApplicantController.viewQuery();
+        UIController.loopManager();
     }
 
     public static void editQuery() {
@@ -103,12 +110,14 @@ public class OfficerPage {
         System.out.print("Enter the new query: ");
         String newQuery = IOController.nextLine();
         ApplicantController.editQuery(requestID, newQuery);
+        UIController.loopManager();
     }
 
     public static void deleteQuery() {
         System.out.print("Enter the request ID to delete: ");
         String requestID = IOController.nextLine();
         ApplicantController.deleteQuery(requestID);
+        UIController.loopManager();
     }
 
     // OfficerRequestController Methods
@@ -117,20 +126,24 @@ public class OfficerPage {
         System.out.print("Enter the project ID to register: ");
         String projectID = IOController.nextLine();
         OfficerRequestController.registerProject(projectID);
+        UIController.loopManager();
     }
 
     public static void viewRegisteredProject() {
         OfficerRequestController.viewRegisteredProject();
+        UIController.loopManager();
     }
 
     public static void viewEnquiries(){
         OfficerRequestController.viewEnquiries();
+        UIController.loopManager();
     }
 
     public static void viewEnquiriesByProject() {
         System.out.print("Enter the project ID to view: ");
         String projectID = IOController.nextLine();
         OfficerRequestController.viewEnquiries(projectID);
+        UIController.loopManager();
     }
 
     public static void answerEnquiry() {
@@ -139,37 +152,44 @@ public class OfficerPage {
         System.out.print("Enter your answer:");
         String answer = IOController.nextLine();
         OfficerRequestController.answerEnquiry(requestID,answer);
+        UIController.loopManager();
     }
 
     // OfficerProjectController Methods
 
     public static void viewRegistrableProject() {
         OfficerProjectController.viewRegistrableProject();
+        UIController.loopManager();
     }
 
     public static void viewApplicantApplicationStatus() {
         OfficerProjectController.viewApplicantApplicationStatus();
+        UIController.loopManager();
     }
 
     public static void bookFlat() {
         System.out.print("Enter the applicant ID to book a flat: ");
         String applicantID = IOController.nextLine();
         OfficerProjectController.bookFlat(applicantID);
+        UIController.loopManager();
     }
 
     public static void generateReceipt() {
         OfficerProjectController.generateReceipt();
+        UIController.loopManager();
     }
 
     public static void generateReceiptByApplicant() {
         System.out.print("Enter the applicant ID to generate receipt: ");
         String applicantID = IOController.nextLine();
         OfficerProjectController.generateReceiptByApplicant(applicantID);
+        UIController.loopManager();
     }
 
     public static void generateReceiptByProject() {
         System.out.print("Enter the project ID to generate receipt: ");
         String projectID = IOController.nextLine();
         OfficerProjectController.generateReceiptByProject(projectID);
+        UIController.loopManager();
     }
 }

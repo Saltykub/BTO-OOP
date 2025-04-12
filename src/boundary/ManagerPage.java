@@ -46,8 +46,9 @@ public class ManagerPage {
                 + "\n\t12. Delete Project"
                 + "\n\t13. Toggle Visibility"
                 + "\n\t14. View Officer Registration Status"
-                + "\n\t15. Generate Report");
-        System.out.print("Your choice (1-15): ");
+                + "\n\t15. Generate Report"
+                + "\n\t16. Exit");
+        System.out.print("Your choice (1-16): ");
         int option = IOController.nextInt();
         switch (option) {
             case 1 -> viewEnquiries();
@@ -65,6 +66,7 @@ public class ManagerPage {
             case 13 -> viewOfficerRegistrationStatus();
             case 14 -> viewProjectList();
             case 15 -> generateReport();
+            case 16 -> UIController.exit();
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();
@@ -75,10 +77,12 @@ public class ManagerPage {
 
     public static void viewRegisteredProject() {
         OfficerRequestController.viewRegisteredProject();
+        UIController.loopOfficer();
     }
 
     public static void viewEnquiries() {
         OfficerRequestController.viewEnquiries();
+        UIController.loopOfficer();
     }
 
     public static void answerEnquiries() {
@@ -87,6 +91,7 @@ public class ManagerPage {
         System.out.print("Enter your answer:");
         String answer = IOController.nextLine();
         OfficerRequestController.answerEnquiry(requestID,answer);
+        UIController.loopOfficer();
     }
 
     public static void viewProjectList() {
@@ -94,14 +99,17 @@ public class ManagerPage {
         String managerID = IOController.nextLine();
         if (managerID.isEmpty()) managerID = AccountController.getUserID();
         ManagerProjectController.viewProjectList(managerID);
+        UIController.loopOfficer();
     }
 
     public static void viewApplicantApplicationStatus() {
         OfficerProjectController.viewApplicantApplicationStatus();
+        UIController.loopOfficer();
     }
 
     public static void viewRequest() {
         ManagerRequestController.viewRequest();
+        UIController.loopOfficer();
     }
 
     public static void changeRequestStatus() {
@@ -121,6 +129,7 @@ public class ManagerPage {
             case 2 -> status = RequestStatus.DONE;
         }
         ManagerRequestController.changeRequestStatus(requestID, status);
+        UIController.loopOfficer();
     }
 
     public static void changeApplicationStatus() {
@@ -142,10 +151,12 @@ public class ManagerPage {
             case 3 -> status = ApprovedStatus.UNSUCCESSFUL;
         }
         ManagerRequestController.changeApplicationStatus(requestID, status);
+        UIController.loopOfficer();
     }
 
     public static void viewAllEnquiries() {
         ManagerRequestController.viewAllEnquiries();
+        UIController.loopOfficer();
     }
 
     public static void createProject() {
@@ -201,6 +212,7 @@ public class ManagerPage {
         }
 
         ManagerProjectController.createProject(projectID, name, neighbourhood, availableUnits, price, openDate, closeDate, availableOfficer);
+        UIController.loopOfficer();
     }
 
     public static void editProject() {
@@ -319,25 +331,30 @@ public class ManagerPage {
         }
 
         ManagerProjectController.editProject(projectID, new Project(projectID, name, neighbourhood, availableUnits, price, openDate, closeDate, ProjectList.getInstance().getByID(projectID).getManagerID(), availableOfficer, visibility));
+        UIController.loopOfficer();
     }
 
     public static void deleteProject() {
         System.out.print("Project ID: ");
         String projectID = IOController.nextLine();
         ManagerProjectController.deleteProject(projectID);
+        UIController.loopOfficer();
     }
 
     public static void toggleVisibility() {
         System.out.print("Project ID: ");
         String projectID = IOController.nextLine();
         ManagerProjectController.toggleVisibility(projectID);
+        UIController.loopOfficer();
     }
 
     public static void viewOfficerRegistrationStatus() {
         ManagerProjectController.viewOfficerRegistrationStatus();
+        UIController.loopOfficer();
     }
 
     public static void generateReport() {
         // TODO: ManagerProjectController.generateReport(requestID);
+        UIController.loopOfficer();
     }
 }

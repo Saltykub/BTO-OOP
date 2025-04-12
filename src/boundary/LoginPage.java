@@ -35,7 +35,7 @@ public class LoginPage {
                 case 1 -> login();
                 case 2 -> register();
                 case 3 -> changePassword();
-                case 4 -> exit();
+                case 4 -> UIController.exit();
                 default -> System.out.println("Invalid choice. Please try again.");
             }
         }
@@ -50,13 +50,19 @@ public class LoginPage {
         try {
             User user = AccountController.login(userID, password);
             ApplicantController.setApplicantID(userID);
-            OfficerProjectController.setOfficerID(userID);
-            OfficerRequestController.setOfficerID(userID);
-            ManagerProjectController.setManagerID(userID);
-            ManagerRequestController.setManagerID(userID);
-            if (user instanceof Applicant) ApplicantPage.allOptions();
-            else if (user instanceof Officer) OfficerPage.allOptions();
-            else if (user instanceof Manager) ManagerPage.allOptions();
+            if (user instanceof Manager) {
+                OfficerProjectController.setOfficerID(userID);
+                OfficerRequestController.setOfficerID(userID);
+                ManagerProjectController.setManagerID(userID);
+                ManagerRequestController.setManagerID(userID);
+                ManagerPage.allOptions();
+            }
+            else if (user instanceof Officer) {
+                OfficerProjectController.setOfficerID(userID);
+                OfficerRequestController.setOfficerID(userID);
+                OfficerPage.allOptions();
+            }
+            else if (user instanceof Applicant) ApplicantPage.allOptions();
             return;
         } catch (UserNotFoundException | PasswordIncorrectException e) {
             System.out.println(e.getMessage());
@@ -152,8 +158,4 @@ public class LoginPage {
         }
     }
     
-    public static void exit() {
-        UIController.clearPage();
-        System.exit(0);
-    }
 }

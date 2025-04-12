@@ -36,22 +36,22 @@ public class AccountController {
             throw new AlreadyRegisteredException();
         }
         catch (UserNotFoundException e) {
-            if (userType == UserType.APPLICANT) ApplicantList.getInstance().add(new Applicant(userID, name, hashPassword(password), age, maritalStatus));
-            else if (userType == UserType.OFFICER) OfficerList.getInstance().add(new Officer(userID, name, hashPassword(password), age, maritalStatus));
-            else ManagerList.getInstance().add(new Manager(userID, name, hashPassword(password), age, maritalStatus));
+            ApplicantList.getInstance().add(new Applicant(userID, name, hashPassword(password), age, maritalStatus));
+            if (userType != UserType.APPLICANT) OfficerList.getInstance().add(new Officer(userID, name, hashPassword(password), age, maritalStatus));
+            if (userType == UserType.MANAGER) ManagerList.getInstance().add(new Manager(userID, name, hashPassword(password), age, maritalStatus));
             System.out.println("Registration completed.");
         }
     }
 
     public static User findUser(String userID) throws UserNotFoundException {
-        for (Applicant a : ApplicantList.getInstance().getAll()) {
-            if (a.getUserID().equals(userID)) return a;
+        for (Manager m : ManagerList.getInstance().getAll()) {
+            if (m.getUserID().equals(userID)) return m;
         }
         for (Officer o : OfficerList.getInstance().getAll()) {
             if (o.getUserID().equals(userID)) return o;
         }
-        for (Manager m : ManagerList.getInstance().getAll()) {
-            if (m.getUserID().equals(userID)) return m;
+        for (Applicant a : ApplicantList.getInstance().getAll()) {
+            if (a.getUserID().equals(userID)) return a;
         }
         throw new UserNotFoundException();
     }
