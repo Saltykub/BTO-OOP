@@ -13,6 +13,7 @@ import entity.user.MaritalStatus;
 import entity.user.Officer;
 import entity.user.User;
 import entity.user.UserType;
+import exception.AlreadyRegisteredException;
 import exception.InvalidUserFormatException;
 import exception.PasswordIncorrectException;
 import exception.UserNotFoundException;
@@ -28,12 +29,18 @@ public class AccountController {
         userID = ID;
     }
 
-    public static void register(UserType userType, String userID, String password, String name, int age, MaritalStatus maritalStatus) throws InvalidUserFormatException {
+    public static void register(UserType userType, String userID, String password, String name, int age, MaritalStatus maritalStatus) throws InvalidUserFormatException, AlreadyRegisteredException {
         checkUserID(userID);
-        if (userType == UserType.APPLICANT) ApplicantList.getInstance().add(new Applicant(userID, name, hashPassword(password), age, maritalStatus));
-        else if (userType == UserType.OFFICER) OfficerList.getInstance().add(new Officer(userID, name, hashPassword(password), age, maritalStatus));
-        else ManagerList.getInstance().add(new Manager(userID, name, hashPassword(password), age, maritalStatus));
-        System.out.println("Registration completed.");
+        try {
+            findUser(userID);
+            throw new AlreadyRegisteredException();
+        }
+        catch (UserNotFoundException e) {
+            if (userType == UserType.APPLICANT) ApplicantList.getInstance().add(new Applicant(userID, name, hashPassword(password), age, maritalStatus));
+            else if (userType == UserType.OFFICER) OfficerList.getInstance().add(new Officer(userID, name, hashPassword(password), age, maritalStatus));
+            else ManagerList.getInstance().add(new Manager(userID, name, hashPassword(password), age, maritalStatus));
+            System.out.println("Registration completed.");
+        }
     }
 
     public static User findUser(String userID) throws UserNotFoundException {

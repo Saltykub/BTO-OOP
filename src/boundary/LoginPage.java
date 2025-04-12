@@ -14,6 +14,7 @@ import entity.user.MaritalStatus;
 import entity.user.Officer;
 import entity.user.User;
 import entity.user.UserType;
+import exception.AlreadyRegisteredException;
 import exception.InvalidUserFormatException;
 import exception.PasswordIncorrectException;
 import exception.UserNotFoundException;
@@ -109,7 +110,7 @@ public class LoginPage {
         }
         try {
             AccountController.register(userType, userID, password, name, age, maritalStatus);
-        } catch (InvalidUserFormatException e) {
+        } catch (InvalidUserFormatException | AlreadyRegisteredException e) {
             System.out.println(e.getMessage());
         }
         System.out.println("Press ENTER to try again, or any other key to go back.");

@@ -19,7 +19,7 @@ public class OfficerList extends ModelList<Officer> {
   
   public Officer getByID(String ID) {
       for (Officer officer : this.getAll()) {
-          if (officer .getUserID().equals(ID)) {
+          if (officer.getUserID().equals(ID)) {
               return officer;
           }
       }
