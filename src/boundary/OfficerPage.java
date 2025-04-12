@@ -1,14 +1,22 @@
 package boundary;
 
+import controller.AccountController;
 import controller.ApplicantController;
+import controller.IOController;
 import controller.OfficerRequestController;
 import controller.OfficerProjectController;
 import controller.UIController;
+import entity.list.OfficerList;
 
 public class OfficerPage {
 
     // Page management methods
     public static void allOptions() {
+        UIController.clearPage();
+        System.out.println(UIController.lineSeparator);
+        System.out.println("Officer Page");
+        System.out.println(UIController.lineSeparator);
+        System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice.");
         System.out.println("Options:"
                 + "\n1. View Applicants Projects List"
                 + "\n2. View Applied Projects"
@@ -18,83 +26,50 @@ public class OfficerPage {
                 + "\n6. View Query"
                 + "\n7. Edit Query"
                 + "\n8. Delete Query"
-                + "\n9. Register for Project as Officer"
+                + "\n9. View Registrable Project List"
                 + "\n10. View Registered Project"
-                + "\n11. View All Enquiries"
-                + "\n12. View Enquiry by ID"
-                + "\n13. Answer Enquiries"
-                + "\n14. View Registrable Project List"
+                + "\n11. Register for Project as Officer"
+                + "\n12. View All Enquiries"
+                + "\n13. View Enquiry by ProjectID"
+                + "\n14. Answer Enquiries"
                 + "\n15. View Applicant Application Status"
                 + "\n16. Book Flat for Applicant"
                 + "\n17. Generate Receipt"
                 + "\n18. Generate Receipt by Applicant"
                 + "\n19. Generate Receipt by Project");
-        System.out.print("Option selection: ");
-        int option = UIController.nextInt();
+        System.out.print("Your choice (1-8): ");
+        int option = IOController.nextInt();
         switch (option) {
-            case 1:
-                viewApplicantProjectList();
-                break;
-            case 2:
-                viewAppliedProject();
-                break;
-            case 3:
-                applyProject();
-                break;
-            case 4:
-                withdrawApplication();
-                break;
-            case 5:
-                query();
-                break;
-            case 6:
-                viewQuery();
-                break;
-            case 7:
-                editQuery();
-                break;
-            case 8:
-                deleteQuery();
-                break;
-            case 9:
-                registerProject();
-                break;
-            case 10:
-                viewRegisteredProject();
-                break;
-            case 11:
-                viewEnquiries();
-                break;
-            case 12:
-                viewEnquiry();
-                break;
-            case 13:
-                answerEnquiries();
-                break;
-            case 14:
-                viewOfficerProjectList();
-                break;
-            case 15:
-                viewApplicantApplicationStatus();
-                break;
-            case 16:
-                bookFlat();
-                break;
-            case 17:
-                generateReceipt();
-                break;
-            case 18:
-                generateReceiptByApplicant();
-                break;
-            case 19:
-                generateReceiptByProject();
-                break;
+            case 1 -> viewApplicableProject();
+            case 2 -> viewAppliedProject();
+            case 3 -> applyProject();
+            case 4 -> withdrawApplication();
+            case 5 -> query();
+            case 6 -> viewQuery();
+            case 7 -> editQuery();
+            case 8 -> deleteQuery();
+            case 9 -> viewRegistrableProject();
+            case 10 -> viewRegisteredProject();
+            case 11 -> registerProject();
+            case 12 -> viewEnquiries();
+            case 13 -> viewEnquiriesByProject();
+            case 14 -> answerEnquiry();
+            case 15 -> viewApplicantApplicationStatus();
+            case 16 -> bookFlat();
+            case 17 -> generateReceipt();
+            case 18 -> generateReceiptByApplicant();
+            case 19 -> generateReceiptByProject();
+            default -> {
+                System.out.println("Invalid choice. Press ENTER to try again.");
+                IOController.nextLine();
+                allOptions();
+            }
         }
     }
 
     // ApplicantController Methods
 
-    public static void viewApplicantProjectList() {
+    public static void viewApplicableProject() {
         ApplicantController.viewApplicableProject();
     }
 
@@ -104,7 +79,7 @@ public class OfficerPage {
 
     public static void applyProject() {
         System.out.println("Enter the project ID to apply: ");
-        String projectID = UIController.nextLine();
+        String projectID = IOController.nextLine();
         ApplicantController.applyProject(projectID);
     }
 
@@ -114,7 +89,7 @@ public class OfficerPage {
 
     public static void query() {
         System.out.println("Enter your query: ");
-        String question = UIController.nextLine();
+        String question = IOController.nextLine();
         ApplicantController.query(question);
     }
 
@@ -124,15 +99,15 @@ public class OfficerPage {
 
     public static void editQuery() {
         System.out.println("Enter the request ID to edit: ");
-        String requestID = UIController.nextLine();
+        String requestID = IOController.nextLine();
         System.out.println("Enter the new query: ");
-        String newQuery = UIController.nextLine();
+        String newQuery = IOController.nextLine();
         ApplicantController.editQuery(requestID, newQuery);
     }
 
     public static void deleteQuery() {
         System.out.println("Enter the request ID to delete: ");
-        String requestID = UIController.nextLine();
+        String requestID = IOController.nextLine();
         ApplicantController.deleteQuery(requestID);
     }
 
@@ -140,7 +115,7 @@ public class OfficerPage {
 
     public static void registerProject() {
         System.out.println("Enter the project ID to register: ");
-        String projectID = UIController.nextLine();
+        String projectID = IOController.nextLine();
         OfficerRequestController.registerProject(projectID);
     }
 
@@ -148,26 +123,28 @@ public class OfficerPage {
         OfficerRequestController.viewRegisteredProject();
     }
 
-    public static void viewEnquiries() {
+    public static void viewEnquiries(){
         OfficerRequestController.viewEnquiries();
     }
 
-    public static void viewEnquiry() {
-        System.out.println("Enter the request ID to view: ");
-        String requestID = UIController.nextLine();
-        OfficerRequestController.viewEnquiries(requestID);
+    public static void viewEnquiriesByProject() {
+        System.out.println("Enter the project ID to view: ");
+        String projectID = IOController.nextLine();
+        OfficerRequestController.viewEnquiries(projectID);
     }
 
-    public static void answerEnquiries() {
+    public static void answerEnquiry() {
         System.out.println("Enter the request ID to answer: ");
-        String requestID = UIController.nextLine();
-        OfficerRequestController.answerEnquiries(requestID);
+        String requestID = IOController.nextLine();
+        System.out.println("Enter your answer:");
+        String answer = IOController.nextLine();
+        OfficerRequestController.answerEnquiry(requestID,answer);
     }
 
     // OfficerProjectController Methods
 
-    public static void viewOfficerProjectList() {
-        OfficerProjectController.viewProjectList();
+    public static void viewRegistrableProject() {
+        OfficerProjectController.viewRegistrableProject();
     }
 
     public static void viewApplicantApplicationStatus() {
@@ -176,7 +153,7 @@ public class OfficerPage {
 
     public static void bookFlat() {
         System.out.println("Enter the applicant ID to book a flat: ");
-        String applicantID = UIController.nextLine();
+        String applicantID = IOController.nextLine();
         OfficerProjectController.bookFlat(applicantID);
     }
 
@@ -186,13 +163,13 @@ public class OfficerPage {
 
     public static void generateReceiptByApplicant() {
         System.out.println("Enter the applicant ID to generate receipt: ");
-        String applicantID = UIController.nextLine();
-        OfficerProjectController.generateReceipt(applicantID);
+        String applicantID = IOController.nextLine();
+        OfficerProjectController.generateReceiptByApplicant(applicantID);
     }
 
     public static void generateReceiptByProject() {
         System.out.println("Enter the project ID to generate receipt: ");
-        String projectID = UIController.nextLine();
-        OfficerProjectController.generateReceipt(projectID);
+        String projectID = IOController.nextLine();
+        OfficerProjectController.generateReceiptByProject(projectID);
     }
 }

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import entity.list.OfficerList;
 import entity.list.ProjectList;
 import entity.list.RequestList;
 import entity.project.Project;
@@ -10,6 +11,7 @@ import entity.request.OfficerRegistration;
 import entity.request.Request;
 import entity.request.RequestStatus;
 import entity.request.RequestType;
+import entity.user.Officer;
 
 public class OfficerRequestController {
     private static String officerID;
@@ -31,6 +33,20 @@ public class OfficerRequestController {
         }
     }
 
+    public static void viewEnquiries(){
+        List<Request> list = RequestList.getInstance().getAll();
+        Officer o = OfficerList.getInstance().getByID(officerID);
+        List<String> projectID = o.getOfficerProject();
+        for(Request request : list){
+            for(String id: projectID){
+                if(request.getProjectID().equals(id) && request.getRequestType() == RequestType.ENQUIRY){
+                    System.out.println(request);
+                    break;
+                }
+            }
+        }
+
+    }
     public static void viewEnquiries(String projectID) {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {
@@ -40,7 +56,7 @@ public class OfficerRequestController {
         }
     }
 
-    public static void answerEnquiries(String requestID, String text) {
+    public static void answerEnquiry(String requestID, String text) {
         Enquiry enquiry = (Enquiry) RequestList.getInstance().getByID(requestID);
         enquiry.setAnswer(text);
         RequestList.getInstance().update(requestID, enquiry);

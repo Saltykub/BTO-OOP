@@ -86,9 +86,11 @@ public class OfficerProjectController {
         } 
     }
 
-    public static void bookFlat(String applicantID, String projectID) {
-        Project project = ProjectList.getInstance().getByID(projectID);
+    public static void bookFlat(String applicantID) {
+        // no need to pass project because applicant can has only 1 project 
         Applicant applicant = ApplicantList.getInstance().getByID(applicantID);
+        String projectID = applicant.getProject();
+        Project project = ProjectList.getInstance().getByID(projectID);
         FlatType flat = applicant.getAppliedFlatByID(projectID);
         int availableUnit = project.getAvailableUnit().get(flat);
         if (availableUnit > 0) {
@@ -101,14 +103,52 @@ public class OfficerProjectController {
     }
 
     public static void generateReceipt() {
-
+        Officer o = OfficerList.getInstance().getByID(officerID);
+        List<String> projectId = o.getOfficerProject();
+        for(String id: projectId){
+            Project p = ProjectList.getInstance().getByID(id);
+            List<String> applicantID = p.getApplicantID();
+            for(String ida:applicantID){
+                Applicant a = ApplicantList.getInstance().getByID(ida);
+                a.print();
+                p.print();
+            }
+        }
     }
-
+    
     public static void generateReceiptByApplicant(String applicantID) {
-
+        Officer o = OfficerList.getInstance().getByID(officerID);
+        List<String> projectId = o.getOfficerProject();
+        for(String id: projectId){
+            Project p = ProjectList.getInstance().getByID(id);
+            List<String> aID = p.getApplicantID();
+            for(String ida:aID){
+                if(ida == applicantID){
+                    Applicant a = ApplicantList.getInstance().getByID(ida);
+                    a.print();
+                    p.print();
+                    return;
+                }
+            }
+        }
+        System.out.println("Applicant not found in your registered project");
     }
-
     public static void generateReceiptByProject(String projectID) {
-
+        Officer o = OfficerList.getInstance().getByID(officerID);
+        List<String> projectId = o.getOfficerProject();
+        for(String id: projectId){
+            if(id == projectID){
+                Project p = ProjectList.getInstance().getByID(id);
+                List<String> aID = p.getApplicantID();
+                for(String ida:aID){
+                    Applicant a = ApplicantList.getInstance().getByID(ida);
+                    a.print();
+                    p.print();
+                    return;
+                }
+            }
+           
+        }
+        System.out.println("Project not found in your registered project");
     }
 }
