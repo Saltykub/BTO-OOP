@@ -78,7 +78,7 @@ public class OfficerPage {
     }
 
     public static void applyProject() {
-        System.out.println("Enter the project ID to apply: ");
+        System.out.print("Enter the project ID to apply: ");
         String projectID = IOController.nextLine();
         ApplicantController.applyProject(projectID);
     }
@@ -88,7 +88,7 @@ public class OfficerPage {
     }
 
     public static void query() {
-        System.out.println("Enter your query: ");
+        System.out.print("Enter your query: ");
         String question = IOController.nextLine();
         ApplicantController.query(question);
     }
@@ -98,15 +98,15 @@ public class OfficerPage {
     }
 
     public static void editQuery() {
-        System.out.println("Enter the request ID to edit: ");
+        System.out.print("Enter the request ID to edit: ");
         String requestID = IOController.nextLine();
-        System.out.println("Enter the new query: ");
+        System.out.print("Enter the new query: ");
         String newQuery = IOController.nextLine();
         ApplicantController.editQuery(requestID, newQuery);
     }
 
     public static void deleteQuery() {
-        System.out.println("Enter the request ID to delete: ");
+        System.out.print("Enter the request ID to delete: ");
         String requestID = IOController.nextLine();
         ApplicantController.deleteQuery(requestID);
     }
@@ -114,7 +114,7 @@ public class OfficerPage {
     // OfficerRequestController Methods
 
     public static void registerProject() {
-        System.out.println("Enter the project ID to register: ");
+        System.out.print("Enter the project ID to register: ");
         String projectID = IOController.nextLine();
         OfficerRequestController.registerProject(projectID);
     }
@@ -128,15 +128,15 @@ public class OfficerPage {
     }
 
     public static void viewEnquiriesByProject() {
-        System.out.println("Enter the project ID to view: ");
+        System.out.print("Enter the project ID to view: ");
         String projectID = IOController.nextLine();
         OfficerRequestController.viewEnquiries(projectID);
     }
 
     public static void answerEnquiry() {
-        System.out.println("Enter the request ID to answer: ");
+        System.out.print("Enter the request ID to answer: ");
         String requestID = IOController.nextLine();
-        System.out.println("Enter your answer:");
+        System.out.print("Enter your answer:");
         String answer = IOController.nextLine();
         OfficerRequestController.answerEnquiry(requestID,answer);
     }
@@ -152,7 +152,7 @@ public class OfficerPage {
     }
 
     public static void bookFlat() {
-        System.out.println("Enter the applicant ID to book a flat: ");
+        System.out.print("Enter the applicant ID to book a flat: ");
         String applicantID = IOController.nextLine();
         OfficerProjectController.bookFlat(applicantID);
     }
@@ -162,13 +162,13 @@ public class OfficerPage {
     }
 
     public static void generateReceiptByApplicant() {
-        System.out.println("Enter the applicant ID to generate receipt: ");
+        System.out.print("Enter the applicant ID to generate receipt: ");
         String applicantID = IOController.nextLine();
         OfficerProjectController.generateReceiptByApplicant(applicantID);
     }
 
     public static void generateReceiptByProject() {
-        System.out.println("Enter the project ID to generate receipt: ");
+        System.out.print("Enter the project ID to generate receipt: ");
         String projectID = IOController.nextLine();
         OfficerProjectController.generateReceiptByProject(projectID);
     }
