@@ -11,6 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import entity.request.BTOApplication;
+import entity.request.BTOWithdrawal;
+import entity.request.Enquiry;
+import entity.request.OfficerRegistration;
+import entity.request.Request;
+import entity.request.RequestType;
+
 public class Converter<T> {
 
     // converter constant 
@@ -85,7 +92,8 @@ public class Converter<T> {
             Class<?> clazz = obj.getClass();
             Field[] f = clazz.getDeclaredFields();
             List<Field> fields = new ArrayList<>();
-            // check for user super class
+
+           // check for superClass
             clazz = clazz.getSuperclass();
             if(clazz != null){
                 Field[] ff = clazz.getDeclaredFields();
@@ -97,6 +105,7 @@ public class Converter<T> {
                 for(Field i: ff) fields.add(i);
             }
             for(Field i:f) fields.add(i);
+
             for(Field field: fields){
                 field.setAccessible(true);
                 Object val = field.get(obj);
@@ -231,5 +240,22 @@ public class Converter<T> {
             return null;
         }
         return ret;
+    }
+
+    public static Class<? extends Request> getRequestClass(String s){
+        String[] parts = s.split(",");
+        List<String> ls = Arrays.asList(parts);
+        String type = ls.get(1);
+        try {
+            return switch (RequestType.valueOf(type)) {
+                case ENQUIRY -> Enquiry.class;
+                case BTO_APPLICATION -> BTOApplication.class;
+                case BTO_WITHDRAWAL -> BTOWithdrawal.class;
+                case REGISTRATION -> OfficerRegistration.class;
+                case NONE -> Request.class;
+            };
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Unknown RequestType: " + type, e);
+        }
     }
 }
