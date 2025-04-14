@@ -11,7 +11,7 @@
           <mxGeometry x="45" y="200" width="10" height="330" as="geometry" />
         </mxCell>
         <mxCell id="KmQUkZNUxy0e-ph1zbqD-3" value="Officer Registration of Project" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=180;height=30;" vertex="1" parent="1">
-          <mxGeometry x="40" y="50" width="1100" height="630" as="geometry" />
+          <mxGeometry x="40" y="50" width="1290" height="630" as="geometry" />
         </mxCell>
         <mxCell id="KmQUkZNUxy0e-ph1zbqD-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" target="KmQUkZNUxy0e-ph1zbqD-6">
           <mxGeometry relative="1" as="geometry">
@@ -137,28 +137,28 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="KmQUkZNUxy0e-ph1zbqD-32" value="ManagerRequestController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="1435" y="142.5" width="160" height="560" as="geometry" />
+          <mxGeometry x="1150" y="95" width="160" height="560" as="geometry" />
         </mxCell>
         <mxCell id="KmQUkZNUxy0e-ph1zbqD-33" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="KmQUkZNUxy0e-ph1zbqD-32">
-          <mxGeometry x="75" y="70" width="10" height="450" as="geometry" />
+          <mxGeometry x="75" y="380" width="10" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="KmQUkZNUxy0e-ph1zbqD-34" value="viewRequest()" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="KmQUkZNUxy0e-ph1zbqD-33">
+        <mxCell id="KmQUkZNUxy0e-ph1zbqD-34" value="viewRequest()" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="KmQUkZNUxy0e-ph1zbqD-33" target="KmQUkZNUxy0e-ph1zbqD-15">
           <mxGeometry x="0.0058" relative="1" as="geometry">
             <mxPoint x="1245" y="482.5" as="sourcePoint" />
             <Array as="points">
-              <mxPoint x="1485" y="482.5" />
+              <mxPoint x="1130" y="482" />
             </Array>
             <mxPoint x="1340" y="482.4999999999998" as="targetPoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="KmQUkZNUxy0e-ph1zbqD-35" value="changeRequestStatus()" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="KmQUkZNUxy0e-ph1zbqD-33">
+        <mxCell id="KmQUkZNUxy0e-ph1zbqD-35" value="changeRequestStatus()" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" target="KmQUkZNUxy0e-ph1zbqD-15">
           <mxGeometry x="0.0058" relative="1" as="geometry">
-            <mxPoint x="1529.9299999999998" y="517.6982608695653" as="sourcePoint" />
+            <mxPoint x="1225" y="520" as="sourcePoint" />
             <Array as="points">
-              <mxPoint x="1485" y="547.5" />
+              <mxPoint x="1130" y="520" />
             </Array>
-            <mxPoint x="1340" y="547.4999999999998" as="targetPoint" />
+            <mxPoint x="1030" y="520" as="targetPoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
