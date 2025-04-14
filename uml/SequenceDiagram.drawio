@@ -26,7 +26,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="7QvBGoc3ldptq5ehVpKm-3" value="OfficerRegistration" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="920" y="70" width="140" height="300" as="geometry" />
+          <mxGeometry x="930" y="70" width="140" height="300" as="geometry" />
         </mxCell>
         <mxCell id="7QvBGoc3ldptq5ehVpKm-4" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="7QvBGoc3ldptq5ehVpKm-3">
           <mxGeometry x="45" y="80" width="10" height="170" as="geometry" />
@@ -92,7 +92,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="7QvBGoc3ldptq5ehVpKm-35" value="ManagerRequestController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="730" y="70" width="160" height="300" as="geometry" />
+          <mxGeometry x="750" y="70" width="160" height="300" as="geometry" />
         </mxCell>
         <mxCell id="7QvBGoc3ldptq5ehVpKm-36" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="7QvBGoc3ldptq5ehVpKm-35">
           <mxGeometry x="45" y="80" width="10" height="170" as="geometry" />
