@@ -13,6 +13,7 @@ import entity.project.Project;
 import entity.request.OfficerRegistration;
 import entity.request.Request;
 import entity.user.Manager;
+import entity.user.UserType;
 
 public class ManagerProjectController {
     private static String managerID;
@@ -54,7 +55,7 @@ public class ManagerProjectController {
         Manager manager = ManagerList.getInstance().getByID(managerID);
         List<String> projects = manager.getProject();
         for (String project : projects) {
-            Display.displayProject(ProjectList.getInstance().getByID(project));
+            Display.displayProject(ProjectList.getInstance().getByID(project),UserType.MANAGER);
         }
     }
 

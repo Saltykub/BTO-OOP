@@ -3,7 +3,6 @@ package controller;
 import boundary.ApplicantPage;
 import boundary.ManagerPage;
 import boundary.OfficerPage;
-import entity.list.ApplicantList;
 
 public class UIController {
     public static final String lineSeparator = "===================================================================";

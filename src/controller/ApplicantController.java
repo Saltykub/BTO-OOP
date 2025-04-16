@@ -2,11 +2,13 @@ package controller;
 
 import java.util.List;
 
+import boundary.Display;
 import entity.project.FlatType;
 import entity.project.Project;
 import entity.request.*;
 import entity.user.Applicant;
 import entity.user.MaritalStatus;
+import entity.user.UserType;
 import exception.ProjectNotFoundException;
 import entity.list.ApplicantList;
 import entity.list.ProjectList;
@@ -34,7 +36,7 @@ public class ApplicantController {
                 else if (applicant.getAge() < 21) {
                     available = false;
                 }
-                if (available) project.print();
+                if (available) Display.displayProject(project,UserType.APPLICANT);
             }
         }
     }
