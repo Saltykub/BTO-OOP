@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import boundary.Display;
 import entity.list.ManagerList;
 import entity.list.ProjectList;
 import entity.list.RequestList;
@@ -53,7 +54,7 @@ public class ManagerProjectController {
         Manager manager = ManagerList.getInstance().getByID(managerID);
         List<String> projects = manager.getProject();
         for (String project : projects) {
-            ProjectList.getInstance().getByID(project).print();;
+            Display.displayProject(ProjectList.getInstance().getByID(project));
         }
     }
 

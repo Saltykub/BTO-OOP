@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import boundary.Display;
 import entity.list.ApplicantList;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
@@ -29,7 +30,7 @@ public class OfficerProjectController {
                     if (p.getCloseDate().isBefore(project.getOpenDate()) || project.getCloseDate().isBefore(p.getOpenDate())) continue;
                     can = false;
                 }
-                if (can) project.print();
+                if (can) Display.displayProject(project);
             }
         }
     }
@@ -110,9 +111,9 @@ public class OfficerProjectController {
             List<String> applicantID = p.getApplicantID();
             for(String ida:applicantID){
                 Applicant a = ApplicantList.getInstance().getByID(ida);
-                a.print();
-                p.print();
+                Display.displayApplicant(a);
             }
+            Display.displayProject(p);
         }
     }
     
@@ -125,8 +126,8 @@ public class OfficerProjectController {
             for(String ida:aID){
                 if(ida == applicantID){
                     Applicant a = ApplicantList.getInstance().getByID(ida);
-                    a.print();
-                    p.print();
+                    Display.displayApplicant(a);
+                    Display.displayProject(p);
                     return;
                 }
             }
@@ -142,8 +143,8 @@ public class OfficerProjectController {
                 List<String> aID = p.getApplicantID();
                 for(String ida:aID){
                     Applicant a = ApplicantList.getInstance().getByID(ida);
-                    a.print();
-                    p.print();
+                    Display.displayApplicant(a);
+                    Display.displayProject(p);
                     return;
                 }
             }

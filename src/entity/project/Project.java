@@ -171,33 +171,5 @@ public class Project {
         this.applicantID = project.getApplicantID();
         this.visibility = project.getVisibility();
     }
-
-    public void print() {
-        System.out.println("===== Project Info =====");
-        System.out.println("Project ID: " + this.projectID);
-        System.out.println("Name: " + this.name);
-    
-        System.out.println("Neighborhood: " + String.join(", ", this.neighborhood));
-    
-        System.out.println("Available Units:");
-        for (Map.Entry<FlatType, Integer> entry : this.availableUnit.entrySet()) {
-            System.out.println("  " + entry.getKey() + " = " + entry.getValue());
-        }
-    
-        System.out.println("Price:");
-        for (Map.Entry<FlatType, Integer> entry : this.price.entrySet()) {
-            System.out.println("  " + entry.getKey() + " = $" + entry.getValue());
-        }
-    
-        System.out.println("Open Date: " + this.openDate);
-        System.out.println("Close Date: " + this.closeDate);
-        System.out.println("Manager ID: " + this.managerID);
-        System.out.println("Available Officers: " + this.availableOfficer);
-    
-        System.out.println("Officer IDs: " + String.join(", ", this.officerID));
-        System.out.println("Applicant IDs: " + String.join(", ", this.applicantID));
-        System.out.println("Visible to public? " + (this.visibility ? "Yes" : "No"));
-        System.out.println("=========================");
-    }
     
 }

@@ -63,11 +63,4 @@ public class User {
         this.maritalStatus = maritalStatus;
     }
 
-    public void print(){
-        System.out.println("UserID: " + userID);
-        System.out.println("Name: " + name);
-        System.out.println("HashedPassword: " + hashedPassword);
-        System.out.println("Age: " + age);
-        System.out.println("Marital Status: " + maritalStatus);
-    }
 }
