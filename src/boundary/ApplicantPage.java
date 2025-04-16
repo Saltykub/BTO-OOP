@@ -22,8 +22,9 @@ public class ApplicantPage {
                 + "\n\t6. View Query"
                 + "\n\t7. Edit Query"
                 + "\n\t8. Delete Query"
-                + "\n\t9. Exit");
-        System.out.print("Your choice (1-9): ");
+                + "\n\t9. Sign out"
+                + "\n\t10. Exit");
+        System.out.print("Your choice (1-10): ");
         int option = IOController.nextInt();
         switch (option) {
             case 1 -> viewApplicableProject();
@@ -34,7 +35,8 @@ public class ApplicantPage {
             case 6 -> viewQuery();
             case 7 -> editQuery();
             case 8 -> deleteQuery();
-            case 9 -> UIController.exit();
+            case 9 -> AccountController.logout();
+            case 10 -> UIController.exit();
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();

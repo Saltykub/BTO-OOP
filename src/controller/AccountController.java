@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+import boundary.LoginPage;
 import entity.list.ApplicantList;
 import entity.list.ManagerList;
 import entity.list.OfficerList;
@@ -71,6 +72,12 @@ public class AccountController {
         else throw new PasswordIncorrectException();
     }
 
+    public static void logout() {
+        setUserID(null);
+        UIController.clearPage();
+        LoginPage.welcome();
+    }
+
     private static String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA3-256");
@@ -90,6 +97,12 @@ public class AccountController {
         User user = findUser(userID);
         if (checkPassword(userID, oldPassword)) {
             user.setHashedPassoword(hashPassword(newPassword));
+            ApplicantList.getInstance().update(userID, (Applicant)user);
+            if (user instanceof Officer o) OfficerList.getInstance().update(userID, o);
+            else if (user instanceof Manager m) {
+                OfficerList.getInstance().update(userID, (Officer)user);
+                ManagerList.getInstance().update(userID, m);
+            }
         }
         else throw new PasswordIncorrectException();
     }

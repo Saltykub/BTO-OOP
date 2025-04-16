@@ -36,8 +36,9 @@ public class OfficerPage {
                 + "\n\t17. Generate Receipt"
                 + "\n\t18. Generate Receipt by Applicant"
                 + "\n\t19. Generate Receipt by Project"
-                + "\n\t20. Exit");
-        System.out.print("Your choice (1-20): ");
+                + "\n\t20. Sign out"
+                + "\n\t21. Exit");
+        System.out.print("Your choice (1-21): ");
         int option = IOController.nextInt();
         switch (option) {
             case 1 -> viewApplicableProject();
@@ -59,7 +60,8 @@ public class OfficerPage {
             case 17 -> generateReceipt();
             case 18 -> generateReceiptByApplicant();
             case 19 -> generateReceiptByProject();
-            case 20 -> UIController.exit();
+            case 20 -> AccountController.logout();
+            case 21 -> UIController.exit();
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();
@@ -134,7 +136,7 @@ public class OfficerPage {
         UIController.loopManager();
     }
 
-    public static void viewEnquiries(){
+    public static void viewEnquiries() {
         OfficerRequestController.viewEnquiries();
         UIController.loopManager();
     }

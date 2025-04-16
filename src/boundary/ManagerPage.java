@@ -47,8 +47,9 @@ public class ManagerPage {
                 + "\n\t13. Toggle Visibility"
                 + "\n\t14. View Officer Registration Status"
                 + "\n\t15. Generate Report"
-                + "\n\t16. Exit");
-        System.out.print("Your choice (1-16): ");
+                + "\n\t16. Sign out"
+                + "\n\t17. Exit");
+        System.out.print("Your choice (1-17): ");
         int option = IOController.nextInt();
         switch (option) {
             case 1 -> viewEnquiries();
@@ -66,7 +67,8 @@ public class ManagerPage {
             case 13 -> viewOfficerRegistrationStatus();
             case 14 -> viewProjectList();
             case 15 -> generateReport();
-            case 16 -> UIController.exit();
+            case 16 -> AccountController.logout();
+            case 17 -> UIController.exit();
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();
