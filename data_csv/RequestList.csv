@@ -1,0 +1,3 @@
+requestID,requestType,userID,projectID,requestStatus,applicationStatus
+R0001,BTO_APPLICATION,S7777777A,P0001,PENDING,PENDING
+R0002,ENQUIRY,S7777777A,null,PENDING,hi?,null

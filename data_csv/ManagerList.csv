@@ -1,3 +1,4 @@
 userID,name,hashedPassword,age,maritalStatus,project
 T8765432F,Michael,wAZ9SvTofwDbrGO2FWgoI3BZFy0bvqxnQnNF1qn9pIQ=,36,SINGLE,null
 S5678901G,Jessica,wAZ9SvTofwDbrGO2FWgoI3BZFy0bvqxnQnNF1qn9pIQ=,26,MARRIED,P0001
+S9999999A,managertest,lPQcyFkF7w+936rsnf9HHnWviRi/JKzgzBxYKTjGOCY=,50,MARRIED,null

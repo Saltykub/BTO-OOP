@@ -5,6 +5,7 @@ import controller.ApplicantController;
 import controller.IOController;
 import controller.UIController;
 import entity.list.ApplicantList;
+import exception.ProjectNotFoundException;
 
 public class ApplicantPage {
 
@@ -45,8 +46,6 @@ public class ApplicantPage {
         }
     }
 
-    
-
     public static void viewApplicableProject() {
         ApplicantController.viewApplicableProject();
         UIController.loopApplicant();
@@ -60,7 +59,13 @@ public class ApplicantPage {
     public static void applyProject() {
         System.out.print("Enter the project ID to apply: ");
         String projectID = IOController.nextLine();
-        ApplicantController.applyProject(projectID);
+        try {
+            ApplicantController.applyProject(projectID);
+            System.out.println("Applied successfully!");
+            UIController.loopApplicant();
+        } catch (ProjectNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         UIController.loopApplicant();
     }
 

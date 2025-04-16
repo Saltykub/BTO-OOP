@@ -116,15 +116,18 @@ public class LoginPage {
         }
         try {
             AccountController.register(userType, userID, password, name, age, maritalStatus);
+            System.out.println("Press ENTER to go back.");
+            IOController.nextLine();
+            welcome();
         } catch (InvalidUserFormatException | AlreadyRegisteredException e) {
             System.out.println(e.getMessage());
-        }
-        System.out.println("Press ENTER to try again, or any other key to go back.");
-        String choice = IOController.nextLine();
-        if (choice.isEmpty()) {
-            register();
-        } else {
-            welcome();
+            System.out.println("Press ENTER to try again, or any other key to go back.");
+            String choice = IOController.nextLine();
+            if (choice.isEmpty()) {
+                register();
+            } else {
+                welcome();
+            }
         }
     }
     

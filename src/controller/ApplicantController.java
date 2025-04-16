@@ -7,6 +7,7 @@ import entity.project.Project;
 import entity.request.*;
 import entity.user.Applicant;
 import entity.user.MaritalStatus;
+import exception.ProjectNotFoundException;
 import entity.list.ApplicantList;
 import entity.list.ProjectList;
 import entity.list.RequestList;
@@ -33,7 +34,7 @@ public class ApplicantController {
                 else if (applicant.getAge() < 21) {
                     available = false;
                 }
-                if (available) System.out.println(project);
+                if (available) project.print();
             }
         }
     }
@@ -45,9 +46,16 @@ public class ApplicantController {
                 System.out.println(project);
             }
         }
+        List<Request> requests = RequestList.getInstance().getAll();
+        for (Request request : requests) {
+            if (request.getUserID().contains(applicantID) && request.getRequestType() == RequestType.BTO_APPLICATION) {
+                System.out.println(request);
+            }
+        }
     }
 
-    public static void applyProject(String projectID) {
+    public static void applyProject(String projectID) throws ProjectNotFoundException {
+        if (ProjectList.getInstance().getByID(projectID) == null) throw new ProjectNotFoundException();
         RequestList.getInstance().add(new BTOApplication(IDController.newRequestID(), RequestType.BTO_APPLICATION, applicantID, projectID, RequestStatus.PENDING));
     }
 
