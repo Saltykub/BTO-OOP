@@ -3,6 +3,7 @@ package boundary;
 import java.util.*;
 
 import controller.AccountController;
+import controller.FilterController;
 import controller.IDController;
 import controller.IOController;
 import controller.ManagerProjectController;
@@ -16,6 +17,7 @@ import entity.project.FlatType;
 import entity.project.Project;
 import entity.request.ApprovedStatus;
 import entity.request.RequestStatus;
+import exception.ProjectNotFoundException;
 
 import java.time.*;
 
@@ -29,21 +31,21 @@ public class ManagerPage {
         System.out.println("Manager Page");
         System.out.println(UIController.lineSeparator);
         System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
-                + "\n\t1. View Registered Projects"
-                + "\n\t2. View Enquiries"
-                + "\n\t3. Answer Enquiries"
-                + "\n\t4. View Project List"
-                + "\n\t5. View Applicant Application Status"
-                + "\n\t6. View Requests"
-                + "\n\t7. Change Request Status"
-                + "\n\t8. Change Applicant Application"
-                + "\n\t9. View All Enquiries"
-                + "\n\t10. Create Project"
-                + "\n\t11. Edit Project"
-                + "\n\t12. Delete Project"
-                + "\n\t13. Toggle Visibility"
-                + "\n\t14. View Officer Registration Status"
-                + "\n\t15. Generate Report"
+                + "\n\t1. View Enquiries"
+                + "\n\t2. Answer Enquiries"
+                + "\n\t3. View Project List"
+                + "\n\t4. View Applicant Application Status"
+                + "\n\t5. View Requests"
+                + "\n\t6. Change Request Status"
+                + "\n\t7. Change Applicant Application"
+                + "\n\t8. View All Enquiries"
+                + "\n\t9. Create Project"
+                + "\n\t10. Edit Project"
+                + "\n\t11. Delete Project"
+                + "\n\t12. Toggle Visibility"
+                + "\n\t13. View Officer Registration Status"
+                + "\n\t14. Generate Report"
+                + "\n\t15. Set up Project Filter"
                 + "\n\t16. Sign out"
                 + "\n\t17. Exit");
         System.out.print("Your choice (1-17): ");
@@ -62,8 +64,8 @@ public class ManagerPage {
             case 11 -> deleteProject();
             case 12 -> toggleVisibility();
             case 13 -> viewOfficerRegistrationStatus();
-            case 14 -> viewProjectList();
-            case 15 -> generateReport();
+            case 14 -> generateReport();
+            case 15 -> FilterController.setup();
             case 16 -> AccountController.logout();
             case 17 -> UIController.exit();
             default -> {
@@ -76,12 +78,12 @@ public class ManagerPage {
 
     public static void viewRegisteredProject() {
         OfficerRequestController.viewRegisteredProject();
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void viewEnquiries() {
         OfficerRequestController.viewEnquiries();
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void answerEnquiries() {
@@ -90,25 +92,29 @@ public class ManagerPage {
         System.out.print("Enter your answer:");
         String answer = IOController.nextLine();
         OfficerRequestController.answerEnquiry(requestID,answer);
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void viewProjectList() {
         System.out.println("Enter the manager ID to view thier created projects (Press ENTER to view yours): ");
         String managerID = IOController.nextLine();
         if (managerID.isEmpty()) managerID = AccountController.getUserID();
-        ManagerProjectController.viewProjectList(managerID);
-        UIController.loopOfficer();
+        try{
+            ManagerProjectController.viewProjectList(managerID);
+        }  catch (ProjectNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        UIController.loopManager();
     }
 
     public static void viewApplicantApplicationStatus() {
         OfficerProjectController.viewApplicantApplicationStatus();
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void viewRequest() {
         ManagerRequestController.viewRequest();
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void changeRequestStatus() {
@@ -128,7 +134,7 @@ public class ManagerPage {
             case 2 -> status = RequestStatus.DONE;
         }
         ManagerRequestController.changeRequestStatus(requestID, status);
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void changeApplicationStatus() {
@@ -150,12 +156,12 @@ public class ManagerPage {
             case 3 -> status = ApprovedStatus.UNSUCCESSFUL;
         }
         ManagerRequestController.changeApplicationStatus(requestID, status);
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void viewAllEnquiries() {
         ManagerRequestController.viewAllEnquiries();
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void createProject() {
@@ -178,6 +184,7 @@ public class ManagerPage {
             System.out.print("\t: ");
             tmp = IOController.nextLine();        
             neighbourhood.add(tmp);
+            tmpint--;
         }
 
         Map<FlatType, Integer> availableUnits = new HashMap<>();
@@ -211,7 +218,7 @@ public class ManagerPage {
         }
 
         ManagerProjectController.createProject(projectID, name, neighbourhood, availableUnits, price, openDate, closeDate, availableOfficer);
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void editProject() {
@@ -330,30 +337,30 @@ public class ManagerPage {
         }
 
         ManagerProjectController.editProject(projectID, new Project(projectID, name, neighbourhood, availableUnits, price, openDate, closeDate, ProjectList.getInstance().getByID(projectID).getManagerID(), availableOfficer, visibility));
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void deleteProject() {
         System.out.print("Project ID: ");
         String projectID = IOController.nextLine();
         ManagerProjectController.deleteProject(projectID);
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void toggleVisibility() {
         System.out.print("Project ID: ");
         String projectID = IOController.nextLine();
         ManagerProjectController.toggleVisibility(projectID);
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void viewOfficerRegistrationStatus() {
         ManagerProjectController.viewOfficerRegistrationStatus();
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 
     public static void generateReport() {
         // TODO: ManagerProjectController.generateReport(requestID);
-        UIController.loopOfficer();
+        UIController.loopManager();
     }
 }

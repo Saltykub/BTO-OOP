@@ -73,6 +73,7 @@ public class FilterController {
             System.out.print("\t: ");
             tmp = IOController.nextLine();        
             l.add(tmp);
+            tmpint--;
         }
         location = l;
         System.out.print("Please enter lowest price: ");

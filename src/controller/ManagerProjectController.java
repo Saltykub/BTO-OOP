@@ -1,6 +1,7 @@
 package controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import entity.request.OfficerRegistration;
 import entity.request.Request;
 import entity.user.Manager;
 import entity.user.UserType;
+import exception.ProjectNotFoundException;
 
 public class ManagerProjectController {
     private static String managerID;
@@ -61,9 +63,10 @@ public class ManagerProjectController {
         }
     }
 
-    public static void viewProjectList(String managerID) {
+    public static void viewProjectList(String managerID) throws ProjectNotFoundException {
         Manager manager = ManagerList.getInstance().getByID(managerID);
         List<String> projects = manager.getProject();
+        if(projects.isEmpty()) throw new ProjectNotFoundException();
         for (String project : projects) {
             Display.displayProject(ProjectList.getInstance().getByID(project),UserType.MANAGER,null);
         }

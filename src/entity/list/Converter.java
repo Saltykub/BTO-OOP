@@ -153,7 +153,7 @@ public class Converter<T> {
         return ret;
     }
     public static List<String> stringToList(String data){
-        if(data == "") return new ArrayList<>();
+        if(data.equals("null")) return new ArrayList<>();
         String[] values = data.split(LIST_SEPARATOR);
         List<String> ret = Arrays.asList(values);
         return ret;
@@ -182,7 +182,7 @@ public class Converter<T> {
 
     public static <A,B> Map<A,B> stringToMap(String data, Class<A> keyType, Class<B> valueType){
         Map<A,B> ret = new HashMap<>();
-        if ("null".equals(data)) return ret;
+        if (data.equals("null")) return ret;
         String[] values = data.split(LIST_SEPARATOR);
         List<String> valuesList = Arrays.asList(values);
         for(String value:valuesList){
