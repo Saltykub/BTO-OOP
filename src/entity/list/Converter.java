@@ -73,7 +73,7 @@ public class Converter<T> {
                 }
                 // handle other
                 else {
-                    if(lineData.get(idx)=="null"){
+                    if(lineData.get(idx).equals("null")){
                         field.set(obj,null);
                     }
                     else{

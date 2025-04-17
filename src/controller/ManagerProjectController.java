@@ -1,7 +1,6 @@
 package controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +36,11 @@ public class ManagerProjectController {
         }
         Project newProject = new Project(projectID, name, neighbourhood, availableUnit, price, openDate, closeDate, managerID, availableOfficer, true);
         ProjectList.getInstance().add(newProject);
+        Manager manager = ManagerList.getInstance().getByID(managerID);
+        List<String> p = manager.getProject();
+        p.add(projectID);
+        manager.setProject(p);
+        ManagerList.getInstance().update(managerID,manager);
         System.out.println("Successfully created project (ProjectID: " + projectID + ").");
     }
 
@@ -58,7 +62,7 @@ public class ManagerProjectController {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {
             if (request instanceof OfficerRegistration) {
-                // TODO: print req
+                Display.displayRequest(request, UserType.MANAGER);
             }
         }
     }

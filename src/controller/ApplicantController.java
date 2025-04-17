@@ -38,6 +38,7 @@ public class ApplicantController {
 
     public static void viewApplicableProject() {
         List<Project> list = ProjectList.getInstance().getAll();
+        list = FilterController.filteredList(list);
         boolean has = false;
         for (Project project : list) {
             FlatType flatType = checkApplicable(project.getProjectID());

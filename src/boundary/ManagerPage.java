@@ -96,7 +96,7 @@ public class ManagerPage {
     }
 
     public static void viewProjectList() {
-        System.out.println("Enter the manager ID to view thier created projects (Press ENTER to view yours): ");
+        System.out.print("Enter the manager ID to view thier created projects (Press ENTER to view yours): ");
         String managerID = IOController.nextLine();
         if (managerID.isEmpty()) managerID = AccountController.getUserID();
         try{
