@@ -76,11 +76,12 @@ public class ApplicantPage {
                 able = 2;
             }
             System.out.print("Your choice: ");
-            int applyFlat = IOController.nextInt();
-            while (applyFlat > able || applyFlat < able) {
+            int option = IOController.nextInt();
+            while (option > able || option < able) {
                 System.out.print("Please enter valid choice: ");
-                applyFlat = IOController.nextInt();
+                option = IOController.nextInt();
             }
+            FlatType applyFlat = option == 1 ? FlatType.TWO_ROOM : FlatType.THREE_ROOM;
             ApplicantController.applyProject(projectID, applyFlat);
             UIController.loopApplicant();
         } catch (ProjectNotFoundException e) {
