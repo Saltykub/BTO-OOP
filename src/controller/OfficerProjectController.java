@@ -23,6 +23,7 @@ public class OfficerProjectController {
     public static void viewRegistrableProject() {
         List<Project> list = ProjectList.getInstance().getAll();
         List<String> officerProject = OfficerList.getInstance().getByID(officerID).getOfficerProject();
+        boolean has = false;
         for (Project project : list) {
             if (!project.getApplicantID().contains(officerID) && project.getVisibility()) {
                 boolean can = true;
@@ -31,16 +32,23 @@ public class OfficerProjectController {
                     if (p.getCloseDate().isBefore(project.getOpenDate()) || project.getCloseDate().isBefore(p.getOpenDate())) continue;
                     can = false;
                 }
-                if (can) Display.displayProject(project,UserType.OFFICER,null);
+                if (can) {
+                    has = true;
+                    Display.displayProject(project,UserType.OFFICER,null);
+                }
             }
         }
+        if (!has) System.out.println("There is no registrable project.");
     }
 
     public static void viewApplicantApplicationStatus() {
         Officer officer = OfficerList.getInstance().getByID(officerID);
         List<String> list = officer.getOfficerProject();
-        if(!checkValidProject(list)) return;
-        IOController.nextLine();
+        if (!checkValidProject(list)) return;
+        if (list.isEmpty()) {
+            System.out.println("You haven't registered to any project.");
+            return;
+        }
         for (String id : list) {
             Project project = ProjectList.getInstance().getByID(id);
             Display.displayProject(project, UserType.OFFICER,null);
@@ -51,12 +59,10 @@ public class OfficerProjectController {
                 }
             }
         }
-        IOController.nextLine();
     }
     
     public static void viewApplicantApplicationStatus(String projectID) {
         Project project = ProjectList.getInstance().getByID(projectID);
-        IOController.nextLine();
         Display.displayProject(project, UserType.OFFICER,null);
         for (Applicant applicant : ApplicantList.getInstance().getAll()) {
             if (applicant.getProject() == projectID) {
@@ -64,14 +70,12 @@ public class OfficerProjectController {
                 System.out.println("Status: " + applicant.getApplicationStatusByID(projectID));
             }
         } 
-        IOController.nextLine();
     }
 
     public static void viewApplicantApplicationStatus(ApplicationStatus status) {
         Officer officer = OfficerList.getInstance().getByID(officerID);
         List<String> list = officer.getOfficerProject();
         if(!checkValidProject(list)) return;
-        IOController.nextLine();
         for (String id : list) {
             Project project = ProjectList.getInstance().getByID(id);
             Display.displayProject(project, UserType.OFFICER,null);
@@ -82,12 +86,10 @@ public class OfficerProjectController {
                 }
             }
         }
-        IOController.nextLine();
     }
 
     public static void viewApplicantApplicationStatus(String projectID, ApplicationStatus status) {
         Project project = ProjectList.getInstance().getByID(projectID);
-        IOController.nextLine();
         Display.displayProject(project, UserType.OFFICER,null);
         for (Applicant applicant : ApplicantList.getInstance().getAll()) {
             if (applicant.getProject() == projectID && applicant.getApplicationStatusByID(projectID) == status) {
@@ -95,13 +97,17 @@ public class OfficerProjectController {
                 System.out.println("Status: " + applicant.getApplicationStatusByID(projectID));
             }
         } 
-        IOController.nextLine();
     }
 
     public static void bookFlat(String applicantID) {
         // no need to pass project because applicant can has only 1 project 
         Applicant applicant = ApplicantList.getInstance().getByID(applicantID);
         String projectID = applicant.getProject();
+        Officer officer = OfficerList.getInstance().getByID(officerID);
+        if (!officer.getOfficerProject().contains(projectID)) {
+            System.out.println("You are not allowed to book flat for applicant in other's project");
+            return;
+        }
         Project project = ProjectList.getInstance().getByID(projectID);
         FlatType flat = applicant.getAppliedFlatByID(projectID);
         int availableUnit = project.getAvailableUnit().get(flat);

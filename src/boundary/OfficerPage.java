@@ -6,7 +6,17 @@ import controller.IOController;
 import controller.OfficerRequestController;
 import controller.OfficerProjectController;
 import controller.UIController;
+import entity.list.ApplicantList;
 import entity.list.OfficerList;
+import entity.list.ProjectList;
+import entity.list.RequestList;
+import entity.project.FlatType;
+import entity.project.Project;
+import entity.request.Enquiry;
+import entity.request.Request;
+import entity.request.RequestStatus;
+import entity.user.Applicant;
+import entity.user.MaritalStatus;
 import exception.ProjectNotFoundException;
 
 public class OfficerPage {
@@ -23,9 +33,9 @@ public class OfficerPage {
                 + "\n\t3. Apply for Project"
                 + "\n\t4. Withdraw Application"
                 + "\n\t5. Make Query"
-                + "\n\t6. View Query"
-                + "\n\t7. Edit Query"
-                + "\n\t8. Delete Query"
+                + "\n\t6. View Your Query"
+                + "\n\t7. Edit Your Query"
+                + "\n\t8. Delete Your Query"
                 + "\n\t9. View Registrable Project List"
                 + "\n\t10. View Registered Project"
                 + "\n\t11. Register for Project as Officer"
@@ -84,12 +94,42 @@ public class OfficerPage {
     }
 
     public static void applyProject() {
+        Applicant applicant = ApplicantList.getInstance().getByID(AccountController.getUserID());
+        if (applicant.getProject() != null) {
+            System.out.println("You are allowed to apply for only one project.");
+            UIController.loopOfficer();
+            return;
+        }
         System.out.print("Enter the project ID to apply: ");
         String projectID = IOController.nextLine();
         try {
-            ApplicantController.applyProject(projectID);
-            System.out.println("Applied successfully!");
+            Project project = ProjectList.getInstance().getByID(projectID);
+            if (project == null) throw new ProjectNotFoundException();
+            int able = 0;
+            if (applicant.getAge() >= 35 && applicant.getMaritalStatus() == MaritalStatus.SINGLE) {
+                able = 1;
+            }
+            else if (applicant.getAge() >= 21 && applicant.getMaritalStatus() == MaritalStatus.MARRIED) {
+                able = 2;
+            }
+            if (able == 0) {
+                System.out.println("You are not eligible to apply for a project.");
+                UIController.loopOfficer();
+                return;
+            }
+            System.out.println("Enter flat type: ");
+            System.out.println("\t1. Two Room");
+            if (able == 2) System.out.println("\t2. Three Room");
+            System.out.print("Your choice: ");
+            int option = IOController.nextInt();
+            while (option > able || option < 1) {
+                System.out.print("Please enter valid choice: ");
+                option = IOController.nextInt();
+            }
+            FlatType applyFlat = option == 1 ? FlatType.TWO_ROOM : FlatType.THREE_ROOM;
+            ApplicantController.applyProject(projectID, applyFlat);
             UIController.loopOfficer();
+            return;
         } catch (ProjectNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -97,14 +137,28 @@ public class OfficerPage {
     }
 
     public static void withdrawApplication() {
-        ApplicantController.withdrawApplication();
+        System.out.print("Enter the project ID to apply: ");
+        String projectID = IOController.nextLine();
+        try {
+            ApplicantController.withdrawApplication(projectID);
+            UIController.loopOfficer();
+        } catch (ProjectNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         UIController.loopOfficer();
     }
 
     public static void query() {
+        System.out.print("Enter the project ID to enquiry: ");
+        String projectID = IOController.nextLine();
+        if (ProjectList.getInstance().getByID(projectID) == null) {
+            System.out.println(new ProjectNotFoundException().getMessage());
+            UIController.loopOfficer();
+            return;
+        }
         System.out.print("Enter your query: ");
         String question = IOController.nextLine();
-        ApplicantController.query(question);
+        ApplicantController.query(projectID, question);
         UIController.loopOfficer();
     }
 
@@ -116,6 +170,10 @@ public class OfficerPage {
     public static void editQuery() {
         System.out.print("Enter the request ID to edit: ");
         String requestID = IOController.nextLine();
+        if (!ApplicantController.checkQuery(requestID)) {
+            UIController.loopOfficer();
+            return;
+        }
         System.out.print("Enter the new query: ");
         String newQuery = IOController.nextLine();
         ApplicantController.editQuery(requestID, newQuery);
@@ -151,14 +209,36 @@ public class OfficerPage {
     public static void viewEnquiriesByProject() {
         System.out.print("Enter the project ID to view: ");
         String projectID = IOController.nextLine();
-        OfficerRequestController.viewEnquiries(projectID);
+        try {
+            Project project = ProjectList.getInstance().getByID(projectID);
+            if (project == null) throw new ProjectNotFoundException();
+            OfficerRequestController.viewEnquiries(projectID);
+        } catch (ProjectNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         UIController.loopOfficer();
     }
 
     public static void answerEnquiry() {
         System.out.print("Enter the request ID to answer: ");
         String requestID = IOController.nextLine();
-        System.out.print("Enter your answer:");
+        Request query = RequestList.getInstance().getByID(requestID);
+        if (query == null) {
+            System.out.println("This request ID is not existed.");
+            UIController.loopOfficer();
+            return;
+        }
+        if (!(query instanceof Enquiry)) {
+            System.out.println("This request ID is not enquiry.");
+            UIController.loopOfficer();
+            return;
+        }
+        if (query.getRequestStatus() == RequestStatus.DONE) {
+            System.out.println("This enquiry has been answered.");
+            UIController.loopOfficer();;
+            return;
+        }
+        System.out.print("Enter your answer: ");
         String answer = IOController.nextLine();
         OfficerRequestController.answerEnquiry(requestID,answer);
         UIController.loopOfficer();

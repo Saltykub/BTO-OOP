@@ -38,37 +38,53 @@ public class ApplicantController {
 
     public static void viewApplicableProject() {
         List<Project> list = ProjectList.getInstance().getAll();
+        boolean has = false;
         for (Project project : list) {
             FlatType flatType = checkApplicable(project.getProjectID());
-            System.out.println(flatType);
             if (flatType == FlatType.TWO_ROOM) {
+                has = true;
                 Display.displayProject(project, UserType.APPLICANT, FlatType.THREE_ROOM);
             }
             else if (flatType == FlatType.THREE_ROOM) {
+                has = true;
                 Display.displayProject(project, UserType.APPLICANT, null); 
             }
         }
+        if (!has) System.out.println("There is no applicable project.");
     }
 
     public static void viewAppliedProject() {
+        System.out.println(UIController.lineSeparator);
+        System.out.println("                        Your Application");
+        System.out.println(UIController.lineSeparator);
+        boolean has = false;
+        List<Request> requests = RequestList.getInstance().getAll();
+        for (Request request : requests) {
+            if (request.getUserID().contains(applicantID) && (request.getRequestType() == RequestType.BTO_APPLICATION || request.getRequestType() == RequestType.BTO_WITHDRAWAL)) {
+                has = true;
+                Display.displayRequest(request, UserType.APPLICANT);
+            }
+        }
+        if (!has) System.out.println("You haven't applied to any project.");
         List<Project> list = ProjectList.getInstance().getAll();
+        System.out.println(UIController.lineSeparator);
+        System.out.println("                      Your Project History");
+        System.out.println(UIController.lineSeparator);
+        has = false;
         for (Project project : list) {
             if (project.getApplicantID().contains(applicantID) && project.getVisibility()) {
                 FlatType flatType = checkApplicable(project.getProjectID());
                 if (flatType == FlatType.TWO_ROOM) {
+                    has = true;
                     Display.displayProject(project, UserType.APPLICANT, FlatType.THREE_ROOM);
                 }
                 else if (flatType == FlatType.THREE_ROOM) {
+                    has = true;
                     Display.displayProject(project, UserType.APPLICANT, null); 
                 }
             }
         }
-        List<Request> requests = RequestList.getInstance().getAll();
-        for (Request request : requests) {
-            if (request.getUserID().contains(applicantID) && (request.getRequestType() == RequestType.BTO_APPLICATION || request.getRequestType() == RequestType.BTO_WITHDRAWAL)) {
-                Display.displayRequest(request, UserType.APPLICANT);
-            }
-        }
+        if (!has) System.out.println("No history.");
     }
 
     public static void applyProject(String projectID, FlatType applyFlat) throws ProjectNotFoundException {   
