@@ -6,6 +6,9 @@ import controller.IOController;
 import controller.UIController;
 import entity.list.ApplicantList;
 import entity.list.ProjectList;
+import entity.project.FlatType;
+import entity.user.Applicant;
+import entity.user.MaritalStatus;
 import exception.ProjectNotFoundException;
 
 public class ApplicantPage {
@@ -61,7 +64,24 @@ public class ApplicantPage {
         System.out.print("Enter the project ID to apply: ");
         String projectID = IOController.nextLine();
         try {
-            ApplicantController.applyProject(projectID);
+            System.out.println("Enter flat type: ");
+            Applicant applicant = ApplicantList.getInstance().getByID(AccountController.getUserID());
+            int able = 1;
+            if (applicant.getAge() >= 35 && applicant.getMaritalStatus() == MaritalStatus.SINGLE) {
+                System.out.println("\t1. Two Room");
+            }
+            else if (applicant.getAge() >= 21 && applicant.getMaritalStatus() == MaritalStatus.MARRIED) {
+                System.out.println("\t1. Two Room");
+                System.out.println("\t2. Three Room");
+                able = 2;
+            }
+            System.out.print("Your choice: ");
+            int applyFlat = IOController.nextInt();
+            while (applyFlat > able || applyFlat < able) {
+                System.out.print("Please enter valid choice: ");
+                applyFlat = IOController.nextInt();
+            }
+            ApplicantController.applyProject(projectID, applyFlat);
             UIController.loopApplicant();
         } catch (ProjectNotFoundException e) {
             System.out.println(e.getMessage());

@@ -28,6 +28,10 @@ public class ManagerProjectController {
                 System.out.println("This project name is existed. Please try again.");
                 return;
             }
+            if (p.getVisibility() && !(p.getCloseDate().isBefore(openDate) || p.getOpenDate().isAfter(closeDate))) {
+                System.out.println("You cannot create a new project, as you have the active project now (ProjectID: " + p.getProjectID() + ").");
+                return;
+            }
         }
         Project newProject = new Project(projectID, name, neighbourhood, availableUnit, price, openDate, closeDate, managerID, availableOfficer, true);
         ProjectList.getInstance().add(newProject);
