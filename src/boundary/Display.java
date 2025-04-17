@@ -35,13 +35,13 @@ public class Display {
     
         System.out.println("Available Units:");
         for (Map.Entry<FlatType, Integer> entry : project.getAvailableUnit().entrySet()) {
-            if(entry.getKey() == flatType) continue;
+            if(entry.getKey() == FlatType.THREE_ROOM && flatType == FlatType.TWO_ROOM ) continue;
             System.out.println("  " + entry.getKey() + " = " + entry.getValue());
         }
     
         System.out.println("Price:");
         for (Map.Entry<FlatType, Integer> entry : project.getPrice().entrySet()) {
-            if(entry.getKey() == flatType) continue;
+            if(entry.getKey() == FlatType.THREE_ROOM && flatType == FlatType.TWO_ROOM ) continue;
             System.out.println("  " + entry.getKey() + " = $" + entry.getValue());
         }
     
