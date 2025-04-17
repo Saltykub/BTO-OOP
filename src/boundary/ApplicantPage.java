@@ -62,7 +62,6 @@ public class ApplicantPage {
         String projectID = IOController.nextLine();
         try {
             ApplicantController.applyProject(projectID);
-            System.out.println("Applied successfully!");
             UIController.loopApplicant();
         } catch (ProjectNotFoundException e) {
             System.out.println(e.getMessage());
@@ -71,12 +70,19 @@ public class ApplicantPage {
     }
 
     public static void withdrawApplication() {
-        ApplicantController.withdrawApplication();
+        System.out.print("Enter the project ID to apply: ");
+        String projectID = IOController.nextLine();
+        try {
+            ApplicantController.withdrawApplication(projectID);
+            UIController.loopApplicant();
+        } catch (ProjectNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         UIController.loopApplicant();
     }
 
     public static void query() {
-        System.out.print("Enter the project ID to apply: ");
+        System.out.print("Enter the project ID to enquiry: ");
         String projectID = IOController.nextLine();
         if (ProjectList.getInstance().getByID(projectID) == null) {
             System.out.println(new ProjectNotFoundException().getMessage());

@@ -1,5 +1,6 @@
 package controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import boundary.Display;
@@ -22,22 +23,29 @@ public class ApplicantController {
         applicantID = ID;
     }
 
+    public static boolean checkApplicable(String projectID) {
+        Project project = ProjectList.getInstance().getByID(projectID);
+        Applicant applicant = ApplicantList.getInstance().getByID(applicantID);
+        if (project.getVisibility() && !project.getOfficerID().contains(applicantID) && project.getOpenDate().isBefore(LocalDate.now()) && project.getCloseDate().isAfter(LocalDate.now())) {
+            if (applicant.getAge() >= 35 && applicant.getMaritalStatus() == MaritalStatus.SINGLE && project.getAvailableUnit().get(FlatType.TWO_ROOM) == 0) {
+                return false;
+            }
+            else if (applicant.getAge() >= 21 && applicant.getMaritalStatus() == MaritalStatus.SINGLE) {
+                return false;
+            }
+            else if (applicant.getAge() < 21) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
     public static void viewApplicableProject() {
         List<Project> list = ProjectList.getInstance().getAll();
-        Applicant applicant = ApplicantList.getInstance().getByID(applicantID);
         for (Project project : list) {
-            if (project.getVisibility() && !project.getOfficerID().contains(applicantID)) {
-                boolean available = true;
-                if (applicant.getAge() >= 35 && applicant.getMaritalStatus() == MaritalStatus.SINGLE && project.getAvailableUnit().get(FlatType.TWO_ROOM) == 0) {
-                    available = false;
-                }
-                else if (applicant.getAge() >= 21 && applicant.getMaritalStatus() == MaritalStatus.SINGLE) {
-                    available = false;
-                }
-                else if (applicant.getAge() < 21) {
-                    available = false;
-                }
-                if (available) Display.displayProject(project,UserType.APPLICANT);
+            if (checkApplicable(project.getProjectID())) {
+                Display.displayProject(project,UserType.APPLICANT);
             }
         }
     }
@@ -57,8 +65,18 @@ public class ApplicantController {
         }
     }
 
-    public static void applyProject(String projectID) throws ProjectNotFoundException {
-        if (ProjectList.getInstance().getByID(projectID) == null) throw new ProjectNotFoundException();     
+    public static void applyProject(String projectID) throws ProjectNotFoundException {   
+        for (Request r : RequestList.getInstance().getAll()) {
+            if (r.getUserID().equals(applicantID) && r.getRequestType() == RequestType.BTO_APPLICATION) {
+                System.out.println("You are allowed to apply for only one project.");
+                return;
+            }
+        }
+        if (ProjectList.getInstance().getByID(projectID) == null) throw new ProjectNotFoundException();  
+        if (!checkApplicable(projectID)) {
+            System.out.println("You are not allowed to apply for this project.");
+            return;
+        }
         RequestList.getInstance().add(new BTOApplication(IDController.newRequestID(), RequestType.BTO_APPLICATION, applicantID, projectID, RequestStatus.PENDING));
         System.out.println("Successfully applied for this project.");
     }
