@@ -50,7 +50,7 @@ public class Applicant extends User {
         return appliedFlat.get(projectID);
     }
 
-    public void setAppliedFlayByID(String projectID, FlatType flat) {
+    public void setAppliedFlatByID(String projectID, FlatType flat) {
         appliedFlat.put(projectID, flat);
     }
 }

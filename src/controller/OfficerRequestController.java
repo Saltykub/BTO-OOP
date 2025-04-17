@@ -2,7 +2,6 @@ package controller;
 
 import java.util.List;
 
-import boundary.Display;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
 import entity.list.RequestList;
@@ -14,6 +13,9 @@ import entity.request.RequestStatus;
 import entity.request.RequestType;
 import entity.user.Officer;
 import entity.user.UserType;
+import utils.Display;
+import utils.IDController;
+import utils.UIController;
 
 public class OfficerRequestController {
     private static String officerID;

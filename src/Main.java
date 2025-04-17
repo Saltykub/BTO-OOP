@@ -1,5 +1,5 @@
 import boundary.LoginPage;
-import controller.IDController;
+import utils.IDController;
 
 public class Main {
     public static void main(String[] args) {

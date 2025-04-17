@@ -2,7 +2,6 @@ package controller;
 
 import java.util.List;
 
-import boundary.Display;
 import entity.list.ApplicantList;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
@@ -20,6 +19,7 @@ import entity.user.Applicant;
 import entity.user.ApplicationStatus;
 import entity.user.Officer;
 import entity.user.UserType;
+import utils.Display;
 
 public class ManagerRequestController {
 

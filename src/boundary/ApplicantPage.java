@@ -2,8 +2,6 @@ package boundary;
 
 import controller.AccountController;
 import controller.ApplicantController;
-import controller.IOController;
-import controller.UIController;
 import entity.list.ApplicantList;
 import entity.list.ProjectList;
 import entity.project.FlatType;
@@ -11,6 +9,9 @@ import entity.project.Project;
 import entity.user.Applicant;
 import entity.user.MaritalStatus;
 import exception.ProjectNotFoundException;
+import utils.Display;
+import utils.IOController;
+import utils.UIController;
 
 public class ApplicantPage {
 
@@ -20,6 +21,7 @@ public class ApplicantPage {
         System.out.println("Applicant Page");
         System.out.println(UIController.lineSeparator);
         System.out.println("Welcome, " + ApplicantList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
+                + "\n\t0. View Profile"
                 + "\n\t1. View Applicable Project"
                 + "\n\t2. View Applied Projects"
                 + "\n\t3. Apply for Project"
@@ -30,9 +32,10 @@ public class ApplicantPage {
                 + "\n\t8. Delete Query"
                 + "\n\t9. Sign out"
                 + "\n\t10. Exit");
-        System.out.print("Your choice (1-10): ");
+        System.out.print("Your choice (0-10): ");
         int option = IOController.nextInt();
         switch (option) {
+            case 0 -> Display.displayApplicant(ApplicantList.getInstance().getByID(AccountController.getUserID()), true);
             case 1 -> viewApplicableProject();
             case 2 -> viewAppliedProject();
             case 3 -> applyProject();

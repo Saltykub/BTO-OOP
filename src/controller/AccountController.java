@@ -18,6 +18,7 @@ import exception.AlreadyRegisteredException;
 import exception.InvalidUserFormatException;
 import exception.PasswordIncorrectException;
 import exception.UserNotFoundException;
+import utils.UIController;
 
 public class AccountController {
     private static String userID;

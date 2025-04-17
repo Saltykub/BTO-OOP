@@ -1,4 +1,4 @@
-package boundary;
+package utils;
 
 import java.util.Map;
 
@@ -12,18 +12,50 @@ import entity.request.OfficerRegistration;
 import entity.request.Request;
 import entity.request.RequestStatus;
 import entity.user.Applicant;
+import entity.user.Manager;
+import entity.user.Officer;
+import entity.user.RegistrationStatus;
 import entity.user.UserType;
 
 public class Display {
     
-    public static void displayApplicant(Applicant user){
+    public static void displayApplicant(Applicant user, boolean profile){
         System.out.println("------------------------- Applicant Info --------------------------");
         System.out.println("Name: " + user.getName());
         System.out.println("NRIC: " + user.getUserID());
         System.out.println("Age: " + user.getAge());
         System.out.println("Marital Status: " + user.getMaritalStatus());
-        System.out.println("Flat Type: " + user.getAppliedFlat()); 
+        if(profile && user.getProject() != null) {
+            System.out.println("Applied Project: " + user.getProject());
+            System.out.println("Application Status: " + user.getApplicationStatus());
+        } 
+        if(user.getProject()!= null) System.out.println("Flat Type: " + user.getAppliedFlat().get(user.getProject())); 
         System.out.println("-------------------------------------------------------------------");
+    }
+
+    public static void displayOfficer(Officer user){
+        System.out.println("-------------------------- Officer Info ---------------------------");
+        System.out.println("Name: " + user.getName());
+        System.out.println("NRIC: " + user.getUserID());
+        System.out.println("Age: " + user.getAge());
+        System.out.println("Marital Status: " + user.getMaritalStatus());
+        System.out.println("Registered Projects: " + String.join(", ", user.getOfficerProject()));
+        System.out.println("Registeration Status:");
+        for (Map.Entry<String, RegistrationStatus> entry : user.getRegistrationStatus().entrySet()) {
+            System.out.println("  " + entry.getKey() + " = " + entry.getValue());
+        }
+        System.out.println("-------------------------------------------------------------------");
+    }
+
+    public static void displayManager(Manager user){
+        System.out.println("-------------------------- Manager Info ---------------------------");
+        System.out.println("Name: " + user.getName());
+        System.out.println("NRIC: " + user.getUserID());
+        System.out.println("Age: " + user.getAge());
+        System.out.println("Marital Status: " + user.getMaritalStatus());
+        System.out.println("Created Projects: " + String.join(", ", user.getProject()));
+        System.out.println("-------------------------------------------------------------------");
+
     }
 
     public static void displayProject(Project project, UserType user, FlatType flatType){
@@ -48,9 +80,11 @@ public class Display {
         System.out.println("Open Date: " + project.getOpenDate());
         System.out.println("Close Date: " + project.getCloseDate());
         System.out.println("Manager Name: " + ManagerList.getInstance().getByID(project.getManagerID()).getName());
-        if(user!= UserType.APPLICANT) System.out.println("Available Officers: " + project.getAvailableOfficer());
-        if(user!= UserType.APPLICANT) System.out.println("Officer IDs: " + String.join(", ", project.getOfficerID()));
-        if(user!= UserType.APPLICANT) System.out.println("Applicant IDs: " + String.join(", ", project.getApplicantID()));
+        if(user!= UserType.APPLICANT) {
+            System.out.println("Available Officers: " + project.getAvailableOfficer());
+            System.out.println("Officer IDs: " + String.join(", ", project.getOfficerID()));
+            System.out.println("Applicant IDs: " + String.join(", ", project.getApplicantID()));
+        } 
         if(user == UserType.MANAGER) System.out.println("Visible to public? " + (project.getVisibility() ? "Yes" : "No"));
         System.out.println("-------------------------------------------------------------------");
     }

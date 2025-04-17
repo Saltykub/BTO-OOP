@@ -3,7 +3,6 @@ package controller;
 import java.time.LocalDate;
 import java.util.List;
 
-import boundary.Display;
 import entity.project.FlatType;
 import entity.project.Project;
 import entity.request.*;
@@ -11,6 +10,9 @@ import entity.user.Applicant;
 import entity.user.MaritalStatus;
 import entity.user.UserType;
 import exception.ProjectNotFoundException;
+import utils.Display;
+import utils.IDController;
+import utils.UIController;
 import entity.list.ApplicantList;
 import entity.list.ProjectList;
 import entity.list.RequestList;
@@ -104,7 +106,7 @@ public class ApplicantController {
             System.out.println("There is no available unit of this flat type in this project.");
             return;
         }
-        applicant.setAppliedFlayByID(projectID, applyFlat);
+        applicant.setAppliedFlatByID(projectID, applyFlat);
         applicant.setProject(projectID);
         ApplicantList.getInstance().update(applicantID, applicant);
         RequestList.getInstance().add(new BTOApplication(IDController.newRequestID(), RequestType.BTO_APPLICATION, applicantID, projectID, RequestStatus.PENDING));

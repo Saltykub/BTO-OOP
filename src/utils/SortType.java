@@ -1,4 +1,4 @@
-package controller;
+package utils;
 
 public enum SortType {
     LOCATION,

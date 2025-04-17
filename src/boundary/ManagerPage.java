@@ -4,13 +4,11 @@ import java.util.*;
 
 import controller.AccountController;
 import controller.FilterController;
-import controller.IDController;
-import controller.IOController;
 import controller.ManagerProjectController;
 import controller.ManagerRequestController;
 import controller.OfficerProjectController;
 import controller.OfficerRequestController;
-import controller.UIController;
+import entity.list.ManagerList;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
 import entity.project.FlatType;
@@ -18,6 +16,10 @@ import entity.project.Project;
 import entity.request.ApprovedStatus;
 import entity.request.RequestStatus;
 import exception.ProjectNotFoundException;
+import utils.Display;
+import utils.IDController;
+import utils.IOController;
+import utils.UIController;
 
 import java.time.*;
 
@@ -31,14 +33,13 @@ public class ManagerPage {
         System.out.println("Manager Page");
         System.out.println(UIController.lineSeparator);
         System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
+                + "\n\t0. View Profile"
                 + "\n\t1. View Enquiries"
+                + "\n\t8. View All Enquiries"
                 + "\n\t2. Answer Enquiries"
                 + "\n\t3. View Project List"
-                + "\n\t4. View Applicant Application Status"
                 + "\n\t5. View Requests"
-                + "\n\t6. Change Request Status"
                 + "\n\t7. Change Applicant Application"
-                + "\n\t8. View All Enquiries"
                 + "\n\t9. Create Project"
                 + "\n\t10. Edit Project"
                 + "\n\t11. Delete Project"
@@ -48,9 +49,10 @@ public class ManagerPage {
                 + "\n\t15. Set up Project Filter"
                 + "\n\t16. Sign out"
                 + "\n\t17. Exit");
-        System.out.print("Your choice (1-17): ");
+        System.out.print("Your choice (0-17): ");
         int option = IOController.nextInt();
         switch (option) {
+            case 0 -> Display.displayManager(ManagerList.getInstance().getByID(AccountController.getUserID()));
             case 1 -> viewEnquiries();
             case 2 -> answerEnquiries();
             case 3 -> viewProjectList();
@@ -227,7 +229,11 @@ public class ManagerPage {
         System.out.print("Project ID: ");
         String projectID = IOController.nextLine();
         Project project = ProjectList.getInstance().getByID(projectID);
-
+        if(project == null) {
+            System.out.println("No project with this ID.");
+            UIController.loopManager();
+            return;
+        }
         System.out.println("Press ENTER to skip.");
         System.out.print("Name: ");
         String name = IOController.nextLine();
@@ -343,14 +349,22 @@ public class ManagerPage {
     public static void deleteProject() {
         System.out.print("Project ID: ");
         String projectID = IOController.nextLine();
-        ManagerProjectController.deleteProject(projectID);
+        try {
+            ManagerProjectController.deleteProject(projectID);
+        } catch (ProjectNotFoundException e){
+            System.out.println(e.getMessage());
+        }
         UIController.loopManager();
     }
 
     public static void toggleVisibility() {
         System.out.print("Project ID: ");
         String projectID = IOController.nextLine();
-        ManagerProjectController.toggleVisibility(projectID);
+        try{
+            ManagerProjectController.toggleVisibility(projectID);
+        } catch(ProjectNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         UIController.loopManager();
     }
 

@@ -2,10 +2,8 @@ package boundary;
 
 import controller.AccountController;
 import controller.ApplicantController;
-import controller.IOController;
 import controller.OfficerRequestController;
 import controller.OfficerProjectController;
-import controller.UIController;
 import entity.list.ApplicantList;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
@@ -18,6 +16,9 @@ import entity.request.RequestStatus;
 import entity.user.Applicant;
 import entity.user.MaritalStatus;
 import exception.ProjectNotFoundException;
+import utils.Display;
+import utils.IOController;
+import utils.UIController;
 
 public class OfficerPage {
 
@@ -28,6 +29,7 @@ public class OfficerPage {
         System.out.println("Officer Page");
         System.out.println(UIController.lineSeparator);
         System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
+                + "\n\t0. View Profile"
                 + "\n\t1. View Applicable Project"
                 + "\n\t2. View Applied Projects"
                 + "\n\t3. Apply for Project"
@@ -49,9 +51,13 @@ public class OfficerPage {
                 + "\n\t19. Generate Receipt by Project"
                 + "\n\t20. Sign out"
                 + "\n\t21. Exit");
-        System.out.print("Your choice (1-21): ");
+        System.out.print("Your choice (0-21): ");
         int option = IOController.nextInt();
         switch (option) {
+            case 0 -> {
+                Display.displayOfficer(OfficerList.getInstance().getByID(AccountController.getUserID()));
+                Display.displayApplicant(ApplicantList.getInstance().getByID(AccountController.getUserID()), true);
+            }
             case 1 -> viewApplicableProject();
             case 2 -> viewAppliedProject();
             case 3 -> applyProject();

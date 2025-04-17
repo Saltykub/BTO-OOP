@@ -4,17 +4,22 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-import boundary.Display;
+import entity.list.ApplicantList;
 import entity.list.ManagerList;
+import entity.list.OfficerList;
 import entity.list.ProjectList;
 import entity.list.RequestList;
 import entity.project.FlatType;
 import entity.project.Project;
 import entity.request.OfficerRegistration;
 import entity.request.Request;
+import entity.user.Applicant;
+import entity.user.ApplicationStatus;
 import entity.user.Manager;
+import entity.user.Officer;
 import entity.user.UserType;
 import exception.ProjectNotFoundException;
+import utils.Display;
 
 public class ManagerProjectController {
     private static String managerID;
@@ -46,16 +51,59 @@ public class ManagerProjectController {
 
     public static void editProject(String projectID, Project project) {
         ProjectList.getInstance().update(projectID, project);
+        System.out.println("Successfully edited project (ProjectID: " + projectID + ").");
     }
 
-    public static void deleteProject(String projectID) {
-        ProjectList.getInstance().delete(projectID);
-    }
-
-    public static void toggleVisibility(String projectID) {
+    public static void deleteProject(String projectID) throws ProjectNotFoundException {
         Project project = ProjectList.getInstance().getByID(projectID);
+        if(project == null) throw new ProjectNotFoundException();
+        // delete project
+        ProjectList.getInstance().delete(projectID); 
+        // delete manager
+        List<Manager> mm = ManagerList.getInstance().getAll();
+        for(Manager m: mm){
+            if(m.getProject().contains(projectID)){
+                List<String> p = m.getProject();
+                p.remove(projectID);
+                m.setProject(p);
+                ManagerList.getInstance().update(m.getUserID(),m);    
+            }
+        }
+        // delete request 
+        List<Request> rr = RequestList.getInstance().getAll();
+        for (Request r: rr){
+            if(r.getProjectID().equals(projectID)){
+                RequestList.getInstance().delete(r.getRequestID());
+            }
+        }
+        // update applicant 
+        List<Applicant> aa = ApplicantList.getInstance().getAll();
+        for(Applicant a: aa){
+            if(a.getProject().equals(projectID)){
+                a.setProject(null);
+                a.setApplicationStatusByID(projectID, ApplicationStatus.UNSUCCESSFUL);
+                ApplicantList.getInstance().update(a.getUserID(), a);
+            }
+        }
+        // update officer
+        List<Officer> oo = OfficerList.getInstance().getAll();
+        for(Officer o: oo){
+            if(o.getOfficerProject().contains(projectID)){
+                List<String> p = o.getOfficerProject();
+                p.remove(projectID);
+                o.setOfficerProject(p);
+                OfficerList.getInstance().update(o.getUserID(),o);    
+            }
+        }
+        System.out.println("Successfully deleted project (ProjectID: " + projectID + ").");
+    }
+
+    public static void toggleVisibility(String projectID) throws ProjectNotFoundException {
+        Project project = ProjectList.getInstance().getByID(projectID);
+        if(project == null) throw new ProjectNotFoundException();
         project.setVisibility(!project.getVisibility());;
         ProjectList.getInstance().update(projectID, project);
+        System.out.println("Successfully toggled visibility of project (ProjectID: " + projectID + ").");
     }
 
     public static void viewOfficerRegistrationStatus() {

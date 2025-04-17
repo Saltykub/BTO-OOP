@@ -2,12 +2,10 @@ package boundary;
 
 import controller.AccountController;
 import controller.ApplicantController;
-import controller.IOController;
 import controller.ManagerProjectController;
 import controller.ManagerRequestController;
 import controller.OfficerProjectController;
 import controller.OfficerRequestController;
-import controller.UIController;
 import entity.user.Applicant;
 import entity.user.Manager;
 import entity.user.MaritalStatus;
@@ -18,6 +16,8 @@ import exception.AlreadyRegisteredException;
 import exception.InvalidUserFormatException;
 import exception.PasswordIncorrectException;
 import exception.UserNotFoundException;
+import utils.IOController;
+import utils.UIController;
 
 public class LoginPage {
     public static void welcome() {

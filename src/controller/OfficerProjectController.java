@@ -2,7 +2,6 @@ package controller;
 
 import java.util.List;
 
-import boundary.Display;
 import entity.list.ApplicantList;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
@@ -12,6 +11,7 @@ import entity.user.Applicant;
 import entity.user.ApplicationStatus;
 import entity.user.Officer;
 import entity.user.UserType;
+import utils.Display;
 
 public class OfficerProjectController {
     private static String officerID;
@@ -54,7 +54,7 @@ public class OfficerProjectController {
             Display.displayProject(project, UserType.OFFICER,null);
             for (Applicant applicant : ApplicantList.getInstance().getAll()) {
                 if (applicant.getProject() == id) {
-                    Display.displayApplicant(officer);
+                    Display.displayApplicant(applicant, false);
                     System.out.println("Status: " + applicant.getApplicationStatusByID(id));
                 }
             }
@@ -66,7 +66,7 @@ public class OfficerProjectController {
         Display.displayProject(project, UserType.OFFICER,null);
         for (Applicant applicant : ApplicantList.getInstance().getAll()) {
             if (applicant.getProject() == projectID) {
-                Display.displayApplicant(applicant);
+                Display.displayApplicant(applicant, false);
                 System.out.println("Status: " + applicant.getApplicationStatusByID(projectID));
             }
         } 
@@ -81,7 +81,7 @@ public class OfficerProjectController {
             Display.displayProject(project, UserType.OFFICER,null);
             for (Applicant applicant : ApplicantList.getInstance().getAll()) {
                 if (applicant.getProject() == id && applicant.getApplicationStatusByID(id) == status) {
-                    Display.displayApplicant(applicant);
+                    Display.displayApplicant(applicant, false);
                     System.out.println("Status: " + applicant.getApplicationStatusByID(id));
                 }
             }
@@ -93,7 +93,7 @@ public class OfficerProjectController {
         Display.displayProject(project, UserType.OFFICER,null);
         for (Applicant applicant : ApplicantList.getInstance().getAll()) {
             if (applicant.getProject() == projectID && applicant.getApplicationStatusByID(projectID) == status) {
-                Display.displayApplicant(applicant);
+                Display.displayApplicant(applicant, false);
                 System.out.println("Status: " + applicant.getApplicationStatusByID(projectID));
             }
         } 
@@ -128,8 +128,9 @@ public class OfficerProjectController {
             Project p = ProjectList.getInstance().getByID(id);
             List<String> applicantID = p.getApplicantID();
             for(String ida:applicantID){
-                Applicant a = ApplicantList.getInstance().getByID(ida);
-                Display.displayApplicant(a);
+                Applicant applicant = ApplicantList.getInstance().getByID(ida);
+                if(applicant.getApplicationStatus().get(id) != ApplicationStatus.BOOKED) continue;
+                Display.displayApplicant(applicant, false);
             }
             Display.displayProject(p,UserType.OFFICER,null);
         }
@@ -143,10 +144,11 @@ public class OfficerProjectController {
             Project p = ProjectList.getInstance().getByID(id);
             List<String> aID = p.getApplicantID();
             for(String ida:aID){
-                if(ida == applicantID){
-                    Applicant a = ApplicantList.getInstance().getByID(ida);
+                if(ida.equals(applicantID)){
+                    Applicant applicant = ApplicantList.getInstance().getByID(ida);
+                    if(applicant.getApplicationStatus().get(id) != ApplicationStatus.BOOKED) continue;
                     Display.displayProject(p,UserType.OFFICER,null);
-                    Display.displayApplicant(a);
+                    Display.displayApplicant(applicant, false);
                     return;
                 }
             }
@@ -158,13 +160,14 @@ public class OfficerProjectController {
         List<String> projectId = o.getOfficerProject();
         if(!checkValidProject(projectId)) return;
         for(String id: projectId){
-            if(id == projectID){
+            if(id.equals(projectID)){
                 Project p = ProjectList.getInstance().getByID(id);
                 List<String> aID = p.getApplicantID();
                 Display.displayProject(p,UserType.OFFICER,null);
                 for(String ida:aID){
-                    Applicant a = ApplicantList.getInstance().getByID(ida);
-                    Display.displayApplicant(a);
+                    Applicant applicant = ApplicantList.getInstance().getByID(ida);
+                    if(applicant.getApplicationStatus().get(id) != ApplicationStatus.BOOKED) continue;
+                    Display.displayApplicant(applicant, false);
                 }
                 return;
             }
