@@ -22,12 +22,18 @@ public class ManagerProjectController {
         managerID = ID;
     }
     
-    public static void createProject(String projectID, String name, List<String> neighbourhood,Map<FlatType, Integer> availableUnit, 
-                              Map<FlatType, Integer> price, LocalDate openDate, LocalDate closeDate, int availableOfficer) {
+    public static void createProject(String projectID, String name, List<String> neighbourhood, Map<FlatType, Integer> availableUnit, Map<FlatType, Integer> price, LocalDate openDate, LocalDate closeDate, int availableOfficer) {
+        for (Project p : ProjectList.getInstance().getAll()) {
+            if (p.getName().equals(name)) {
+                System.out.println("This project name is existed. Please try again.");
+                return;
+            }
+        }
         Project newProject = new Project(projectID, name, neighbourhood, availableUnit, price, openDate, closeDate, managerID, availableOfficer, true);
         ProjectList.getInstance().add(newProject);
+        System.out.println("Successfully created project (ProjectID: " + projectID + ").");
     }
-    
+
     public static void editProject(String projectID, Project project) {
         ProjectList.getInstance().update(projectID, project);
     }
