@@ -375,6 +375,7 @@ public class ManagerPage {
 
     public static void generateReport() {
         // TODO: ManagerProjectController.generateReport(requestID);
+        
         UIController.loopManager();
     }
 }

@@ -115,4 +115,6 @@ public class FilterController {
             case 3 -> sortType = SortType.DATE;
         }
     }
+
+    
 }
