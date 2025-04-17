@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import boundary.Display;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
 import entity.list.RequestList;
@@ -12,6 +13,7 @@ import entity.request.Request;
 import entity.request.RequestStatus;
 import entity.request.RequestType;
 import entity.user.Officer;
+import entity.user.UserType;
 
 public class OfficerRequestController {
     private static String officerID;
@@ -40,7 +42,7 @@ public class OfficerRequestController {
         for(Request request : list){
             for(String id: projectID){
                 if(request.getProjectID().equals(id) && request.getRequestType() == RequestType.ENQUIRY){
-                    System.out.println(request);
+                    Display.displayRequest(request, UserType.OFFICER);
                     break;
                 }
             }
@@ -51,7 +53,7 @@ public class OfficerRequestController {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {
             if (request.getProjectID().equals(projectID) && request.getRequestType() == RequestType.ENQUIRY) {
-                System.out.println(request);
+                Display.displayRequest(request, UserType.OFFICER);
             }
         }
     }

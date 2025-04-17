@@ -45,13 +45,13 @@ public class ApplicantController {
         List<Project> list = ProjectList.getInstance().getAll();
         for (Project project : list) {
             if (project.getApplicantID().contains(applicantID) && project.getVisibility()) {
-                System.out.println(project);
+                Display.displayProject(project,UserType.APPLICANT);
             }
         }
         List<Request> requests = RequestList.getInstance().getAll();
         for (Request request : requests) {
             if (request.getUserID().contains(applicantID) && request.getRequestType() == RequestType.BTO_APPLICATION) {
-                System.out.println(request);
+                Display.displayRequest(request, UserType.APPLICANT);
             }
         }
     }
@@ -73,7 +73,7 @@ public class ApplicantController {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {
             if (request.getUserID().equals(applicantID) && request.getRequestType() == RequestType.ENQUIRY) {
-                System.out.println(request);
+                Display.displayRequest(request, UserType.APPLICANT);
             }
         }
     }

@@ -16,11 +16,8 @@ import entity.project.FlatType;
 import entity.project.Project;
 import entity.request.ApprovedStatus;
 import entity.request.RequestStatus;
-import entity.user.ApplicationStatus;
-import entity.user.UserType;
 
 import java.time.*;
-import java.time.format.DateTimeParseException;
 
 public class ManagerPage {
     String requestID;

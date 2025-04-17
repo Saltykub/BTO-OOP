@@ -18,7 +18,7 @@ public class OfficerPage {
         System.out.println("Officer Page");
         System.out.println(UIController.lineSeparator);
         System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
-                + "\n\t1. View Applicants Projects List"
+                + "\n\t1. View Applicable Project"
                 + "\n\t2. View Applied Projects"
                 + "\n\t3. Apply for Project"
                 + "\n\t4. Withdraw Application"
@@ -89,7 +89,7 @@ public class OfficerPage {
         try {
             ApplicantController.applyProject(projectID);
             System.out.println("Applied successfully!");
-            UIController.loopApplicant();
+            UIController.loopOfficer();
         } catch (ProjectNotFoundException e) {
             System.out.println(e.getMessage());
         }

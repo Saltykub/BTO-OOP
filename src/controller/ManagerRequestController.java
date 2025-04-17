@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import boundary.Display;
 import entity.list.RequestList;
 import entity.request.ApprovedStatus;
 import entity.request.BTOApplication;
@@ -10,8 +11,10 @@ import entity.request.OfficerRegistration;
 import entity.request.Request;
 import entity.request.RequestStatus;
 import entity.request.RequestType;
+import entity.user.UserType;
 
 public class ManagerRequestController {
+
     private static String managerID;
     
     public static void setManagerID(String ID) {
@@ -22,7 +25,7 @@ public class ManagerRequestController {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {
             if (request.getRequestType() != RequestType.ENQUIRY) {
-                System.out.println(request);
+                Display.displayRequest(request, UserType.MANAGER);
             }
         }
     }
@@ -31,7 +34,7 @@ public class ManagerRequestController {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {
             if ((applicant && (request.getRequestType() == RequestType.BTO_APPLICATION || request.getRequestType() == RequestType.BTO_WITHDRAWAL)) || (!applicant && request.getRequestType() == RequestType.REGISTRATION)) {
-                System.out.println(request);
+                Display.displayRequest(request, UserType.APPLICANT);
             }
         }
     }
@@ -64,7 +67,7 @@ public class ManagerRequestController {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {
             if (request.getRequestType() == RequestType.ENQUIRY) {
-                System.out.println(request);
+                Display.displayRequest(request, UserType.MANAGER);
             }
         }
     }
