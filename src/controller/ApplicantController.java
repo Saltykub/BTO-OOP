@@ -40,8 +40,12 @@ public class ApplicantController {
     public static void viewApplicableProject() {
         List<Project> list = ProjectList.getInstance().getAll();
         for (Project project : list) {
-            if (checkApplicable(project.getProjectID())) {
-                Display.displayProject(project,UserType.APPLICANT,null);
+            FlatType flatType = checkApplicable(project.getProjectID());
+            if (flatType == FlatType.TWO_ROOM) {
+                Display.displayProject(project, UserType.APPLICANT, FlatType.THREE_ROOM);
+            }
+            else if (flatType == FlatType.THREE_ROOM) {
+                Display.displayProject(project, UserType.APPLICANT, null); 
             }
         }
     }
@@ -50,7 +54,13 @@ public class ApplicantController {
         List<Project> list = ProjectList.getInstance().getAll();
         for (Project project : list) {
             if (project.getApplicantID().contains(applicantID) && project.getVisibility()) {
-                Display.displayProject(project,UserType.APPLICANT,null);
+                FlatType flatType = checkApplicable(project.getProjectID());
+                if (flatType == FlatType.TWO_ROOM) {
+                    Display.displayProject(project, UserType.APPLICANT, FlatType.THREE_ROOM);
+                }
+                else if (flatType == FlatType.THREE_ROOM) {
+                    Display.displayProject(project, UserType.APPLICANT, null); 
+                }
             }
         }
         List<Request> requests = RequestList.getInstance().getAll();
