@@ -31,7 +31,7 @@ public class OfficerProjectController {
                     if (p.getCloseDate().isBefore(project.getOpenDate()) || project.getCloseDate().isBefore(p.getOpenDate())) continue;
                     can = false;
                 }
-                if (can) Display.displayProject(project,UserType.OFFICER);
+                if (can) Display.displayProject(project,UserType.OFFICER,null);
             }
         }
     }
@@ -43,7 +43,7 @@ public class OfficerProjectController {
         IOController.nextLine();
         for (String id : list) {
             Project project = ProjectList.getInstance().getByID(id);
-            Display.displayProject(project, UserType.OFFICER);
+            Display.displayProject(project, UserType.OFFICER,null);
             for (Applicant applicant : ApplicantList.getInstance().getAll()) {
                 if (applicant.getProject() == id) {
                     Display.displayApplicant(officer);
@@ -57,7 +57,7 @@ public class OfficerProjectController {
     public static void viewApplicantApplicationStatus(String projectID) {
         Project project = ProjectList.getInstance().getByID(projectID);
         IOController.nextLine();
-        Display.displayProject(project, UserType.OFFICER);
+        Display.displayProject(project, UserType.OFFICER,null);
         for (Applicant applicant : ApplicantList.getInstance().getAll()) {
             if (applicant.getProject() == projectID) {
                 Display.displayApplicant(applicant);
@@ -74,7 +74,7 @@ public class OfficerProjectController {
         IOController.nextLine();
         for (String id : list) {
             Project project = ProjectList.getInstance().getByID(id);
-            Display.displayProject(project, UserType.OFFICER);
+            Display.displayProject(project, UserType.OFFICER,null);
             for (Applicant applicant : ApplicantList.getInstance().getAll()) {
                 if (applicant.getProject() == id && applicant.getApplicationStatusByID(id) == status) {
                     Display.displayApplicant(applicant);
@@ -88,7 +88,7 @@ public class OfficerProjectController {
     public static void viewApplicantApplicationStatus(String projectID, ApplicationStatus status) {
         Project project = ProjectList.getInstance().getByID(projectID);
         IOController.nextLine();
-        Display.displayProject(project, UserType.OFFICER);
+        Display.displayProject(project, UserType.OFFICER,null);
         for (Applicant applicant : ApplicantList.getInstance().getAll()) {
             if (applicant.getProject() == projectID && applicant.getApplicationStatusByID(projectID) == status) {
                 Display.displayApplicant(applicant);
@@ -125,7 +125,7 @@ public class OfficerProjectController {
                 Applicant a = ApplicantList.getInstance().getByID(ida);
                 Display.displayApplicant(a);
             }
-            Display.displayProject(p,UserType.OFFICER);
+            Display.displayProject(p,UserType.OFFICER,null);
         }
     }
     
@@ -139,7 +139,7 @@ public class OfficerProjectController {
             for(String ida:aID){
                 if(ida == applicantID){
                     Applicant a = ApplicantList.getInstance().getByID(ida);
-                    Display.displayProject(p,UserType.OFFICER);
+                    Display.displayProject(p,UserType.OFFICER,null);
                     Display.displayApplicant(a);
                     return;
                 }
@@ -155,7 +155,7 @@ public class OfficerProjectController {
             if(id == projectID){
                 Project p = ProjectList.getInstance().getByID(id);
                 List<String> aID = p.getApplicantID();
-                Display.displayProject(p,UserType.OFFICER);
+                Display.displayProject(p,UserType.OFFICER,null);
                 for(String ida:aID){
                     Applicant a = ApplicantList.getInstance().getByID(ida);
                     Display.displayApplicant(a);

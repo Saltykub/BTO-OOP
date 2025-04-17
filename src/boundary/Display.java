@@ -26,7 +26,7 @@ public class Display {
         System.out.println("-------------------------------------------------------------------");
     }
 
-    public static void displayProject(Project project, UserType user){
+    public static void displayProject(Project project, UserType user, FlatType flatType){
         System.out.println("------------------------- Project Info ---------------------------");
         System.out.println("Project ID: " + project.getProjectID());
         System.out.println("Name: " + project.getName());
@@ -35,11 +35,13 @@ public class Display {
     
         System.out.println("Available Units:");
         for (Map.Entry<FlatType, Integer> entry : project.getAvailableUnit().entrySet()) {
+            if(entry.getKey() == flatType) continue;
             System.out.println("  " + entry.getKey() + " = " + entry.getValue());
         }
     
         System.out.println("Price:");
         for (Map.Entry<FlatType, Integer> entry : project.getPrice().entrySet()) {
+            if(entry.getKey() == flatType) continue;
             System.out.println("  " + entry.getKey() + " = $" + entry.getValue());
         }
     

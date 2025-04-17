@@ -61,7 +61,7 @@ public class ManagerProjectController {
         Manager manager = ManagerList.getInstance().getByID(managerID);
         List<String> projects = manager.getProject();
         for (String project : projects) {
-            Display.displayProject(ProjectList.getInstance().getByID(project),UserType.MANAGER);
+            Display.displayProject(ProjectList.getInstance().getByID(project),UserType.MANAGER,null);
         }
     }
 

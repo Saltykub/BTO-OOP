@@ -45,7 +45,7 @@ public class ApplicantController {
         List<Project> list = ProjectList.getInstance().getAll();
         for (Project project : list) {
             if (checkApplicable(project.getProjectID())) {
-                Display.displayProject(project,UserType.APPLICANT);
+                Display.displayProject(project,UserType.APPLICANT,null);
             }
         }
     }
@@ -54,7 +54,7 @@ public class ApplicantController {
         List<Project> list = ProjectList.getInstance().getAll();
         for (Project project : list) {
             if (project.getApplicantID().contains(applicantID) && project.getVisibility()) {
-                Display.displayProject(project,UserType.APPLICANT);
+                Display.displayProject(project,UserType.APPLICANT,null);
             }
         }
         List<Request> requests = RequestList.getInstance().getAll();
