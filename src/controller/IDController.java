@@ -12,10 +12,14 @@ public class IDController {
     private static int reqeustCount;
 
     public static void init() {
-        List<Project> p = ProjectList.getInstance().getAll();
-        setProjectCount(Integer.parseInt(p.get(p.size() - 1).getProjectID().substring(1)));
-        List<Request> r = RequestList.getInstance().getAll();
-        setRequestCount(Integer.parseInt(r.get(r.size() - 1).getRequestID().substring(1)));
+        int cnt = 0;
+        List<Project> projects = ProjectList.getInstance().getAll();
+        for (Project project : projects) cnt = Math.max(cnt, Integer.parseInt(project.getProjectID().substring(1)));
+        setProjectCount(cnt);
+        cnt = 0;
+        List<Request> requests = RequestList.getInstance().getAll();
+        for (Request request : requests) cnt = Math.max(cnt, Integer.parseInt(request.getRequestID().substring(1)));
+        setRequestCount(cnt);
     }
 
     public static void setProjectCount(int count) {
