@@ -7,6 +7,7 @@ import controller.UIController;
 import entity.list.ApplicantList;
 import entity.list.ProjectList;
 import entity.project.FlatType;
+import entity.project.Project;
 import entity.user.Applicant;
 import entity.user.MaritalStatus;
 import exception.ProjectNotFoundException;
@@ -61,29 +62,42 @@ public class ApplicantPage {
     }
 
     public static void applyProject() {
+        Applicant applicant = ApplicantList.getInstance().getByID(AccountController.getUserID());
+        if (applicant.getProject() != null) {
+            System.out.println("You are allowed to apply for only one project.");
+            UIController.loopApplicant();
+            return;
+        }
         System.out.print("Enter the project ID to apply: ");
         String projectID = IOController.nextLine();
         try {
-            System.out.println("Enter flat type: ");
-            Applicant applicant = ApplicantList.getInstance().getByID(AccountController.getUserID());
-            int able = 1;
+            Project project = ProjectList.getInstance().getByID(projectID);
+            if (project == null) throw new ProjectNotFoundException();
+            int able = 0;
             if (applicant.getAge() >= 35 && applicant.getMaritalStatus() == MaritalStatus.SINGLE) {
-                System.out.println("\t1. Two Room");
+                able = 1;
             }
             else if (applicant.getAge() >= 21 && applicant.getMaritalStatus() == MaritalStatus.MARRIED) {
-                System.out.println("\t1. Two Room");
-                System.out.println("\t2. Three Room");
                 able = 2;
             }
+            if (able == 0) {
+                System.out.println("You are not eligible to apply for a project.");
+                UIController.loopApplicant();
+                return;
+            }
+            System.out.println("Enter flat type: ");
+            System.out.println("\t1. Two Room");
+            if (able == 2) System.out.println("\t2. Three Room");
             System.out.print("Your choice: ");
             int option = IOController.nextInt();
-            while (option > able || option < able) {
+            while (option > able || option < 1) {
                 System.out.print("Please enter valid choice: ");
                 option = IOController.nextInt();
             }
             FlatType applyFlat = option == 1 ? FlatType.TWO_ROOM : FlatType.THREE_ROOM;
             ApplicantController.applyProject(projectID, applyFlat);
             UIController.loopApplicant();
+            return;
         } catch (ProjectNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -124,6 +138,10 @@ public class ApplicantPage {
     public static void editQuery() {
         System.out.print("Enter the request ID to edit: ");
         String requestID = IOController.nextLine();
+        if (!ApplicantController.checkQuery(requestID)) {
+            UIController.loopApplicant();
+            return;
+        }
         System.out.print("Enter the new query: ");
         String newQuery = IOController.nextLine();
         ApplicantController.editQuery(requestID, newQuery);

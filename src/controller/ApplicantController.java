@@ -8,7 +8,6 @@ import entity.project.FlatType;
 import entity.project.Project;
 import entity.request.*;
 import entity.user.Applicant;
-import entity.user.ApplicationStatus;
 import entity.user.MaritalStatus;
 import entity.user.UserType;
 import exception.ProjectNotFoundException;
@@ -41,6 +40,7 @@ public class ApplicantController {
         List<Project> list = ProjectList.getInstance().getAll();
         for (Project project : list) {
             FlatType flatType = checkApplicable(project.getProjectID());
+            System.out.println(flatType);
             if (flatType == FlatType.TWO_ROOM) {
                 Display.displayProject(project, UserType.APPLICANT, FlatType.THREE_ROOM);
             }
@@ -65,7 +65,7 @@ public class ApplicantController {
         }
         List<Request> requests = RequestList.getInstance().getAll();
         for (Request request : requests) {
-            if (request.getUserID().contains(applicantID) && request.getRequestType() == RequestType.BTO_APPLICATION) {
+            if (request.getUserID().contains(applicantID) && (request.getRequestType() == RequestType.BTO_APPLICATION || request.getRequestType() == RequestType.BTO_WITHDRAWAL)) {
                 Display.displayRequest(request, UserType.APPLICANT);
             }
         }
@@ -134,6 +134,14 @@ public class ApplicantController {
 
     public static boolean checkQuery(String requestID) {
         Request query = RequestList.getInstance().getByID(requestID);
+        if (query == null) {
+            System.out.println("This request ID is not existed.");
+            return false;
+        }
+        if (!(query instanceof Enquiry)) {
+            System.out.println("This request ID is not enquiry.");
+            return false;
+        }
         if (query.getRequestStatus() == RequestStatus.DONE) {
             System.out.println("You are not allowed to edit successful enquiry.");
             return false;

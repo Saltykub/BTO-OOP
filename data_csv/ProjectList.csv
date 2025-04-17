@@ -1,2 +1,2 @@
 projectID,name,neighborhood,availableUnit,price,openDate,closeDate,managerID,availableOfficer,officerID,applicantID,visibility
-P0001,Acacia Breeze,Yishun,THREE_ROOM::MAP::3::LIST::TWO_ROOM::MAP::2,THREE_ROOM::MAP::450000::LIST::TWO_ROOM::MAP::350000,2::DATE::15::DATE::2025,3::DATE::20::DATE::2025,S5678901G,3,null,null,TRUE
+P0001,Acacia Breeze,Yishun,THREE_ROOM::MAP::3::LIST::TWO_ROOM::MAP::2,THREE_ROOM::MAP::450000::LIST::TWO_ROOM::MAP::350000,2::DATE::15::DATE::2025,12::DATE::20::DATE::2025,S5678901G,3,null,null,TRUE
