@@ -19,7 +19,12 @@ public class ApplicantPage {
     public static void allOptions() {
         UIController.clearPage();
         System.out.println(UIController.lineSeparator);
-        System.out.println("Applicant Page");
+        System.out.println("\n" + //
+                        "  __  ____ ____ __   __ ___  __  __ _ ____    ____  __   ___ ____ \n" + //
+                        " / _\\(  _ (  _ (  ) (  / __)/ _\\(  ( (_  _)  (  _ \\/ _\\ / __(  __)\n" + //
+                        "/    \\) __/) __/ (_/\\)( (__/    /    / )(     ) __/    ( (_ \\) _) \n" + //
+                        "\\_/\\_(__) (__) \\____(__\\___\\_/\\_\\_)__)(__)   (__) \\_/\\_/\\___(____)\n" + //
+                        "");
         System.out.println(UIController.lineSeparator);
         System.out.println("Welcome, " + ApplicantList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
                 + "\n\t0. View Profile"
@@ -33,9 +38,10 @@ public class ApplicantPage {
                 + "\n\t8. Edit Query"
                 + "\n\t9. Delete Query"
                 + "\n\t10. Set up Project Filter"
-                + "\n\t11. Sign out"
-                + "\n\t12. Exit");
-        System.out.print("Your choice (0-12): ");
+                + "\n\t11. View Your Current Filter"
+                + "\n\t12. Sign out"
+                + "\n\t13. Exit");
+        System.out.print("Your choice (0-13): ");
         int option = IOController.nextInt();
         switch (option) {
             case 0 -> {
@@ -55,8 +61,12 @@ public class ApplicantPage {
                 FilterController.setup();
                 UIController.loopApplicant();
             }
-            case 11 -> AccountController.logout();
-            case 12 -> UIController.exit();
+            case 11 -> {
+                FilterController.displayFilter();
+                UIController.loopApplicant();
+            }
+            case 12 -> AccountController.logout();
+            case 13 -> UIController.exit();
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();

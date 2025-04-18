@@ -22,6 +22,7 @@ public class OfficerProjectController {
 
     public static void viewRegistrableProject() {
         List<Project> list = ProjectList.getInstance().getAll();
+        list = FilterController.filteredList(list);
         List<String> officerProject = OfficerList.getInstance().getByID(officerID).getOfficerProject();
         boolean has = false;
         for (Project project : list) {

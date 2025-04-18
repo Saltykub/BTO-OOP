@@ -33,7 +33,12 @@ public class ManagerPage {
     public static void allOptions() {
         UIController.clearPage();
         System.out.println(UIController.lineSeparator);
-        System.out.println("Manager Page");
+        System.out.println("\n" + //
+                        " _  _   __   __ _   __    ___  ____  ____    ____   __    ___  ____ \n" + //
+                        "( \\/ ) / _\\ (  ( \\ / _\\  / __)(  __)(  _ \\  (  _ \\ / _\\  / __)(  __)\n" + //
+                        "/ \\/ \\/    \\/    //    \\( (_ \\ ) _)  )   /   ) __//    \\( (_ \\ ) _) \n" + //
+                        "\\_)(_/\\_/\\_/\\_)__)\\_/\\_/ \\___/(____)(__\\_)  (__)  \\_/\\_/ \\___/(____)\n" + //
+                        "");
         System.out.println(UIController.lineSeparator);
         System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
                 + "\n\t0. View Profile"
@@ -50,9 +55,10 @@ public class ManagerPage {
                 + "\n\t11. Answer Enquiries"
                 + "\n\t12. Generate Report"
                 + "\n\t13. Set up Project Filter"
-                + "\n\t14. Sign out"
-                + "\n\t15. Exit");
-        System.out.print("Your choice (0-15): ");
+                + "\n\t14. View Your Current Filter"
+                + "\n\t15. Sign out"
+                + "\n\t16. Exit");
+        System.out.print("Your choice (0-16): ");
         int option = IOController.nextInt();
         switch (option) {
             case 0 -> {
@@ -75,8 +81,12 @@ public class ManagerPage {
                 FilterController.setup();
                 UIController.loopManager();
             }
-            case 14 -> AccountController.logout();
-            case 15 -> UIController.exit();    
+            case 14 -> {
+                FilterController.displayFilter();
+                UIController.loopManager();
+            }
+            case 15 -> AccountController.logout();
+            case 16 -> UIController.exit();    
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();

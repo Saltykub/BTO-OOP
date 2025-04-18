@@ -54,8 +54,8 @@ public class OfficerRequestController {
         System.out.println(UIController.lineSeparator);
         boolean has = false;
         List<String> projects = OfficerList.getInstance().getByID(officerID).getOfficerProject();
-        for (String projectID : projects) {
-            Project project = ProjectList.getInstance().getByID(projectID);
+        List<Project> list = FilterController.filteredListFromID(projects);
+        for (Project project : list) {
             has = true;
             Display.displayProject(project, UserType.OFFICER, null);
         }

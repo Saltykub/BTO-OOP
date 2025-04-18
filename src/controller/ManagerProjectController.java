@@ -123,8 +123,9 @@ public class ManagerProjectController {
         Manager manager = ManagerList.getInstance().getByID(managerID);
         List<String> projects = manager.getProject();
         if(projects.isEmpty()) throw new ProjectNotFoundException();
-        for (String project : projects) {
-            Display.displayProject(ProjectList.getInstance().getByID(project),UserType.MANAGER,null);
+        List<Project> list = FilterController.filteredListFromID(projects);
+        for (Project project : list) {
+            Display.displayProject(project, UserType.MANAGER, null);
         }
     }
 
