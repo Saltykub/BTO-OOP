@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import entity.list.ManagerList;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
 import entity.list.RequestList;
@@ -12,6 +13,7 @@ import entity.request.Request;
 import entity.request.RequestStatus;
 import entity.request.RequestType;
 import entity.user.Officer;
+import entity.user.RegistrationStatus;
 import entity.user.UserType;
 import utils.Display;
 import utils.IDController;
@@ -34,6 +36,11 @@ public class OfficerRequestController {
                 if (p.getCloseDate().isBefore(project.getOpenDate()) || project.getCloseDate().isBefore(p.getOpenDate())) continue;
             }
             if (can) {
+                Officer officer = OfficerList.getInstance().getByID(officerID);
+                officerProject.add(projectID);
+                officer.setOfficerProject(officerProject);
+                officer.setRegistrationStatusByID(projectID, RegistrationStatus.PENDING);
+                OfficerList.getInstance().update(officerID, officer);
                 RequestList.getInstance().add(new OfficerRegistration(IDController.newRequestID(), RequestType.REGISTRATION, officerID, projectID, RequestStatus.PENDING));
                 System.out.println("Successfully applied registeration.");
                 return;

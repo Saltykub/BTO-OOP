@@ -18,6 +18,7 @@ import entity.request.RequestType;
 import entity.user.Applicant;
 import entity.user.ApplicationStatus;
 import entity.user.Officer;
+import entity.user.RegistrationStatus;
 import entity.user.UserType;
 import utils.Display;
 
@@ -80,7 +81,10 @@ public class ManagerRequestController {
                     String projectID = request.getProjectID();
                     if (applicant.getApplicationStatusByID(projectID) == ApplicationStatus.BOOKED) {
                         Project project = ProjectList.getInstance().getByID(projectID);
+                        List<String> a = project.getApplicantID();
+                        a.remove(applicant.getUserID());
                         FlatType flat = applicant.getAppliedFlatByID(projectID);
+                        project.setApplicantID(a);
                         project.setAvailableUnit(flat, project.getAvailableUnit().get(flat) + 1);
                         ProjectList.getInstance().update(projectID, project);
                     }
@@ -92,12 +96,22 @@ public class ManagerRequestController {
             RequestList.getInstance().update(requestID, application);
         }
         else if (request instanceof OfficerRegistration application) {
+            Officer officer = OfficerList.getInstance().getByID(request.getUserID());
             if (status == ApprovedStatus.SUCCESSFUL) {
-                Officer officer = OfficerList.getInstance().getByID(request.getUserID());
-                List<String> officerProject = officer.getOfficerProject();
-                officerProject.add(request.getProjectID());
-                officer.setOfficerProject(officerProject);
+                officer.setRegistrationStatusByID(request.getProjectID(), RegistrationStatus.APPROVED);
+                Project p = ProjectList.getInstance().getByID(request.getProjectID());
+                List<String> o = p.getOfficerID();
+                o.add(officer.getUserID());
+                p.setOfficerID(o);
+                ProjectList.getInstance().update(request.getProjectID(), p);
             }
+            else if (status == ApprovedStatus.UNSUCCESSFUL) {
+                officer.setRegistrationStatusByID(request.getProjectID(), RegistrationStatus.REJECTED); 
+                List<String> project = officer.getOfficerProject();
+                project.remove(request.getProjectID());
+                officer.setOfficerProject(project);
+            }
+            OfficerList.getInstance().update(officer.getUserID(), officer);
             application.setRegistrationStatus(status);
             RequestList.getInstance().update(requestID, application);
         }

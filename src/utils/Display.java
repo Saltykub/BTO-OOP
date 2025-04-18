@@ -44,7 +44,7 @@ public class Display {
         System.out.println("Age: " + user.getAge());
         System.out.println("Marital Status: " + user.getMaritalStatus());
         System.out.println("Registered Projects: " + String.join(", ", user.getOfficerProject()));
-        System.out.println("Registeration Status:");
+        System.out.println("Registration Status:");
         for (Map.Entry<String, RegistrationStatus> entry : user.getRegistrationStatus().entrySet()) {
             System.out.println("  " + entry.getKey() + " = " + entry.getValue());
         }

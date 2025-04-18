@@ -7,6 +7,7 @@ import entity.project.FlatType;
 import entity.project.Project;
 import entity.request.*;
 import entity.user.Applicant;
+import entity.user.ApplicationStatus;
 import entity.user.MaritalStatus;
 import entity.user.UserType;
 import exception.ProjectNotFoundException;
@@ -108,6 +109,7 @@ public class ApplicantController {
         }
         applicant.setAppliedFlatByID(projectID, applyFlat);
         applicant.setProject(projectID);
+        applicant.setApplicationStatusByID(projectID, ApplicationStatus.PENDING);
         ApplicantList.getInstance().update(applicantID, applicant);
         RequestList.getInstance().add(new BTOApplication(IDController.newRequestID(), RequestType.BTO_APPLICATION, applicantID, projectID, RequestStatus.PENDING));
         System.out.println("Successfully applied for this project.");
