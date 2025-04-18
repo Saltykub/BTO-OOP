@@ -162,11 +162,14 @@ public class ApplicantController {
 
     public static void viewQuery() {
         List<Request> list = RequestList.getInstance().getAll();
+        boolean has = false;
         for (Request request : list) {
             if (request.getUserID().equals(applicantID) && request.getRequestType() == RequestType.ENQUIRY) {
+                has = true;
                 Display.displayRequest(request, UserType.APPLICANT);
             }
         }
+        if(!has) System.out.println("You don't have enquries");
     }
 
     public static boolean checkQuery(String requestID) {

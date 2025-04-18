@@ -42,7 +42,7 @@ public class Display {
         System.out.println("NRIC: " + user.getUserID());
         System.out.println("Age: " + user.getAge());
         System.out.println("Marital Status: " + user.getMaritalStatus());
-        System.out.println("Registered Projects: " + String.join(", ", user.getOfficerProject()));
+        if(user.getOfficerProject() != null && !user.getOfficerProject().isEmpty()) System.out.println("Registered Projects: " + String.join(", ", user.getOfficerProject()));
         System.out.println("Registration Status:");
         for (Map.Entry<String, RegistrationStatus> entry : user.getRegistrationStatus().entrySet()) {
             System.out.println("  " + entry.getKey() + " = " + entry.getValue().coloredString());

@@ -19,6 +19,7 @@ import entity.user.ApplicationStatus;
 import entity.user.Manager;
 import entity.user.MaritalStatus;
 import entity.user.Officer;
+import entity.user.RegistrationStatus;
 import entity.user.UserType;
 import exception.ProjectNotFoundException;
 import utils.Display;
@@ -96,6 +97,7 @@ public class ManagerProjectController {
                 List<String> p = o.getOfficerProject();
                 p.remove(projectID);
                 o.setOfficerProject(p);
+                o.setRegistrationStatusByID(projectID, RegistrationStatus.REJECTED);
                 OfficerList.getInstance().update(o.getUserID(),o);    
             }
         }
@@ -127,6 +129,7 @@ public class ManagerProjectController {
         List<String> projects = manager.getProject();
         if(projects.isEmpty()) throw new ProjectNotFoundException();
         List<Project> list = FilterController.filteredListFromID(projects);
+        if(list.isEmpty()) throw new ProjectNotFoundException();
         for (Project project : list) {
             Display.displayProject(project, UserType.MANAGER, null);
         }

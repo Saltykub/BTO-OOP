@@ -16,7 +16,6 @@ import entity.project.Project;
 import entity.request.ApprovedStatus;
 import entity.request.Enquiry;
 import entity.request.Request;
-import entity.request.RequestStatus;
 import entity.user.UserType;
 import exception.ProjectNotFoundException;
 import utils.Display;
