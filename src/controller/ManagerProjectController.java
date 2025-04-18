@@ -83,7 +83,7 @@ public class ManagerProjectController {
         // update applicant 
         List<Applicant> aa = ApplicantList.getInstance().getAll();
         for(Applicant a: aa){
-            if(a.getProject().equals(projectID)){
+            if(a.getProject() != null && a.getProject().equals(projectID)){
                 a.setProject(null);
                 a.setApplicationStatusByID(projectID, ApplicationStatus.UNSUCCESSFUL);
                 ApplicantList.getInstance().update(a.getUserID(), a);

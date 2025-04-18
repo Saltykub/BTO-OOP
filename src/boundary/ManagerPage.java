@@ -10,10 +10,14 @@ import controller.OfficerRequestController;
 import entity.list.ManagerList;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
+import entity.list.RequestList;
 import entity.project.FlatType;
 import entity.project.Project;
 import entity.request.ApprovedStatus;
+import entity.request.Enquiry;
+import entity.request.Request;
 import entity.request.RequestStatus;
+import entity.user.UserType;
 import exception.ProjectNotFoundException;
 import utils.Display;
 import utils.IDController;
@@ -112,29 +116,21 @@ public class ManagerPage {
         UIController.loopManager();
     }
 
-    public static void changeRequestStatus() {
-        System.out.print("Enter the request ID: ");
-        String requestID = IOController.nextLine();
-        System.out.println("Enter new status:");
-        System.out.println("\t1. " + RequestStatus.PENDING);
-        System.out.println("\t2. " + RequestStatus.DONE);
-        int option = IOController.nextInt();
-        while (option != 1 && option != 2) {
-            System.out.print("Please enter valid choice: ");
-            option = IOController.nextInt();
-        }
-        RequestStatus status = null;
-        switch (option) {
-            case 1 -> status = RequestStatus.PENDING;
-            case 2 -> status = RequestStatus.DONE;
-        }
-        ManagerRequestController.changeRequestStatus(requestID, status);
-        UIController.loopManager();
-    }
-
     public static void changeApplicationStatus() {
         System.out.print("Enter the request ID: ");
         String requestID = IOController.nextLine();
+        Request request = RequestList.getInstance().getByID(requestID);
+        if (request == null) {
+            System.out.println("No request with this ID.");
+            UIController.loopManager();
+            return;
+        }
+        if (request instanceof Enquiry) {
+            System.out.println("Invalid request type. This request ID is enquiry.");
+            UIController.loopManager();
+            return;
+        }
+        Display.displayRequest(request, UserType.MANAGER);
         System.out.println("Enter new status:");
         System.out.println("\t1. " + ApprovedStatus.PENDING);
         System.out.println("\t2. " + ApprovedStatus.SUCCESSFUL);

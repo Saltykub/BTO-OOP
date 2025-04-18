@@ -40,20 +40,21 @@ public class OfficerPage {
                 + "\n\t7. Edit Your Query"
                 + "\n\t8. Delete Your Query"
                 + "\n\t9. View Registrable Project List"
-                + "\n\t10. View Registered Project"
-                + "\n\t11. Register for Project as Officer"
-                + "\n\t12. View All Enquiries"
-                + "\n\t13. View Enquiry by ProjectID"
-                + "\n\t14. Answer Enquiries"
-                + "\n\t15. View Applicant Application Status"
-                + "\n\t16. Book Flat for Applicant"
-                + "\n\t17. Generate Receipt"
-                + "\n\t18. Generate Receipt by Applicant"
-                + "\n\t19. Generate Receipt by Project"
-                + "\n\t20. Set up Project Filter"
-                + "\n\t21. Sign out"
-                + "\n\t22. Exit");
-        System.out.print("Your choice (0-22): ");
+                + "\n\t10. View Your Projects"
+                + "\n\t11. View Your Registration Application"
+                + "\n\t12. Register for Project as Officer"
+                + "\n\t13. View All Enquiries"
+                + "\n\t14. View Enquiry by ProjectID"
+                + "\n\t15. Answer Enquiries"
+                + "\n\t16. View Applicant Application Status"
+                + "\n\t17. Book Flat for Applicant"
+                + "\n\t18. Generate Receipt"
+                + "\n\t19. Generate Receipt by Applicant"
+                + "\n\t20. Generate Receipt by Project"
+                + "\n\t21. Set up Project Filter"
+                + "\n\t22. Sign out"
+                + "\n\t23. Exit");
+        System.out.print("Your choice (0-23): ");
         int option = IOController.nextInt();
         switch (option) {
             case 0 -> {
@@ -71,21 +72,22 @@ public class OfficerPage {
             case 8 -> deleteQuery();
             case 9 -> viewRegistrableProject();
             case 10 -> viewRegisteredProject();
-            case 11 -> registerProject();
-            case 12 -> viewEnquiries();
-            case 13 -> viewEnquiriesByProject();
-            case 14 -> answerEnquiry();
-            case 15 -> viewApplicantApplicationStatus();
-            case 16 -> bookFlat();
-            case 17 -> generateReceipt();
-            case 18 -> generateReceiptByApplicant();
-            case 19 -> generateReceiptByProject();
-            case 20 -> {
+            case 11 -> viewRegistrationStatus();
+            case 12 -> registerProject();
+            case 13 -> viewEnquiries();
+            case 14 -> viewEnquiriesByProject();
+            case 15 -> answerEnquiry();
+            case 16 -> viewApplicantApplicationStatus();
+            case 17 -> bookFlat();
+            case 18 -> generateReceipt();
+            case 19 -> generateReceiptByApplicant();
+            case 20 -> generateReceiptByProject();
+            case 21 -> {
                 FilterController.setup();
                 UIController.loopOfficer();
             }
-            case 21 -> AccountController.logout();
-            case 22 -> UIController.exit();
+            case 22 -> AccountController.logout();
+            case 23 -> UIController.exit();
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();
@@ -211,6 +213,11 @@ public class OfficerPage {
 
     public static void viewRegisteredProject() {
         OfficerRequestController.viewRegisteredProject();
+        UIController.loopOfficer();
+    }
+
+    public static void viewRegistrationStatus() {
+        OfficerRequestController.viewRegistrationStatus();
         UIController.loopOfficer();
     }
 
