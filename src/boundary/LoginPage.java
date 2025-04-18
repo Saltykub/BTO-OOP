@@ -23,6 +23,22 @@ import utils.UIController;
 public class LoginPage {
     public static void welcome() {
         UIController.clearPage();
+        System.out.println(UIController.lineSeparator);
+        System.out.println("\n" + //
+                        " ____  ____  __                                             \n" + //
+                        "(  _ \\(_  _)/  \\                                            \n" + //
+                        " ) _ (  )( (  O )                                           \n" + //
+                        "(____/ (__) \\__/                                            \n" + //
+                        " _  _   __   __ _   __    ___  ____  _  _  ____  __ _  ____ \n" + //
+                        "( \\/ ) / _\\ (  ( \\ / _\\  / __)(  __)( \\/ )(  __)(  ( \\(_  _)\n" + //
+                        "/ \\/ \\/    \\/    //    \\( (_ \\ ) _) / \\/ \\ ) _) /    /  )(  \n" + //
+                        "\\_)(_/\\_/\\_/\\_)__)\\_/\\_/ \\___/(____)\\_)(_/(____)\\_)__) (__) \n" + //
+                        " ____  _  _  ____  ____  ____  _  _                         \n" + //
+                        "/ ___)( \\/ )/ ___)(_  _)(  __)( \\/ )                        \n" + //
+                        "\\___ \\ )  / \\___ \\  )(   ) _) / \\/ \\                        \n" + //
+                        "(____/(__/  (____/ (__) (____)\\_)(_/                        \n" + //
+                        "");
+        System.out.println(UIController.lineSeparator);
         System.out.println("Please enter your choice to continue.");
         System.out.println("\t1. Login");
         System.out.println("\t2. Register");
