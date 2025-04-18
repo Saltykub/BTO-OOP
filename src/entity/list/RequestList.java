@@ -11,18 +11,18 @@ import entity.request.Request;
 import utils.Converter;
 
 public class RequestList extends ModelList<Request> {
-    private static String filePath = "data_csv/RequestList.csv";
+    private static String FILE_PATH = "data_csv/RequestList.csv";
 
-    public RequestList(String filePath) {
-        super(filePath, Request.class);
+    public RequestList(String FILE_PATH) {
+        super(FILE_PATH, Request.class);
     }
 
     public static RequestList getInstance() {
-        return new RequestList(filePath);
+        return new RequestList(FILE_PATH);
     }
     
     public String getFilePath() {
-        return filePath;
+        return FILE_PATH;
     }
 
     public Request getByID(String requestID) {
@@ -35,12 +35,12 @@ public class RequestList extends ModelList<Request> {
     }
 
     @Override
-    protected void load(String filePath, boolean hasHeader) {
+    protected void load(String FILE_PATH, boolean hasHeader) {
         List<String> data = new ArrayList<>();
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
 
         if (file.exists()) {
-            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
                 if (hasHeader) {
                     br.readLine(); // Skip header
                 }

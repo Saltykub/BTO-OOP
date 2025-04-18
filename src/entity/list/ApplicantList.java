@@ -3,18 +3,18 @@ package entity.list;
 import entity.user.Applicant;
 
 public class ApplicantList extends ModelList<Applicant> {
-    private static String filePath = "data_csv/ApplicantList.csv";
+    private static String FILE_PATH = "data_csv/ApplicantList.csv";
 
-    public ApplicantList(String filePath) {
-        super(filePath,Applicant.class);
+    public ApplicantList(String FILE_PATH) {
+        super(FILE_PATH,Applicant.class);
     }
 
     public static ApplicantList getInstance() {
-        return new ApplicantList(filePath);
+        return new ApplicantList(FILE_PATH);
     }
 
     public String getFilePath() {
-        return filePath;
+        return FILE_PATH;
     }
 
     public Applicant getByID(String ID) {

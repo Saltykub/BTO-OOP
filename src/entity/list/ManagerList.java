@@ -3,18 +3,18 @@ package entity.list;
 import entity.user.Manager;
 
 public class ManagerList extends ModelList<Manager> {
-  private static final String filePath = "data_csv/ManagerList.csv";
+  private static final String FILE_PATH = "data_csv/ManagerList.csv";
   
-  public ManagerList(String filePath) {
-    super(filePath, Manager.class);
+  public ManagerList(String FILE_PATH) {
+    super(FILE_PATH, Manager.class);
   }
 
   public static ManagerList getInstance() {
-    return new ManagerList(filePath);
+    return new ManagerList(FILE_PATH);
   }
 
   public String getFilePath() {
-    return filePath;
+    return FILE_PATH;
   }
 
   public Manager getByID(String ID) {
