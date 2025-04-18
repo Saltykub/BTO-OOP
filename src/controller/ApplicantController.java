@@ -2,6 +2,7 @@ package controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import entity.project.FlatType;
 import entity.project.Project;
@@ -57,38 +58,53 @@ public class ApplicantController {
         if (!has) System.out.println("There is no applicable project.");
     }
 
-    public static void viewAppliedProject() {
+    public static void viewAppliedApplication(){
         System.out.println(UIController.lineSeparator);
-        System.out.println("                        Your Application");
+        System.out.println("                        Your Current Application");
         System.out.println(UIController.lineSeparator);
         boolean has = false;
         List<Request> requests = RequestList.getInstance().getAll();
         for (Request request : requests) {
-            if (request.getUserID().contains(applicantID) && (request.getRequestType() == RequestType.BTO_APPLICATION || request.getRequestType() == RequestType.BTO_WITHDRAWAL)) {
+            if (request.getUserID().contains(applicantID) && request.getRequestStatus() == RequestStatus.PENDING && (request.getRequestType() == RequestType.BTO_APPLICATION || request.getRequestType() == RequestType.BTO_WITHDRAWAL)) {
                 has = true;
                 Display.displayRequest(request, UserType.APPLICANT);
             }
         }
         if (!has) System.out.println("You haven't applied to any project.");
-        List<Project> list = ProjectList.getInstance().getAll();
-        System.out.println(UIController.lineSeparator);
-        System.out.println("                      Your Project History");
-        System.out.println(UIController.lineSeparator);
         has = false;
-        for (Project project : list) {
-            if (project.getApplicantID().contains(applicantID) && project.getVisibility()) {
-                FlatType flatType = checkApplicable(project.getProjectID());
-                if (flatType == FlatType.TWO_ROOM) {
-                    has = true;
-                    Display.displayProject(project, UserType.APPLICANT, FlatType.THREE_ROOM);
-                }
-                else if (flatType == FlatType.THREE_ROOM) {
-                    has = true;
-                    Display.displayProject(project, UserType.APPLICANT, null); 
-                }
+        System.out.println(UIController.lineSeparator);
+        System.out.println("                        Your Application History");
+        System.out.println(UIController.lineSeparator);
+        for (Request request : requests) {
+            if (request.getUserID().contains(applicantID) && request.getRequestStatus() == RequestStatus.DONE && (request.getRequestType() == RequestType.BTO_APPLICATION || request.getRequestType() == RequestType.BTO_WITHDRAWAL)) {
+                has = true;
+                Display.displayRequest(request, UserType.APPLICANT);
             }
         }
-        if (!has) System.out.println("No history.");
+        if (!has) System.out.println("No history");
+    }
+    
+    public static void viewAppliedProject() {
+        Applicant applicant = ApplicantList.getInstance().getByID(applicantID);
+        Project currentProject = ProjectList.getInstance().getByID(applicant.getProject());
+        System.out.println(UIController.lineSeparator);
+        System.out.println("                        Your Applied Project");
+        System.out.println(UIController.lineSeparator);
+        if(currentProject == null){
+            System.out.println("No applied project");
+        }
+        else {
+            FlatType flatType = checkApplicable(currentProject.getProjectID());
+                if (flatType == FlatType.TWO_ROOM) {
+                    System.out.println("Status: " + applicant.getApplicationStatusByID(applicant.getProject()));
+                    Display.displayProject(currentProject, UserType.APPLICANT, FlatType.THREE_ROOM);
+                    
+                }
+                else if (flatType == FlatType.THREE_ROOM) {
+                    System.out.println("Status: " + applicant.getApplicationStatusByID(applicant.getProject()));
+                    Display.displayProject(currentProject, UserType.APPLICANT, null); 
+            }
+        }
     }
 
     public static void applyProject(String projectID, FlatType applyFlat) throws ProjectNotFoundException {   

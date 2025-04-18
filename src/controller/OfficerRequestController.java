@@ -2,7 +2,6 @@ package controller;
 
 import java.util.List;
 
-import entity.list.ManagerList;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
 import entity.list.RequestList;
@@ -70,7 +69,7 @@ public class OfficerRequestController {
         for (Project project : list) {
             if (project.getOfficerID().contains(officerID)) {
                 has = true;
-                System.out.println(project);
+                Display.displayProject(project, UserType.OFFICER, null);
             }
         }
         if (!has) System.out.println("You haven't registered to any project.");

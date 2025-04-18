@@ -1,7 +1,7 @@
 package utils;
 
 public enum SortType {
-    LOCATION,
+    NAME,
     PRICE,
     DATE,
 }

@@ -24,7 +24,8 @@ public class FilterController {
     public static List<Project> filteredList(List<Project> project){
 
         // filter flatType
-        for(Project p: project){
+        List<Project> temp = new ArrayList<>(project);
+        for(Project p: temp){
             Map<FlatType,Integer> mp = p.getAvailableUnit();
             if(flatType == null) {
                 if(mp.get(FlatType.THREE_ROOM) == 0 && mp.get(FlatType.TWO_ROOM) == 0) project.remove(p);
@@ -34,13 +35,13 @@ public class FilterController {
         }
         // other filter
         return project.stream()
-            .filter(p -> location == null || location.stream().anyMatch(p.getNeighborhood()::contains))
+            .filter(p -> location == null || location.isEmpty() || location.stream().anyMatch(p.getNeighborhood()::contains))
             .filter(p -> priceLowerBound == null || 
                 (p.getPrice().get(FlatType.THREE_ROOM) >= priceLowerBound) && p.getPrice().get(FlatType.TWO_ROOM) >= priceLowerBound)
-            .filter(p -> priceLowerBound == null || 
+            .filter(p -> priceUpperBound == null || 
                 (p.getPrice().get(FlatType.THREE_ROOM) <= priceUpperBound) && p.getPrice().get(FlatType.TWO_ROOM) <= priceUpperBound)
-            .filter(p -> startDate == null || (p.getOpenDate() != null && !p.getOpenDate().isAfter(startDate)))
-            .filter(p -> endDate == null || (p.getCloseDate() != null && !p.getCloseDate().isBefore(endDate)))
+            .filter(p -> startDate == null || (p.getOpenDate().isAfter(startDate)))
+            .filter(p -> endDate == null || (p.getCloseDate().isBefore(endDate)))
             .sorted((p1, p2) -> {
                 switch (sortType) {
                     case PRICE:
@@ -50,9 +51,9 @@ public class FilterController {
                         );
                     case DATE:
                         return p1.getOpenDate().compareTo(p2.getOpenDate());
-                    case LOCATION:
-                        String loc1 = p1.getNeighborhood().isEmpty() ? "" : p1.getNeighborhood().get(0);
-                        String loc2 = p2.getNeighborhood().isEmpty() ? "" : p2.getNeighborhood().get(0);
+                    case NAME:
+                        String loc1 = p1.getName();
+                        String loc2 = p2.getName();
                         return loc1.compareTo(loc2);
                     default:
                         return 0;
@@ -96,9 +97,9 @@ public class FilterController {
             case 2 -> flatType = FlatType.THREE_ROOM;
             case 3 -> flatType = null;
         }
-        System.out.print("Please enter start date:");
+        System.out.println("Please enter start date:");
         startDate = IOController.nextDate();
-        System.out.print("Please enter end date:");
+        System.out.println("Please enter end date:");
         endDate = IOController.nextDate();
         System.out.println("Enter sort type:");
         System.out.println("\t1. " + "Location");
@@ -110,7 +111,7 @@ public class FilterController {
             tmpint = IOController.nextInt();
         }
         switch(tmpint){
-            case 1 -> sortType = SortType.LOCATION;
+            case 1 -> sortType = SortType.NAME;
             case 2 -> sortType = SortType.PRICE ;
             case 3 -> sortType = SortType.DATE;
         }
@@ -122,7 +123,7 @@ public class FilterController {
         priceUpperBound = null;
         startDate = null;
         endDate = null;
-        sortType = SortType.LOCATION;
+        sortType = SortType.NAME;
     }
 
     

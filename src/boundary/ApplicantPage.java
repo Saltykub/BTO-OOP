@@ -25,16 +25,17 @@ public class ApplicantPage {
                 + "\n\t0. View Profile"
                 + "\n\t1. View Applicable Project"
                 + "\n\t2. View Applied Projects"
-                + "\n\t3. Apply for Project"
-                + "\n\t4. Withdraw Application"
-                + "\n\t5. Make Query"
-                + "\n\t6. View Query"
-                + "\n\t7. Edit Query"
-                + "\n\t8. Delete Query"
-                + "\n\t9. Set up Project Filter"
-                + "\n\t10. Sign out"
-                + "\n\t11. Exit");
-        System.out.print("Your choice (0-11): ");
+                + "\n\t3. View Applied Applications"
+                + "\n\t4. Apply for Project"
+                + "\n\t5. Withdraw Application"
+                + "\n\t6. Make Query"
+                + "\n\t7. View Query"
+                + "\n\t8. Edit Query"
+                + "\n\t9. Delete Query"
+                + "\n\t10. Set up Project Filter"
+                + "\n\t11. Sign out"
+                + "\n\t12. Exit");
+        System.out.print("Your choice (0-12): ");
         int option = IOController.nextInt();
         switch (option) {
             case 0 -> {
@@ -43,18 +44,19 @@ public class ApplicantPage {
             }
             case 1 -> viewApplicableProject();
             case 2 -> viewAppliedProject();
-            case 3 -> applyProject();
-            case 4 -> withdrawApplication();
-            case 5 -> query();
-            case 6 -> viewQuery();
-            case 7 -> editQuery();
-            case 8 -> deleteQuery();
-            case 9 -> {
+            case 3 -> viewAppliedApplication();
+            case 4 -> applyProject();
+            case 5 -> withdrawApplication();
+            case 6 -> query();
+            case 7 -> viewQuery();
+            case 8 -> editQuery();
+            case 9 -> deleteQuery();
+            case 10 -> {
                 FilterController.setup();
                 UIController.loopApplicant();
             }
-            case 10 -> AccountController.logout();
-            case 11 -> UIController.exit();
+            case 11 -> AccountController.logout();
+            case 12 -> UIController.exit();
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();
@@ -63,6 +65,7 @@ public class ApplicantPage {
         }
     }
 
+   
     public static void viewApplicableProject() {
         ApplicantController.viewApplicableProject();
         UIController.loopApplicant();
@@ -70,6 +73,11 @@ public class ApplicantPage {
 
     public static void viewAppliedProject() {
         ApplicantController.viewAppliedProject();
+        UIController.loopApplicant();
+    }
+
+    public static void viewAppliedApplication(){
+        ApplicantController.viewAppliedApplication();
         UIController.loopApplicant();
     }
 

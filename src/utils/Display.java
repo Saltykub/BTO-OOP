@@ -120,6 +120,7 @@ public class Display {
                 System.out.println("default");
             }
         }
-        System.out.println("-------------------------------------------------------------------");
+        //System.out.println("-------------------------------------------------------------------");
+        System.out.println();
     }
 }
