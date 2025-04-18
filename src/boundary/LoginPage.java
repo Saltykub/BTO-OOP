@@ -2,6 +2,7 @@ package boundary;
 
 import controller.AccountController;
 import controller.ApplicantController;
+import controller.FilterController;
 import controller.ManagerProjectController;
 import controller.ManagerRequestController;
 import controller.OfficerProjectController;
@@ -48,6 +49,7 @@ public class LoginPage {
         System.out.print("Enter password: ");
         String password = IOController.readPassword();
         try {
+            FilterController.init();
             User user = AccountController.login(userID, password);
             ApplicantController.setApplicantID(userID);
             if (user instanceof Manager) {

@@ -52,7 +52,10 @@ public class ManagerPage {
         System.out.print("Your choice (0-17): ");
         int option = IOController.nextInt();
         switch (option) {
-            case 0 -> Display.displayManager(ManagerList.getInstance().getByID(AccountController.getUserID()));
+            case 0 -> {
+                Display.displayManager(ManagerList.getInstance().getByID(AccountController.getUserID()));
+                UIController.loopManager();
+            }
             case 1 -> viewEnquiries();
             case 2 -> answerEnquiries();
             case 3 -> viewProjectList();
@@ -67,7 +70,10 @@ public class ManagerPage {
             case 12 -> toggleVisibility();
             case 13 -> viewOfficerRegistrationStatus();
             case 14 -> generateReport();
-            case 15 -> FilterController.setup();
+            case 15 -> {
+                FilterController.setup();
+                UIController.loopManager();
+            }
             case 16 -> AccountController.logout();
             case 17 -> UIController.exit();
             default -> {
@@ -374,8 +380,7 @@ public class ManagerPage {
     }
 
     public static void generateReport() {
-        // TODO: ManagerProjectController.generateReport(requestID);
-        
+        ManagerProjectController.generateReport();  
         UIController.loopManager();
     }
 }

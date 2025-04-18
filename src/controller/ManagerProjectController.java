@@ -154,7 +154,7 @@ public class ManagerProjectController {
         System.out.println("\t1. Two Room");
         System.out.println("\t2. Three Room");
         System.out.print("Your choice (1-2): ");
-        FlatType flatType= null;
+        FlatType flatType = null;
         while (flatType == null) {
             int flat = IOController.nextInt();
             switch (flat) {
@@ -163,9 +163,10 @@ public class ManagerProjectController {
                 default -> System.out.println("Invalid choice. Please try again."); 
             }
         }
+
         final FlatType finalFlatType = flatType;
         List<Applicant> report = ApplicantList.getInstance().getAll().stream()
-        .filter(a -> a.getProject().equals(projectID))
+        .filter(a -> a.getProject() != null && a.getProject().equals(projectID))
         .filter(a -> a.getAge() >= from && a.getAge() <= to)
         .filter(a -> a.getMaritalStatus() == finalStatus)
         .filter(a -> a.getAppliedFlat().get(a.getProject()) == finalFlatType)

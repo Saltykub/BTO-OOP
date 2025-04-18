@@ -116,5 +116,14 @@ public class FilterController {
         }
     }
 
+    public static void init(){
+        location = null;
+        priceLowerBound = null;
+        priceUpperBound = null;
+        startDate = null;
+        endDate = null;
+        sortType = SortType.LOCATION;
+    }
+
     
 }
