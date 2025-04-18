@@ -33,7 +33,7 @@ public class ManagerPage {
     public static void allOptions() {
         UIController.clearPage();
         System.out.println(UIController.lineSeparator);
-        System.out.println("\n" + //
+        System.out.println(
                         " _  _   __   __ _   __    ___  ____  ____    ____   __    ___  ____ \n" + //
                         "( \\/ ) / _\\ (  ( \\ / _\\  / __)(  __)(  _ \\  (  _ \\ / _\\  / __)(  __)\n" + //
                         "/ \\/ \\/    \\/    //    \\( (_ \\ ) _)  )   /   ) __//    \\( (_ \\ ) _) \n" + //

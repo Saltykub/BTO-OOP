@@ -19,7 +19,7 @@ public class ApplicantPage {
     public static void allOptions() {
         UIController.clearPage();
         System.out.println(UIController.lineSeparator);
-        System.out.println("\n" + //
+        System.out.println(
                         "  __  ____ ____ __   __ ___  __  __ _ ____    ____  __   ___ ____ \n" + //
                         " / _\\(  _ (  _ (  ) (  / __)/ _\\(  ( (_  _)  (  _ \\/ _\\ / __(  __)\n" + //
                         "/    \\) __/) __/ (_/\\)( (__/    /    / )(     ) __/    ( (_ \\) _) \n" + //

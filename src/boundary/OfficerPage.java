@@ -27,7 +27,7 @@ public class OfficerPage {
     public static void allOptions() {
         UIController.clearPage();
         System.out.println(UIController.lineSeparator);
-        System.out.println("\n" + //
+        System.out.println(
                         "  __  ____  ____  __  ___  ____  ____    ____   __    ___  ____ \n" + //
                         " /  \\(  __)(  __)(  )/ __)(  __)(  _ \\  (  _ \\ / _\\  / __)(  __)\n" + //
                         "(  O )) _)  ) _)  )(( (__  ) _)  )   /   ) __//    \\( (_ \\ ) _) \n" + //

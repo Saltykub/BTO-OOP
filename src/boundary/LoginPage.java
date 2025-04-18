@@ -24,7 +24,7 @@ public class LoginPage {
     public static void welcome() {
         UIController.clearPage();
         System.out.println(UIController.lineSeparator);
-        System.out.println("\n" + //
+        System.out.println(
                         " ____  ____  __                                             \n" + //
                         "(  _ \\(_  _)/  \\                                            \n" + //
                         " ) _ (  )( (  O )                                           \n" + //

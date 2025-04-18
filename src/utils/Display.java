@@ -19,7 +19,6 @@ import entity.user.RegistrationStatus;
 import entity.user.UserType;
 
 public class Display {
-    
     public static void displayApplicant(Applicant user, boolean profile){
         System.out.println("------------------------- Applicant Info --------------------------");
         System.out.println("Name: " + user.getName());
@@ -30,7 +29,7 @@ public class Display {
             System.out.println("Applied Project: " + user.getProject());
             System.out.println("Application Status:");
             for (Map.Entry<String, ApplicationStatus> entry : user.getApplicationStatus().entrySet()) {
-                System.out.println("  " + entry.getKey() + " = " + entry.getValue());
+                System.out.println("  " + entry.getKey() + " = " + entry.getValue().coloredString());
             }
         } 
         if(user.getProject()!= null) System.out.println("Flat Type: " + user.getAppliedFlat().get(user.getProject())); 
@@ -46,7 +45,7 @@ public class Display {
         System.out.println("Registered Projects: " + String.join(", ", user.getOfficerProject()));
         System.out.println("Registration Status:");
         for (Map.Entry<String, RegistrationStatus> entry : user.getRegistrationStatus().entrySet()) {
-            System.out.println("  " + entry.getKey() + " = " + entry.getValue());
+            System.out.println("  " + entry.getKey() + " = " + entry.getValue().coloredString());
         }
         System.out.println("-------------------------------------------------------------------");
     }
@@ -101,13 +100,13 @@ public class Display {
         if(userType != UserType.APPLICANT) System.out.println("User ID: " + request.getUserID());
         switch (request.getRequestType()){
             case REGISTRATION -> {
-                if(request instanceof OfficerRegistration registration)System.out.println("Registration status: " + registration.getRegistrationStatus());
+                if(request instanceof OfficerRegistration registration)System.out.println("Registration status: " + registration.getRegistrationStatus().coloredString());
             }
             case BTO_APPLICATION -> {
-                if(request instanceof BTOApplication application)System.out.println("Applicantion status: " + application.getApplicationStatus());
+                if(request instanceof BTOApplication application)System.out.println("Applicantion status: " + application.getApplicationStatus().coloredString());
             }
             case BTO_WITHDRAWAL -> {
-                if(request instanceof BTOWithdrawal application)System.out.println("Withdrawal status: " + application.getWithdrawalStatus());
+                if(request instanceof BTOWithdrawal application)System.out.println("Withdrawal status: " + application.getWithdrawalStatus().coloredString());
             }
             case ENQUIRY -> {
                 if(request instanceof Enquiry enquiry) {

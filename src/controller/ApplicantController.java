@@ -60,7 +60,7 @@ public class ApplicantController {
 
     public static void viewAppliedApplication(){
         System.out.println(UIController.lineSeparator);
-        System.out.println("                        Your Current Application");
+        System.out.println("                    Your Current Application");
         System.out.println(UIController.lineSeparator);
         boolean has = false;
         List<Request> requests = RequestList.getInstance().getAll();
@@ -73,7 +73,7 @@ public class ApplicantController {
         if (!has) System.out.println("You haven't applied to any project.");
         has = false;
         System.out.println(UIController.lineSeparator);
-        System.out.println("                        Your Application History");
+        System.out.println("                     Your Application History");
         System.out.println(UIController.lineSeparator);
         for (Request request : requests) {
             if (request.getUserID().contains(applicantID) && request.getRequestStatus() == RequestStatus.DONE && (request.getRequestType() == RequestType.BTO_APPLICATION || request.getRequestType() == RequestType.BTO_WITHDRAWAL)) {
@@ -88,7 +88,7 @@ public class ApplicantController {
         Applicant applicant = ApplicantList.getInstance().getByID(applicantID);
         Project currentProject = ProjectList.getInstance().getByID(applicant.getProject());
         System.out.println(UIController.lineSeparator);
-        System.out.println("                        Your Applied Project");
+        System.out.println("                      Your Applied Project");
         System.out.println(UIController.lineSeparator);
         if(currentProject == null){
             System.out.println("No applied project");
@@ -96,12 +96,12 @@ public class ApplicantController {
         else {
             FlatType flatType = checkApplicable(currentProject.getProjectID());
                 if (flatType == FlatType.TWO_ROOM) {
-                    System.out.println("Status: " + applicant.getApplicationStatusByID(applicant.getProject()));
+                    System.out.println("Status: " + applicant.getApplicationStatusByID(applicant.getProject()).coloredString());
                     Display.displayProject(currentProject, UserType.APPLICANT, FlatType.THREE_ROOM);
                     
                 }
                 else if (flatType == FlatType.THREE_ROOM) {
-                    System.out.println("Status: " + applicant.getApplicationStatusByID(applicant.getProject()));
+                    System.out.println("Status: " + applicant.getApplicationStatusByID(applicant.getProject()).coloredString());
                     Display.displayProject(currentProject, UserType.APPLICANT, null); 
             }
         }

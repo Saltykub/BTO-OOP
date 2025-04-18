@@ -56,7 +56,7 @@ public class OfficerProjectController {
             for (Applicant applicant : ApplicantList.getInstance().getAll()) {
                 if (applicant.getProject() == id) {
                     Display.displayApplicant(applicant, false);
-                    System.out.println("Status: " + applicant.getApplicationStatusByID(id));
+                    System.out.println("Status: " + applicant.getApplicationStatusByID(id).coloredString());
                 }
             }
         }
@@ -68,7 +68,7 @@ public class OfficerProjectController {
         for (Applicant applicant : ApplicantList.getInstance().getAll()) {
             if (applicant.getProject() == projectID) {
                 Display.displayApplicant(applicant, false);
-                System.out.println("Status: " + applicant.getApplicationStatusByID(projectID));
+                System.out.println("Status: " + applicant.getApplicationStatusByID(projectID).coloredString());
             }
         } 
     }
@@ -83,7 +83,7 @@ public class OfficerProjectController {
             for (Applicant applicant : ApplicantList.getInstance().getAll()) {
                 if (applicant.getProject() == id && applicant.getApplicationStatusByID(id) == status) {
                     Display.displayApplicant(applicant, false);
-                    System.out.println("Status: " + applicant.getApplicationStatusByID(id));
+                    System.out.println("Status: " + applicant.getApplicationStatusByID(id).coloredString());
                 }
             }
         }
@@ -95,7 +95,7 @@ public class OfficerProjectController {
         for (Applicant applicant : ApplicantList.getInstance().getAll()) {
             if (applicant.getProject() == projectID && applicant.getApplicationStatusByID(projectID) == status) {
                 Display.displayApplicant(applicant, false);
-                System.out.println("Status: " + applicant.getApplicationStatusByID(projectID));
+                System.out.println("Status: " + applicant.getApplicationStatusByID(projectID).coloredString());
             }
         } 
     }
