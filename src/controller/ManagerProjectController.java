@@ -112,11 +112,14 @@ public class ManagerProjectController {
 
     public static void viewOfficerRegistrationStatus() {
         List<Request> list = RequestList.getInstance().getAll();
+        boolean has = false;
         for (Request request : list) {
             if (request instanceof OfficerRegistration) {
+                has = true;
                 Display.displayRequest(request, UserType.MANAGER);
             }
         }
+        if (!has) System.out.println("There is no registration application.");
     }
 
     public static void viewProjectList(String managerID) throws ProjectNotFoundException {
