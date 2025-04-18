@@ -97,6 +97,7 @@ public abstract class ModelList<T> {
 
     protected void save(String filePath) { 
         try (PrintWriter printWriter = new PrintWriter(new FileWriter(filePath))) {
+            if (list.isEmpty()) return;
             T val = list.get(0);
             String header = Converter.getField(val);
             printWriter.println(header);

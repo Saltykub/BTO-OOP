@@ -359,7 +359,7 @@ public class ManagerPage {
     public static void toggleVisibility() {
         System.out.print("Project ID: ");
         String projectID = IOController.nextLine();
-        try{
+        try {
             ManagerProjectController.toggleVisibility(projectID);
         } catch(ProjectNotFoundException e) {
             System.out.println(e.getMessage());

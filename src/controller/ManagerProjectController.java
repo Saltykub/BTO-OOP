@@ -105,7 +105,7 @@ public class ManagerProjectController {
     public static void toggleVisibility(String projectID) throws ProjectNotFoundException {
         Project project = ProjectList.getInstance().getByID(projectID);
         if(project == null) throw new ProjectNotFoundException();
-        project.setVisibility(!project.getVisibility());;
+        project.setVisibility(!project.getVisibility());
         ProjectList.getInstance().update(projectID, project);
         System.out.println("Successfully toggled visibility of project (ProjectID: " + projectID + ").");
     }
