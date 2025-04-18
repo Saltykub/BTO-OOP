@@ -45,7 +45,7 @@ public class Converter<T> {
             }
             for(Field i:f) fields.add(i);
             String[] values = line.split(",");
-            List<String> lineData = Arrays.asList(values);
+            List<String> lineData = new ArrayList<>(Arrays.asList(values));
             int idx = 0; // values iterator 
             for(Field field: fields){
                 field.setAccessible(true);
@@ -155,7 +155,7 @@ public class Converter<T> {
     public static List<String> stringToList(String data){
         if(data.equals("null")) return new ArrayList<>();
         String[] values = data.split(LIST_SEPARATOR);
-        List<String> ret = Arrays.asList(values);
+        List<String> ret = new ArrayList<>(Arrays.asList(values));
         return ret;
     }
 
@@ -184,10 +184,10 @@ public class Converter<T> {
         Map<A,B> ret = new HashMap<>();
         if (data.equals("null")) return ret;
         String[] values = data.split(LIST_SEPARATOR);
-        List<String> valuesList = Arrays.asList(values);
+        List<String> valuesList = new ArrayList<>(Arrays.asList(values));
         for(String value:valuesList){
             String[] mp = value.split(MAP_SEPARATOR);
-            List<String> mpList = Arrays.asList(mp);
+            List<String> mpList = new ArrayList<>(Arrays.asList(mp));
             A key = convert(mpList.get(0), keyType);
             B val = convert(mpList.get(1), valueType);
             ret.put(key,val);
@@ -249,7 +249,7 @@ public class Converter<T> {
 
     public static Class<? extends Request> getRequestClass(String s){
         String[] parts = s.split(",");
-        List<String> ls = Arrays.asList(parts);
+        List<String> ls = new ArrayList<>(Arrays.asList(parts));
         String type = ls.get(1);
         try {
             return switch (RequestType.valueOf(type)) {

@@ -100,21 +100,44 @@ public class ManagerRequestController {
             if (status == ApprovedStatus.SUCCESSFUL) {
                 officer.setRegistrationStatusByID(request.getProjectID(), RegistrationStatus.APPROVED);
                 Project p = ProjectList.getInstance().getByID(request.getProjectID());
+                if (p.getAvailableOfficer() == 0) {
+                    System.out.println("There is no available vacancy for officer in this project!");
+                    return;
+                }
                 List<String> o = p.getOfficerID();
-                o.add(officer.getUserID());
-                p.setOfficerID(o);
-                ProjectList.getInstance().update(request.getProjectID(), p);
+                if (!o.contains(officer.getUserID())) {
+                    o.add(officer.getUserID());
+                    p.setOfficerID(o);
+                    p.setAvailableOfficer(p.getAvailableOfficer() - 1);
+                    ProjectList.getInstance().update(request.getProjectID(), p);
+                }
+                List<String> project = officer.getOfficerProject();
+                if (!project.contains(request.getProjectID())) {
+                    project.add(request.getProjectID());
+                    officer.setOfficerProject(project);
+                }   
             }
             else if (status == ApprovedStatus.UNSUCCESSFUL) {
                 officer.setRegistrationStatusByID(request.getProjectID(), RegistrationStatus.REJECTED); 
+                Project p = ProjectList.getInstance().getByID(request.getProjectID());
+                List<String> o = p.getOfficerID();
+                if (o.contains(officer.getUserID())) {
+                    o.remove(officer.getUserID());
+                    p.setOfficerID(o);
+                    p.setAvailableOfficer(p.getAvailableOfficer() + 1);
+                    ProjectList.getInstance().update(request.getProjectID(), p);
+                }
                 List<String> project = officer.getOfficerProject();
-                project.remove(request.getProjectID());
-                officer.setOfficerProject(project);
+                if (project.contains(request.getProjectID())) {
+                    project.remove(request.getProjectID());
+                    officer.setOfficerProject(project);
+                }
             }
             OfficerList.getInstance().update(officer.getUserID(), officer);
             application.setRegistrationStatus(status);
             RequestList.getInstance().update(requestID, application);
         }
+        System.out.println("Successfully change application status.");
         if (status != ApprovedStatus.PENDING) changeRequestStatus(requestID, RequestStatus.DONE);
         else changeRequestStatus(requestID, RequestStatus.PENDING);
     }

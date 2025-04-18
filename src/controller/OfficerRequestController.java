@@ -50,26 +50,30 @@ public class OfficerRequestController {
 
     public static void viewRegisteredProject() {
         System.out.println(UIController.lineSeparator);
-        System.out.println("                        Your Application");
+        System.out.println("                        Your Projects");
         System.out.println(UIController.lineSeparator);
         boolean has = false;
-        List<Request> requests = RequestList.getInstance().getAll();
-        for (Request request : requests) {
-            if (request.getUserID().contains(officerID) && (request.getRequestType() == RequestType.REGISTRATION)) {
-                has = true;
-                Display.displayRequest(request, UserType.OFFICER);
-            }
+        List<String> projects = OfficerList.getInstance().getByID(officerID).getOfficerProject();
+        for (String projectID : projects) {
+            Project project = ProjectList.getInstance().getByID(projectID);
+            has = true;
+            Display.displayProject(project, UserType.OFFICER, null);
         }
-        if (!has) System.out.println("You haven't applied to any project.");
-        List<Project> list = ProjectList.getInstance().getAll();
+        if (!has) System.out.println("You don't have any project.");
+    }
+
+    public static void viewRegistrationStatus() {
+        List<Request> list = RequestList.getInstance().getAll();
         System.out.println(UIController.lineSeparator);
-        System.out.println("                      Your Project History");
+        System.out.println("                      Your Registration History");
         System.out.println(UIController.lineSeparator);
-        has = false;
-        for (Project project : list) {
-            if (project.getOfficerID().contains(officerID)) {
-                has = true;
-                Display.displayProject(project, UserType.OFFICER, null);
+        boolean has = false;
+        for (Request request : list) {
+            if (request instanceof OfficerRegistration r) {
+                if (r.getUserID().equals(officerID)) {
+                    has = true;
+                    Display.displayRequest(request, UserType.OFFICER);
+                }
             }
         }
         if (!has) System.out.println("You haven't registered to any project.");
