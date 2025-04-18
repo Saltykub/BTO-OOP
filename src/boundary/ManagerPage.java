@@ -6,7 +6,6 @@ import controller.AccountController;
 import controller.FilterController;
 import controller.ManagerProjectController;
 import controller.ManagerRequestController;
-import controller.OfficerProjectController;
 import controller.OfficerRequestController;
 import entity.list.ManagerList;
 import entity.list.OfficerList;
@@ -34,59 +33,52 @@ public class ManagerPage {
         System.out.println(UIController.lineSeparator);
         System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
                 + "\n\t0. View Profile"
-                + "\n\t1. View Enquiries"
-                + "\n\t8. View All Enquiries"
-                + "\n\t2. Answer Enquiries"
-                + "\n\t3. View Project List"
-                + "\n\t5. View Requests"
-                + "\n\t7. Change Applicant Application"
-                + "\n\t9. Create Project"
-                + "\n\t10. Edit Project"
-                + "\n\t11. Delete Project"
-                + "\n\t12. Toggle Visibility"
-                + "\n\t13. View Officer Registration Status"
-                + "\n\t14. Generate Report"
-                + "\n\t15. Set up Project Filter"
-                + "\n\t16. Sign out"
-                + "\n\t17. Exit");
-        System.out.print("Your choice (0-17): ");
+                + "\n\t1. View Project List"
+                + "\n\t2. Create Project"
+                + "\n\t3. Edit Project"
+                + "\n\t4. Delete Project"
+                + "\n\t5. Toggle Visibility"
+                + "\n\t6. View Requests"
+                + "\n\t7. View Officer Registration Status"
+                + "\n\t8. Change Application Status"
+                + "\n\t9. View Enquiries"
+                + "\n\t10. View All Enquiries"
+                + "\n\t11. Answer Enquiries"
+                + "\n\t12. Generate Report"
+                + "\n\t13. Set up Project Filter"
+                + "\n\t14. Sign out"
+                + "\n\t15. Exit");
+        System.out.print("Your choice (0-15): ");
         int option = IOController.nextInt();
         switch (option) {
             case 0 -> {
                 Display.displayManager(ManagerList.getInstance().getByID(AccountController.getUserID()));
                 UIController.loopManager();
             }
-            case 1 -> viewEnquiries();
-            case 2 -> answerEnquiries();
-            case 3 -> viewProjectList();
-            case 4 -> viewApplicantApplicationStatus();
-            case 5 -> viewRequest();
-            case 6 -> changeRequestStatus();
-            case 7 -> changeApplicationStatus();
-            case 8 -> viewAllEnquiries();
-            case 9 -> createProject();
-            case 10 -> editProject();
-            case 11 -> deleteProject();
-            case 12 -> toggleVisibility();
-            case 13 -> viewOfficerRegistrationStatus();
-            case 14 -> generateReport();
-            case 15 -> {
+            case 1 -> viewProjectList();
+            case 2 -> createProject();
+            case 3 -> editProject();
+            case 4 -> deleteProject();
+            case 5 -> toggleVisibility();
+            case 6 -> viewRequest();
+            case 7 -> viewOfficerRegistrationStatus();
+            case 8 -> changeApplicationStatus();
+            case 9 -> viewEnquiries();
+            case 10 -> viewAllEnquiries();
+            case 11 -> answerEnquiries();
+            case 12 -> generateReport();
+            case 13 -> {
                 FilterController.setup();
                 UIController.loopManager();
             }
-            case 16 -> AccountController.logout();
-            case 17 -> UIController.exit();
+            case 14 -> AccountController.logout();
+            case 15 -> UIController.exit();    
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();
                 allOptions();
             }
         }
-    }
-
-    public static void viewRegisteredProject() {
-        OfficerRequestController.viewRegisteredProject();
-        UIController.loopManager();
     }
 
     public static void viewEnquiries() {
@@ -112,11 +104,6 @@ public class ManagerPage {
         }  catch (ProjectNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        UIController.loopManager();
-    }
-
-    public static void viewApplicantApplicationStatus() {
-        OfficerProjectController.viewApplicantApplicationStatus();
         UIController.loopManager();
     }
 

@@ -12,6 +12,7 @@ import entity.request.OfficerRegistration;
 import entity.request.Request;
 import entity.request.RequestStatus;
 import entity.user.Applicant;
+import entity.user.ApplicationStatus;
 import entity.user.Manager;
 import entity.user.Officer;
 import entity.user.RegistrationStatus;
@@ -27,7 +28,10 @@ public class Display {
         System.out.println("Marital Status: " + user.getMaritalStatus());
         if(profile && user.getProject() != null) {
             System.out.println("Applied Project: " + user.getProject());
-            System.out.println("Application Status: " + user.getApplicationStatus());
+            System.out.println("Application Status:");
+            for (Map.Entry<String, ApplicationStatus> entry : user.getApplicationStatus().entrySet()) {
+                System.out.println("  " + entry.getKey() + " = " + entry.getValue());
+            }
         } 
         if(user.getProject()!= null) System.out.println("Flat Type: " + user.getAppliedFlat().get(user.getProject())); 
         System.out.println("-------------------------------------------------------------------");

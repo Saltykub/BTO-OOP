@@ -2,6 +2,7 @@ package boundary;
 
 import controller.AccountController;
 import controller.ApplicantController;
+import controller.FilterController;
 import entity.list.ApplicantList;
 import entity.list.ProjectList;
 import entity.project.FlatType;
@@ -30,12 +31,16 @@ public class ApplicantPage {
                 + "\n\t6. View Query"
                 + "\n\t7. Edit Query"
                 + "\n\t8. Delete Query"
-                + "\n\t9. Sign out"
-                + "\n\t10. Exit");
-        System.out.print("Your choice (0-10): ");
+                + "\n\t9. Set up Project Filter"
+                + "\n\t10. Sign out"
+                + "\n\t11. Exit");
+        System.out.print("Your choice (0-11): ");
         int option = IOController.nextInt();
         switch (option) {
-            case 0 -> Display.displayApplicant(ApplicantList.getInstance().getByID(AccountController.getUserID()), true);
+            case 0 -> {
+                Display.displayApplicant(ApplicantList.getInstance().getByID(AccountController.getUserID()), true);
+                UIController.loopApplicant();
+            }
             case 1 -> viewApplicableProject();
             case 2 -> viewAppliedProject();
             case 3 -> applyProject();
@@ -44,8 +49,12 @@ public class ApplicantPage {
             case 6 -> viewQuery();
             case 7 -> editQuery();
             case 8 -> deleteQuery();
-            case 9 -> AccountController.logout();
-            case 10 -> UIController.exit();
+            case 9 -> {
+                FilterController.setup();
+                UIController.loopApplicant();
+            }
+            case 10 -> AccountController.logout();
+            case 11 -> UIController.exit();
             default -> {
                 System.out.println("Invalid choice. Press ENTER to try again.");
                 IOController.nextLine();
