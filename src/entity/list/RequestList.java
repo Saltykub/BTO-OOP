@@ -11,7 +11,7 @@ import entity.request.Request;
 import utils.Converter;
 
 public class RequestList extends ModelList<Request> {
-    private static String FILE_PATH = "data_csv/RequestList.csv";
+    private static final String FILE_PATH = "data_csv/RequestList.csv";
 
     public RequestList(String FILE_PATH) {
         super(FILE_PATH, Request.class);
