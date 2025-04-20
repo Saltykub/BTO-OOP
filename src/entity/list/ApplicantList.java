@@ -3,7 +3,7 @@ package entity.list;
 import entity.user.Applicant;
 
 public class ApplicantList extends ModelList<Applicant> {
-    private static String FILE_PATH = "data_csv/ApplicantList.csv";
+    private static final String FILE_PATH = "data_csv/ApplicantList.csv";
 
     public ApplicantList(String FILE_PATH) {
         super(FILE_PATH,Applicant.class);
