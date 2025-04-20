@@ -3,7 +3,7 @@ package entity.list;
 import entity.user.Officer;
 
 public class OfficerList extends ModelList<Officer> {
-  private static String FILE_PATH = "data_csv/OfficerList.csv";
+  private static final String FILE_PATH = "data_csv/OfficerList.csv";
   
   public OfficerList(String FILE_PATH) {
     super(FILE_PATH,Officer.class);
