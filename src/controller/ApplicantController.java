@@ -156,6 +156,10 @@ public class ApplicantController {
     }
     
     public static void query(String projectID, String text) {
+        if (checkApplicable(projectID) == null) {
+            System.out.println("Unable to enquiry irrelevant project.");
+            return;
+        }
         RequestList.getInstance().add(new Enquiry(IDController.newRequestID(), RequestType.ENQUIRY, applicantID, projectID, RequestStatus.PENDING, text));
     }
 

@@ -110,7 +110,7 @@ public class Display {
             }
             case ENQUIRY -> {
                 if(request instanceof Enquiry enquiry) {
-                    System.out.println("Status: " + enquiry.getRequestStatus());
+                    System.out.println("Status: " + enquiry.getRequestStatus().coloredString());
                     System.out.println("Query: " + enquiry.getQuery());
                     if(enquiry.getRequestStatus() != RequestStatus.PENDING) System.out.println("Answer: " + enquiry.getAnswer());
                 }
