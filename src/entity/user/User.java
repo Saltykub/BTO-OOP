@@ -1,66 +1,25 @@
 package entity.user;
 
-public class User {
-    private String userID;
-    private String name;
-    private String hashedPassword;
-    private int age;
-    private MaritalStatus maritalStatus;
+public interface User {
+   
+    public String getUserID();
 
-    public User() {
-        this.userID = "";
-        this.name = "";
-        this.hashedPassword = "";
-        this.age = 0;
-        this.maritalStatus = MaritalStatus.SINGLE; // or null if you prefer
-    }
+    public void setUserID(String userID);
 
-    public User(String userID, String name, String hashedPassword, int age, MaritalStatus maritalStatus) {
-        this.userID = userID;
-        this.name = name;
-        this.hashedPassword = hashedPassword;
-        this.age = age;
-        this.maritalStatus = maritalStatus;
-    }
+    public String getName();
 
-    public String getUserID() {
-        return userID;
-    }
+    public void setName(String name);
 
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
+    public String getHashedPassword();
 
-    public String getName() {
-        return name;
-    }
+    public void setHashedPassoword(String hashedPassword);
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public int getAge();
 
-    public String getHashedPassword() {
-        return hashedPassword;
-    }
+    public void setAge(int age);
 
-    public void setHashedPassoword(String hashedPassword) {
-        this.hashedPassword = hashedPassword;
-    }
+    public MaritalStatus getMaritalStatus();
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public MaritalStatus getMaritalStatus() {
-        return maritalStatus;
-    }
-
-    public void setMaritalStatus(MaritalStatus maritalStatus) {
-        this.maritalStatus = maritalStatus;
-    }
+    public void setMaritalStatus(MaritalStatus maritalStatus);
 
 }

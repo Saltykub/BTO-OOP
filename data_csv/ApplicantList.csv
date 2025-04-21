@@ -1,4 +1,4 @@
-userID,name,hashedPassword,age,maritalStatus,project,applicationStatus,appliedFlat
+applicantID,name,hashedPassword,age,maritalStatus,project,applicationStatus,appliedFlat
 S1234567A,John,wAZ9SvTofwDbrGO2FWgoI3BZFy0bvqxnQnNF1qn9pIQ=,35,SINGLE,null,null,null
 T7654321B,Sarah,wAZ9SvTofwDbrGO2FWgoI3BZFy0bvqxnQnNF1qn9pIQ=,40,MARRIED,null,null,null
 S9876543C,Grace,wAZ9SvTofwDbrGO2FWgoI3BZFy0bvqxnQnNF1qn9pIQ=,37,MARRIED,null,null,null
