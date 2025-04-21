@@ -9,9 +9,12 @@ import entity.project.FlatType;
 import entity.project.Project;
 import entity.user.Applicant;
 import entity.user.ApplicationStatus;
+import entity.user.Manager;
 import entity.user.Officer;
+import entity.user.User;
 import entity.user.UserType;
 import utils.Display;
+import utils.UIController;
 
 public class OfficerProjectController {
     private static String officerID;
@@ -54,9 +57,9 @@ public class OfficerProjectController {
             Project project = ProjectList.getInstance().getByID(id);
             Display.displayProject(project, UserType.OFFICER,null);
             for (Applicant applicant : ApplicantList.getInstance().getAll()) {
-                if (applicant.getProject() == id) {
-                    Display.displayApplicant(applicant, false);
+                if (applicant.getProject() != null && applicant.getProject().equals(id)) {
                     System.out.println("Status: " + applicant.getApplicationStatusByID(id).coloredString());
+                    Display.displayApplicant(applicant, false);
                 }
             }
         }
@@ -66,9 +69,9 @@ public class OfficerProjectController {
         Project project = ProjectList.getInstance().getByID(projectID);
         Display.displayProject(project, UserType.OFFICER,null);
         for (Applicant applicant : ApplicantList.getInstance().getAll()) {
-            if (applicant.getProject() == projectID) {
-                Display.displayApplicant(applicant, false);
+            if (applicant.getProject() != null && applicant.getProject().equals(projectID)) {
                 System.out.println("Status: " + applicant.getApplicationStatusByID(projectID).coloredString());
+                Display.displayApplicant(applicant, false);
             }
         } 
     }
@@ -81,9 +84,9 @@ public class OfficerProjectController {
             Project project = ProjectList.getInstance().getByID(id);
             Display.displayProject(project, UserType.OFFICER,null);
             for (Applicant applicant : ApplicantList.getInstance().getAll()) {
-                if (applicant.getProject() == id && applicant.getApplicationStatusByID(id) == status) {
-                    Display.displayApplicant(applicant, false);
+                if (applicant.getProject() != null && applicant.getProject().equals(id) && applicant.getApplicationStatusByID(id) == status) {
                     System.out.println("Status: " + applicant.getApplicationStatusByID(id).coloredString());
+                    Display.displayApplicant(applicant, false);
                 }
             }
         }
@@ -102,12 +105,25 @@ public class OfficerProjectController {
 
     public static void bookFlat(String applicantID) {
         // no need to pass project because applicant can has only 1 project 
-        Applicant applicant = ApplicantList.getInstance().getByID(applicantID);
+        User user = ApplicantList.getInstance().getByID(applicantID);
+        if ((user instanceof Manager) || user == null) {
+            System.out.println("Invalid applicant ID.");
+            return;
+        }
+        Applicant applicant = (Applicant)user;
         String projectID = applicant.getProject();
         Officer officer = OfficerList.getInstance().getByID(officerID);
-        if (!officer.getOfficerProject().contains(projectID)) {
-            System.out.println("You are not allowed to book flat for applicant in other's project");
+        if (projectID == null || !officer.getOfficerProject().contains(projectID)) {
+            System.out.println("You are not allowed to book flat for applicant in other's project.");
             return;
+        }
+        if (applicant.getApplicationStatusByID(projectID) == ApplicationStatus.BOOKED) {
+            System.out.println("Flat has been booked for this applicant already.");
+            return; 
+        }
+        else if (applicant.getApplicationStatusByID(projectID) != ApplicationStatus.SUCCESSFUL) {
+            System.out.println("This applicant hasn't been approved yet.");
+            return; 
         }
         Project project = ProjectList.getInstance().getByID(projectID);
         FlatType flat = applicant.getAppliedFlatByID(projectID);
@@ -119,6 +135,7 @@ public class OfficerProjectController {
         }
         ProjectList.getInstance().update(projectID, project);
         ApplicantList.getInstance().update(applicantID, applicant);
+        System.out.println("Successfully booked a flat for this applicant.");
     }
 
     public static void generateReceipt() {

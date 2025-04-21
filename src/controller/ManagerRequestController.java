@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import entity.list.ApplicantList;
+import entity.list.ManagerList;
 import entity.list.OfficerList;
 import entity.list.ProjectList;
 import entity.list.RequestList;
@@ -11,12 +12,14 @@ import entity.project.Project;
 import entity.request.ApprovedStatus;
 import entity.request.BTOApplication;
 import entity.request.BTOWithdrawal;
+import entity.request.Enquiry;
 import entity.request.OfficerRegistration;
 import entity.request.Request;
 import entity.request.RequestStatus;
 import entity.request.RequestType;
 import entity.user.Applicant;
 import entity.user.ApplicationStatus;
+import entity.user.Manager;
 import entity.user.Officer;
 import entity.user.RegistrationStatus;
 import entity.user.UserType;
@@ -142,10 +145,27 @@ public class ManagerRequestController {
         else changeRequestStatus(requestID, RequestStatus.PENDING);
     }
 
+    public static void viewEnquiries() {
+        List<Request> list = RequestList.getInstance().getAll();
+        Manager m = ManagerList.getInstance().getByID(managerID);
+        List<String> projectID = m.getProject();
+        boolean has = false;
+        for (Request request : list) {
+            for (String id : projectID) {
+                if (request.getProjectID().equals(id) && request.getRequestType() == RequestType.ENQUIRY) {
+                    has = true;
+                    Display.displayRequest(request, UserType.MANAGER);
+                    break;
+                }
+            }
+        }
+        if (!has) System.out.println("There is no enquiry.");
+    }
+
     public static void viewAllEnquiries() {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {
-            if (request.getRequestType() == RequestType.ENQUIRY) {
+            if (request instanceof Enquiry) {
                 Display.displayRequest(request, UserType.MANAGER);
             }
         }

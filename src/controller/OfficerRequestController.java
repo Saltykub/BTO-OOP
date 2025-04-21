@@ -33,11 +33,11 @@ public class OfficerRequestController {
             for (String id : officerProject) {
                 Project p = ProjectList.getInstance().getByID(id);
                 if (p.getCloseDate().isBefore(project.getOpenDate()) || project.getCloseDate().isBefore(p.getOpenDate())) continue;
+                can = false;
+                break;
             }
             if (can) {
                 Officer officer = OfficerList.getInstance().getByID(officerID);
-                officerProject.add(projectID);
-                officer.setOfficerProject(officerProject);
                 officer.setRegistrationStatusByID(projectID, RegistrationStatus.PENDING);
                 OfficerList.getInstance().update(officerID, officer);
                 RequestList.getInstance().add(new OfficerRegistration(IDController.newRequestID(), RequestType.REGISTRATION, officerID, projectID, RequestStatus.PENDING));

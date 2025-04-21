@@ -1,5 +1,4 @@
 applicantID,name,hashedPassword,age,maritalStatus,project,applicationStatus,appliedFlat
-S1234567A,John,wAZ9SvTofwDbrGO2FWgoI3BZFy0bvqxnQnNF1qn9pIQ=,35,SINGLE,null,null,null
 T7654321B,Sarah,wAZ9SvTofwDbrGO2FWgoI3BZFy0bvqxnQnNF1qn9pIQ=,40,MARRIED,null,null,null
 S9876543C,Grace,wAZ9SvTofwDbrGO2FWgoI3BZFy0bvqxnQnNF1qn9pIQ=,37,MARRIED,null,null,null
 T2345678D,James,wAZ9SvTofwDbrGO2FWgoI3BZFy0bvqxnQnNF1qn9pIQ=,30,MARRIED,null,null,null
@@ -13,3 +12,4 @@ S8888888A,Pete,lPQcyFkF7w+936rsnf9HHnWviRi/JKzgzBxYKTjGOCY=,35,SINGLE,null,null,
 S9999999A,managertest,lPQcyFkF7w+936rsnf9HHnWviRi/JKzgzBxYKTjGOCY=,50,MARRIED,null,null,null
 S6666666A,Test,lPQcyFkF7w+936rsnf9HHnWviRi/JKzgzBxYKTjGOCY=,20,SINGLE,null,null,null
 S7777777A,Nathan,lPQcyFkF7w+936rsnf9HHnWviRi/JKzgzBxYKTjGOCY=,21,MARRIED,P0001,P0001::MAP::PENDING::LIST::P0002::MAP::UNSUCCESSFUL,P0001::MAP::TWO_ROOM::LIST::P0002::MAP::TWO_ROOM
+S1234567A,John,wAZ9SvTofwDbrGO2FWgoI3BZFy0bvqxnQnNF1qn9pIQ=,35,SINGLE,P0001,P0001::MAP::BOOKED,P0001::MAP::TWO_ROOM

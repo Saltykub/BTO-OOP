@@ -1,5 +1,11 @@
 # BTO-OOP
 
+## Run
+All the compiled class files are contained in `App.jar` file, so you can directly run the program with this command:
+```bash
+java -jar out/App.jar
+```
+
 ## To-Do
 
 ### Diagram

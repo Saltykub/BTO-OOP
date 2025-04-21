@@ -16,6 +16,7 @@ import entity.project.Project;
 import entity.request.ApprovedStatus;
 import entity.request.Enquiry;
 import entity.request.Request;
+import entity.request.RequestStatus;
 import entity.user.UserType;
 import exception.ProjectNotFoundException;
 import utils.Display;
@@ -95,14 +96,36 @@ public class ManagerPage {
     }
 
     public static void viewEnquiries() {
-        OfficerRequestController.viewEnquiries();
+        ManagerRequestController.viewEnquiries();
         UIController.loopManager();
     }
 
     public static void answerEnquiries() {
         System.out.print("Enter the request ID to answer: ");
         String requestID = IOController.nextLine();
-        System.out.print("Enter your answer:");
+        List<String> projects = ManagerList.getInstance().getByID(AccountController.getUserID()).getProject();
+        Request query = RequestList.getInstance().getByID(requestID);
+        if (query == null) {
+            System.out.println("This request ID is not existed.");
+            UIController.loopManager();
+            return;
+        }
+        if (!(query instanceof Enquiry)) {
+            System.out.println("This request ID is not enquiry.");
+            UIController.loopManager();
+            return;
+        }
+        if (query.getRequestStatus() == RequestStatus.DONE) {
+            System.out.println("This enquiry has been answered.");
+            UIController.loopManager();
+            return;
+        }
+        if (!projects.contains(requestID)) {
+            System.out.println("You are not allowed to change application status of other's project.");
+            UIController.loopManager();
+            return;
+        }
+        System.out.print("Enter your answer: ");
         String answer = IOController.nextLine();
         OfficerRequestController.answerEnquiry(requestID,answer);
         UIController.loopManager();
@@ -115,7 +138,7 @@ public class ManagerPage {
         try{
             ManagerProjectController.viewProjectList(managerID);
         }  catch (ProjectNotFoundException e) {
-            System.out.println(e.getMessage());
+            System.out.println("No projects found.");
         }
         UIController.loopManager();
     }
@@ -136,6 +159,12 @@ public class ManagerPage {
         }
         if (request instanceof Enquiry) {
             System.out.println("Invalid request type. This request ID is enquiry.");
+            UIController.loopManager();
+            return;
+        }
+        List<String> projects = ManagerList.getInstance().getByID(AccountController.getUserID()).getProject();
+        if (!projects.contains(request.getProjectID())) {
+            System.out.println("You are not allowed to change application status of other's project.");
             UIController.loopManager();
             return;
         }
@@ -179,7 +208,7 @@ public class ManagerPage {
             System.out.print("Please enter valid number: ");
             tmpint = IOController.nextInt();
         }
-        System.out.println("List of neigbourhood:");
+        if (tmpint > 0) System.out.println("List of neigbourhood:");
         while (tmpint > 0) {
             System.out.print("\t: ");
             tmp = IOController.nextLine();        
@@ -251,7 +280,7 @@ public class ManagerPage {
                 System.out.print("Please enter valid number: ");
                 tmpint = IOController.nextInt();
             }
-            System.out.println("List of neigbourhood:");
+            if (tmpint > 0) System.out.println("List of neigbourhood:");
             while (tmpint > 0) {
                 System.out.print("\t: ");
                 tmp = IOController.nextLine();        

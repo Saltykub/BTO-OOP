@@ -1,5 +1,7 @@
 package boundary;
 
+import java.util.List;
+
 import controller.AccountController;
 import controller.ApplicantController;
 import controller.FilterController;
@@ -14,7 +16,9 @@ import entity.project.Project;
 import entity.request.Enquiry;
 import entity.request.Request;
 import entity.request.RequestStatus;
+import entity.user.User;
 import entity.user.Applicant;
+import entity.user.Manager;
 import entity.user.MaritalStatus;
 import exception.ProjectNotFoundException;
 import utils.Display;
@@ -265,7 +269,13 @@ public class OfficerPage {
         }
         if (query.getRequestStatus() == RequestStatus.DONE) {
             System.out.println("This enquiry has been answered.");
-            UIController.loopOfficer();;
+            UIController.loopOfficer();
+            return;
+        }
+        List<String> projects = OfficerList.getInstance().getByID(AccountController.getUserID()).getOfficerProject();
+        if (!projects.contains(requestID)) {
+            System.out.println("You are not allowed to change application status of other's project.");
+            UIController.loopOfficer();
             return;
         }
         System.out.print("Enter your answer: ");
