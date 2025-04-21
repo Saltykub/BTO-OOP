@@ -5,7 +5,7 @@ import boundary.ManagerPage;
 import boundary.OfficerPage;
 
 public class UIController {
-    public static final String lineSeparator = "===================================================================";
+    public static final String LINE_SEPARATOR = "===================================================================";
     
     public static void clearPage() {
         try {

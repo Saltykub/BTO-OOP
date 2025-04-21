@@ -178,12 +178,12 @@ public class ManagerProjectController {
         .filter(a -> a.getMaritalStatus() == finalStatus)
         .filter(a -> a.getAppliedFlat().get(a.getProject()) == finalFlatType)
         .collect(Collectors.toList());
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("                           Report");
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         for(Applicant applicant:report){
             Display.displayApplicant(applicant, false);
         }
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
     }
 }

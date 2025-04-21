@@ -35,7 +35,7 @@ public class RequestList extends ModelList<Request> {
     }
 
     @Override
-    protected void load(String FILE_PATH, boolean hasHeader) {
+    public void load(String FILE_PATH, boolean hasHeader) {
         List<String> data = new ArrayList<>();
         File file = new File(FILE_PATH);
 

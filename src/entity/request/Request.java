@@ -1,7 +1,7 @@
 package entity.request;
 
 // Request class
-public class Request {
+public class Request implements Requestable {
     // Attributes
     private String requestID;
     private RequestType requestType;

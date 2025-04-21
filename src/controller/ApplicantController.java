@@ -58,9 +58,9 @@ public class ApplicantController {
     }
 
     public static void viewAppliedApplication(){
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("                    Your Current Application");
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         boolean has = false;
         List<Request> requests = RequestList.getInstance().getAll();
         for (Request request : requests) {
@@ -71,9 +71,9 @@ public class ApplicantController {
         }
         if (!has) System.out.println("You haven't applied to any project.");
         has = false;
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("                     Your Application History");
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         for (Request request : requests) {
             if (request.getUserID().contains(applicantID) && request.getRequestStatus() == RequestStatus.DONE && (request.getRequestType() == RequestType.BTO_APPLICATION || request.getRequestType() == RequestType.BTO_WITHDRAWAL)) {
                 has = true;
@@ -86,9 +86,9 @@ public class ApplicantController {
     public static void viewAppliedProject() {
         Applicant applicant = ApplicantList.getInstance().getByID(applicantID);
         Project currentProject = ProjectList.getInstance().getByID(applicant.getProject());
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("                      Your Applied Project");
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         if(currentProject == null){
             System.out.println("No applied project");
         }

@@ -7,7 +7,7 @@ import utils.Converter;
 import java.util.ArrayList;
 import java.io.*;
 
-public abstract class ModelList<T> {
+public abstract class ModelList<T> implements Saveable {
     private Class<T> clazz;
     private List<T> list;
 
@@ -61,7 +61,7 @@ public abstract class ModelList<T> {
     }
 
     // Protected methods (for persistence)
-    protected void load(String filePath, boolean hasHeader){
+    public void load(String filePath, boolean hasHeader){
         List<String> data = new ArrayList<>();
         File file = new File(filePath);
         // load data if exist
@@ -95,7 +95,7 @@ public abstract class ModelList<T> {
         }
     }
 
-    protected void save(String filePath) { 
+    public void save(String filePath) { 
         try (PrintWriter printWriter = new PrintWriter(new FileWriter(filePath))) {
             if (list.isEmpty()) return;
             T val = list.get(0);

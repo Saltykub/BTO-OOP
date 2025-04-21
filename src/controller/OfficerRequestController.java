@@ -49,9 +49,9 @@ public class OfficerRequestController {
     }
 
     public static void viewRegisteredProject() {
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("                        Your Projects");
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         boolean has = false;
         List<String> projects = OfficerList.getInstance().getByID(officerID).getOfficerProject();
         List<Project> list = FilterController.filteredListFromID(projects);
@@ -64,9 +64,9 @@ public class OfficerRequestController {
 
     public static void viewRegistrationStatus() {
         List<Request> list = RequestList.getInstance().getAll();
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("                      Your Registration History");
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         boolean has = false;
         for (Request request : list) {
             if (request instanceof OfficerRegistration r) {

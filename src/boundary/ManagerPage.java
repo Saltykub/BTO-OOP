@@ -32,14 +32,14 @@ public class ManagerPage {
     // Page management methods
     public static void allOptions() {
         UIController.clearPage();
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println(
                         " _  _   __   __ _   __    ___  ____  ____    ____   __    ___  ____ \n" + //
                         "( \\/ ) / _\\ (  ( \\ / _\\  / __)(  __)(  _ \\  (  _ \\ / _\\  / __)(  __)\n" + //
                         "/ \\/ \\/    \\/    //    \\( (_ \\ ) _)  )   /   ) __//    \\( (_ \\ ) _) \n" + //
                         "\\_)(_/\\_/\\_/\\_)__)\\_/\\_/ \\___/(____)(__\\_)  (__)  \\_/\\_/ \\___/(____)\n" + //
                         "");
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
                 + "\n\t0. View Profile"
                 + "\n\t1. View Project List"

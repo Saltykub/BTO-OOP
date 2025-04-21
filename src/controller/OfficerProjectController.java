@@ -14,7 +14,6 @@ import entity.user.Officer;
 import entity.user.User;
 import entity.user.UserType;
 import utils.Display;
-import utils.UIController;
 
 public class OfficerProjectController {
     private static String officerID;

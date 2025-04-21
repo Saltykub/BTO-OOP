@@ -18,14 +18,14 @@ public class ApplicantPage {
 
     public static void allOptions() {
         UIController.clearPage();
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println(
                         "  __  ____ ____ __   __ ___  __  __ _ ____    ____  __   ___ ____ \n" + //
                         " / _\\(  _ (  _ (  ) (  / __)/ _\\(  ( (_  _)  (  _ \\/ _\\ / __(  __)\n" + //
                         "/    \\) __/) __/ (_/\\)( (__/    /    / )(     ) __/    ( (_ \\) _) \n" + //
                         "\\_/\\_(__) (__) \\____(__\\___\\_/\\_\\_)__)(__)   (__) \\_/\\_/\\___(____)\n" + //
                         "");
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("Welcome, " + ApplicantList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
                 + "\n\t0. View Profile"
                 + "\n\t1. View Applicable Project"

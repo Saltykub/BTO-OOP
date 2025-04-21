@@ -33,7 +33,7 @@ public class FilterController {
     }    
 
     public static void displayFilter() {
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("Your Current Filter:");
         if (location != null) System.out.println("Location: " + String.join(", ", location));
         if (priceLowerBound != null) System.out.println("Lowest Price: " + priceLowerBound);
@@ -42,7 +42,7 @@ public class FilterController {
         if (startDate != null) System.out.println("Start Date: " + startDate); 
         if (endDate != null) System.out.println("Close Date: " + endDate);
         if (sortType != null) System.out.println("Sort By: " + sortType);
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
     }
 
     public static List<Project> filteredListFromID(List<String> IDList) {

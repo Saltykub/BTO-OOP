@@ -16,9 +16,7 @@ import entity.project.Project;
 import entity.request.Enquiry;
 import entity.request.Request;
 import entity.request.RequestStatus;
-import entity.user.User;
 import entity.user.Applicant;
-import entity.user.Manager;
 import entity.user.MaritalStatus;
 import exception.ProjectNotFoundException;
 import utils.Display;
@@ -30,14 +28,14 @@ public class OfficerPage {
     // Page management methods
     public static void allOptions() {
         UIController.clearPage();
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println(
                         "  __  ____  ____  __  ___  ____  ____    ____   __    ___  ____ \n" + //
                         " /  \\(  __)(  __)(  )/ __)(  __)(  _ \\  (  _ \\ / _\\  / __)(  __)\n" + //
                         "(  O )) _)  ) _)  )(( (__  ) _)  )   /   ) __//    \\( (_ \\ ) _) \n" + //
                         " \\__/(__)  (__)  (__)\\___)(____)(__\\_)  (__)  \\_/\\_/ \\___/(____)\n" + //
                         "");
-        System.out.println(UIController.lineSeparator);
+        System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("Welcome, " + OfficerList.getInstance().getByID(AccountController.getUserID()).getName() + ". Please enter your choice."
                 + "\n\t0. View Profile"
                 + "\n\t1. View Applicable Project"
