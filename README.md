@@ -18,7 +18,7 @@ SC2002 AY24-25 Semester 2 | Lab Group: FDDA | Group: 1
 
 ## Links
 * [Main Page](https://autoastt.github.io/BTO-OOP)
-* [Report]()
+* [Report](/Report.pdf)
 * [Class Diagram & Sequence Diagram](https://autoastt.github.io/BTO-OOP/uml)
 * [Javadoc](https://autoastt.github.io/BTO-OOP/javadoc)
 
