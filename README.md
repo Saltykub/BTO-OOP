@@ -35,11 +35,15 @@ jar cfm out/App.jar out/manifest.txt -C out .
 ```
 
 ## Members
-* Juirnarongrit Nathan (U2321878E)
-* Kongkijpipat Peeranat (U2323360A)
-* Nur Farhana Binte Mohammad Salleh (U2230582E)
-* Sai Harsha Venugopal (U2321873F)
-* Sathwiik Sai Krishna Kumar (U2420780E)
-* Sean Kong Kai Jie (U2130632E)
+
+| Name                              | Matric Number  | GitHub                                                    |
+|-----------------------------------|----------------|-----------------------------------------------------------|
+| Juirnarongrit Nathan              | U2321878E      | [Saltykub](https://github.com/Saltykub)                   |
+| Kongkijpipat Peeranat             | U2323360A      | [autoastt](https://github.com/autoastt)                   |
+| Nur Farhana Binte Mohammad Salleh | U2230582E      | [wheresfarhana](https://github.com/wheresfarhana)         |
+| Sai Harsha Venugopal              | U2321873F      | [finalauraa](https://github.com/finalauraa)               |
+| Sathwiik Sai Krishna Kumar        | U2420780E      | [sathwiik](https://github.com/sathwiik)                   |
+| Sean Kong Kai Jie                 | U2130632E      | [Sean-Yong88](https://github.com/Sean-Yong88)             |
+
 
 
