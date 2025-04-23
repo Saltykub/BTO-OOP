@@ -18,7 +18,23 @@ import entity.user.Officer;
 import entity.user.RegistrationStatus;
 import entity.user.UserType;
 
+/**
+ * Utility class containing static methods for displaying formatted information
+ * about various entity objects (Applicants, Officers, Managers, Projects, Requests)
+ * to the standard console output. Provides different views based on context (e.g., user type).
+ */
 public class Display {
+
+    
+    /**
+     * Displays formatted information about an Applicant.
+     * If {@code profile} is true, it includes details about the applied project and application status history.
+     * Always shows basic details like name, ID, age, marital status, and applied flat type if applicable.
+     *
+     * @param user    The {@link Applicant} object to display.
+     * @param profile If true, display extended profile information including application history;
+     * if false, display basic information.
+     */
     public static void displayApplicant(Applicant user, boolean profile){
         System.out.println("------------------------- Applicant Info --------------------------");
         System.out.println("Name: " + user.getName());
@@ -36,6 +52,12 @@ public class Display {
         System.out.println("-------------------------------------------------------------------");
     }
 
+    /**
+     * Displays formatted information about an Officer.
+     * Includes basic details, list of registered project IDs, and registration status history.
+     *
+     * @param user The {@link Officer} object to display.
+     */
     public static void displayOfficer(Officer user){
         System.out.println("-------------------------- Officer Info ---------------------------");
         System.out.println("Name: " + user.getName());
@@ -50,6 +72,12 @@ public class Display {
         System.out.println("-------------------------------------------------------------------");
     }
 
+      /**
+     * Displays formatted information about a Manager.
+     * Includes basic details and a list of project IDs they created/manage.
+     *
+     * @param user The {@link Manager} object to display.
+     */
     public static void displayManager(Manager user){
         System.out.println("-------------------------- Manager Info ---------------------------");
         System.out.println("Name: " + user.getName());
@@ -61,6 +89,17 @@ public class Display {
 
     }
 
+     /**
+     * Displays formatted information about a Project.
+     * The level of detail depends on the {@code user} type viewing the project.
+     * The {@code flatType} parameter can filter the display of units and prices
+     * (e.g., if viewing as an applicant only eligible for TWO_ROOM, THREE_ROOM details might be hidden).
+     *
+     * @param project  The {@link Project} object to display.
+     * @param user     The {@link UserType} of the user viewing the project (determines detail level).
+     * @param flatType A {@link FlatType} used for filtering display (e.g., hide details irrelevant to user eligibility).
+     * If null, typically all flat type details are shown.
+     */
     public static void displayProject(Project project, UserType user, FlatType flatType){
         System.out.println("------------------------- Project Info ---------------------------");
         System.out.println("Project ID: " + project.getProjectID());
@@ -92,6 +131,16 @@ public class Display {
         System.out.println("-------------------------------------------------------------------");
     }
 
+    /**
+     * Displays formatted information about a Request.
+     * Adjusts displayed details based on the {@code userType} viewing the request
+     * (e.g., hides User ID for Applicants).
+     * Displays specific status or query/answer details based on the actual subclass of the Request
+     * (OfficerRegistration, BTOApplication, BTOWithdrawal, Enquiry).
+     *
+     * @param request  The {@link Request} object (or a subclass instance) to display.
+     * @param userType The {@link UserType} of the user viewing the request.
+     */
     public static void displayRequest(Request request, UserType userType){
         System.out.println("------------------------- Request Info ---------------------------");
         System.out.println("Request ID: " + request.getRequestID());
