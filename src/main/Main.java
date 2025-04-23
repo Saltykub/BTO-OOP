@@ -1,3 +1,5 @@
+package main;
+
 import boundary.LoginPage;
 import utils.IDController;
 
