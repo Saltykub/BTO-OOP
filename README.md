@@ -1,55 +1,43 @@
-# BTO-OOP
+# Build-To-Order Management System
+```
+ ____ _  _ __ __   ____    ____ __      __ ____ ____ ____ ____ 
+(  _ / )( (  (  ) (    \  (_  _/  \    /  (  _ (    (  __(  _ \
+ ) _ ) \/ ()(/ (_/\) D (    )((  O )  (  O )   /) D () _) )   /
+(____\____(__\____(____/   (__)\__/    \__(__\_(____(____(__\_)
+ _  _   __   __ _   __    ___  ____  _  _  ____  __ _  ____ 
+( \/ ) / _\ (  ( \ / _\  / __)(  __)( \/ )(  __)(  ( \(_  _)
+/ \/ \/    \/    //    \( (_ \ ) _) / \/ \ ) _) /    /  )(  
+\_)(_/\_/\_/\_)__)\_/\_/ \___/(____)\_)(_/(____)\_)__) (__) 
+ ____  _  _  ____  ____  ____  _  _                         
+/ ___)( \/ )/ ___)(_  _)(  __)( \/ )                        
+\___ \ )  / \___ \  )(   ) _) / \/ \                        
+(____/(__/  (____/ (__) (____)\_)(_/
 
-## Run
+SC2002 AY24-25 Semester 2 | Lab Group: FDDA | Group: 1
+```
+
+## Links
+* [Report]()
+* [Class Diagram]()
+* [Sequence Diagram]()
+* [Javadoc](https://autoastt.github.io/BTO-OOP/javadoc)
+
+## Run the Project
 All the compiled class files are contained in `App.jar` file, so you can directly run the program with this command:
 ```bash
 java -jar out/App.jar
 ```
 
-## To-Do
+To recompile:
+```bash
+javac -d out src/**/*.java
+jar cfm out/App.jar out/manifest.txt -C out .
+```
 
-### Diagram
-- [ ] Class Diagram
-  - [ ] Main
-  - [ ] Entity
-  - [ ] Control
-  - [ ] Boundary
-- [ ] Sequence Diagram
-
-### Code
-- [ ] Project
-- [ ] Enquiry
-- [ ] User
-  - [ ] Login
-  - [ ] Change password
-  - [ ] View profile
-  - [ ] Filter projects list
-- [ ] Applicant
-  - [ ] View projects list
-  - [ ] Apply for a project
-  - [ ] Withdraw an application
-  - [ ] Enquire
-  - [ ] View their enquiries
-- [ ] Officer
-  - [ ] Register to join a project
-  - [ ] View registration status
-  - [ ] View handling projects
-  - [ ] View handling project's enquiries
-  - [ ] Reply enquiries
-  - [ ] Book a flat for applicants
-  - [ ] Generate a receipt
-- [ ] Manager
-  - [ ] Manage (create, edit, and delete) a project
-  - [ ] View handling projects
-  - [ ] Toggle project's visibility
-  - [ ] View all projects
-  - [ ] View created projects
-  - [ ] View officer's registration status (pending/approved)
-  - [ ] Approve/reject officer's registration
-  - [ ] Approve/reject applicant's BTO application
-  - [ ] Approve/reject applicant's withdrawal
-  - [ ] Generate a report
-    - [ ] Filters
-  - [ ] View enquiries of any project
-  - [ ] Reply enquiries
-- [ ] Javadoc
+## Members
+* Juirnarongrit Nathan (U2321878E)
+* Kongkijpipat Peeranat (U2323360A)
+* Nur Farhana Binte Mohammad Salleh (U2230582E)
+* Sai Harsha Venugopal (U2321873F)
+* Sathwiik Sai Krishna Kumar (U2420780E)
+* Sean Kong Kai Jie (U2130632E)
