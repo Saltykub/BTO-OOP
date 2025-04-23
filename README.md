@@ -17,9 +17,9 @@ SC2002 AY24-25 Semester 2 | Lab Group: FDDA | Group: 1
 ```
 
 ## Links
+* [Main Page](https://autoastt.github.io/BTO-OOP)
 * [Report]()
-* [Class Diagram]()
-* [Sequence Diagram]()
+* [Class Diagram & Sequence Diagram](https://autoastt.github.io/BTO-OOP/uml)
 * [Javadoc](https://autoastt.github.io/BTO-OOP/javadoc)
 
 ## Run the Project
@@ -41,3 +41,5 @@ jar cfm out/App.jar out/manifest.txt -C out .
 * Sai Harsha Venugopal (U2321873F)
 * Sathwiik Sai Krishna Kumar (U2420780E)
 * Sean Kong Kai Jie (U2130632E)
+
+
