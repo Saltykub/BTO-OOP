@@ -31,6 +31,7 @@ public class IDController {
     }
 
     public static String newProjectID() {
+        init();
         String projectID = Integer.toString(++projectCount);
         while (projectID.length() < 4) {
             projectID = "0" + projectID;
@@ -39,6 +40,7 @@ public class IDController {
     }
 
     public static String newRequestID() {
+        init();
         String requestID = Integer.toString(++reqeustCount);
         while (requestID.length() < 4) {
             requestID = "0" + requestID;
