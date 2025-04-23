@@ -13,7 +13,7 @@
 \___ \ )  / \___ \  )(   ) _) / \/ \                        
 (____/(__/  (____/ (__) (____)\_)(_/
 
-SC2002 AY24-25 Semester 2 | Lab Group: FDDA | Group: 1
+SC2002 AY24-25 Semester 2 | Lab Group: FDAA | Group: 1
 ```
 
 ## Links
