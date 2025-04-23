@@ -1,4 +1,4 @@
-> You can access the PDF version [here](/uml/pdf/)
+> You can access the PDF version [here](https://github.com/autoastt/BTO-OOP/tree/main/uml/pdf)
 
 # Class Diagram
 
