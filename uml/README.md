@@ -1,5 +1,5 @@
-> [!NOTE]
 > You can access the PDF version [here](/uml/pdf/)
+
 # Class Diagram
 
 ## Main Diagram
