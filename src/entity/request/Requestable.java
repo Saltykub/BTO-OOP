@@ -1,5 +1,9 @@
 package entity.request;
-
+/**
+ * Defines the essential contract for any object that represents a request
+ * within the system. Implementing classes must provide methods to get and set
+ * core request attributes like ID, type, associated user and project IDs, and status.
+ */
 public interface Requestable {
     public String getRequestID();
 
