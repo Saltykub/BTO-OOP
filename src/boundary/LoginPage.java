@@ -20,7 +20,18 @@ import exception.UserNotFoundException;
 import utils.IOController;
 import utils.UIController;
 
+/**
+ * Represents the boundary layer for handling user login, registration, and initial interactions.
+ * This class provides static methods to display the welcome screen, handle login attempts,
+ * facilitate user registration, and allow users to change their passwords.
+ */
 public class LoginPage {
+
+    /**
+     * Displays the initial welcome screen and the main menu options (Login, Register, Change Password, Exit).
+     * Prompts the user for their choice and directs them to the corresponding functionality.
+     * Handles invalid input and loops until a valid choice is made or the user exits.
+     */
     public static void welcome() {
         UIController.clearPage();
         System.out.println(UIController.LINE_SEPARATOR);
@@ -60,6 +71,15 @@ public class LoginPage {
         }
     }
 
+    /**
+     * Handles the user login process.
+     * Prompts for user ID and password.
+     * Calls the {@link AccountController#login(String, String)} method to authenticate the user.
+     * If successful, initializes relevant controllers based on the user type (Manager, Officer, Applicant)
+     * and navigates to the appropriate user page.
+     * Catches and displays messages for {@link UserNotFoundException} and {@link PasswordIncorrectException}.
+     * Allows the user to retry login or return to the welcome screen.
+     */
     public static void login() {
         UIController.clearPage();
         System.out.print("Enter ID: ");
@@ -96,6 +116,15 @@ public class LoginPage {
         }
     }
 
+    /**
+     * Handles the user registration process.
+     * Prompts the user to select a user type (Applicant, Officer, Manager).
+     * Prompts for necessary user details: ID, password, name, age, and marital status.
+     * Calls {@link AccountController#register(UserType, String, String, String, int, MaritalStatus)} to create the user account.
+     * Catches and displays messages for {@link InvalidUserFormatException} or {@link AlreadyRegisteredException}.
+     * Allows the user to retry registration or return to the welcome screen upon failure.
+     * Returns to the welcome screen upon successful registration.
+     */
     public static void register() {
         UIController.clearPage();
         System.out.println("Enter User Type: ");
@@ -150,7 +179,16 @@ public class LoginPage {
             }
         }
     }
-    
+
+    /**
+     * Handles the password change process for a user.
+     * Prompts for the user ID and the current password.
+     * Verifies the current password using {@link AccountController#checkPassword(String, String)}.
+     * If correct, prompts for the new password.
+     * Calls {@link AccountController#changePassword(String, String, String)} to update the password.
+     * Catches and displays messages for {@link UserNotFoundException} or {@link PasswordIncorrectException}.
+     * Allows the user to retry or return to the welcome screen upon failure or completion.
+     */
     public static void changePassword() {
         UIController.clearPage();
         System.out.print("Enter ID: ");

@@ -26,10 +26,20 @@ import utils.UIController;
 
 import java.time.*;
 
+/**
+ * Represents the boundary layer for handling manager interactions and displaying the manager menu.
+ * This class provides static methods for managers to manage projects (create, edit, delete, toggle visibility),
+ * handle requests and enquiries (view, change status, answer), manage filters, view officer status,
+ * and generate reports.
+ */
 public class ManagerPage {
     String requestID;
 
-    // Page management methods
+    /**
+     * Displays the main menu options available to the logged-in manager.
+     * Reads the manager's choice and navigates to the corresponding functionality.
+     * Handles invalid input and loops back to the main menu or exits the application.
+     */
     public static void allOptions() {
         UIController.clearPage();
         System.out.println(UIController.LINE_SEPARATOR);
@@ -95,11 +105,29 @@ public class ManagerPage {
         }
     }
 
+    /**
+     * Displays enquiries specifically assigned to or related to the current manager's projects.
+     * Delegates the display logic to {@link ManagerRequestController#viewEnquiries()}.
+     * Loops back to the manager menu afterwards.
+     */
     public static void viewEnquiries() {
         ManagerRequestController.viewEnquiries();
         UIController.loopManager();
     }
 
+    /**
+     * Handles the process for a manager to answer a specific enquiry.
+     * Prompts for the request ID of the enquiry.
+     * Performs checks:
+     * - If the request ID exists.
+     * - If the request is actually an Enquiry.
+     * - If the enquiry has already been answered (status is DONE).
+     * - If the enquiry belongs to a project managed by the current manager.
+     * Prompts for the answer text if all checks pass.
+     * Delegates the action of answering the enquiry to {@link OfficerRequestController#answerEnquiry(String, String)}.
+     * Note: Uses OfficerRequestController; consider if ManagerRequestController is intended.
+     * Loops back to the manager menu afterwards.
+     */
     public static void answerEnquiries() {
         System.out.print("Enter the request ID to answer: ");
         String requestID = IOController.nextLine();
@@ -131,6 +159,13 @@ public class ManagerPage {
         UIController.loopManager();
     }
 
+    /**
+     * Displays the list of projects created by a specific manager.
+     * Prompts for the manager ID. If left empty, defaults to the currently logged-in manager.
+     * Delegates the display logic to {@link ManagerProjectController#viewProjectList(String)}.
+     * Catches and handles {@link ProjectNotFoundException} if no projects are found for the manager.
+     * Loops back to the manager menu afterwards.
+     */
     public static void viewProjectList() {
         System.out.print("Enter the manager ID to view thier created projects (Press ENTER to view yours): ");
         String managerID = IOController.nextLine();
@@ -143,11 +178,27 @@ public class ManagerPage {
         UIController.loopManager();
     }
 
+    /**
+     * Displays requests (applications, etc.) associated with the projects managed by the current manager.
+     * Delegates the display logic to {@link ManagerRequestController#viewRequest()}.
+     * Loops back to the manager menu afterwards.
+     */
     public static void viewRequest() {
         ManagerRequestController.viewRequest();
         UIController.loopManager();
     }
 
+    /**
+     * Allows the manager to change the approval status of an application request.
+     * Prompts for the request ID.
+     * Performs checks:
+     * - If the request ID exists.
+     * - If the request is not an Enquiry.
+     * - If the request belongs to a project managed by the current manager.
+     * Displays the request details and prompts for the new status (Pending, Successful, Unsuccessful).
+     * Delegates the status change to {@link ManagerRequestController#changeApplicationStatus(String, ApprovedStatus)}.
+     * Loops back to the manager menu afterwards.
+     */
     public static void changeApplicationStatus() {
         System.out.print("Enter the request ID: ");
         String requestID = IOController.nextLine();
@@ -188,11 +239,28 @@ public class ManagerPage {
         UIController.loopManager();
     }
 
+    /**
+     * Displays all enquiries across all projects (presumably those the manager has access to view).
+     * Delegates the display logic to {@link ManagerRequestController#viewAllEnquiries()}.
+     * Loops back to the manager menu afterwards.
+     */
     public static void viewAllEnquiries() {
         ManagerRequestController.viewAllEnquiries();
         UIController.loopManager();
     }
 
+    /**
+     * Handles the creation of a new project by the manager.
+     * Generates a new project ID using {@link IDController#newProjectID()}.
+     * Prompts the manager for all required project details:
+     * - Name
+     * - Neighbourhoods (list)
+     * - Available units and price for Two Room and Three Room flats
+     * - Open and Close dates for applications
+     * - Number of available officer slots (1-10)
+     * Delegates the project creation logic to {@link ManagerProjectController#createProject(String, String, List, Map, Map, LocalDate, LocalDate, int)}.
+     * Loops back to the manager menu afterwards.
+     */
     public static void createProject() {
         String tmp;
         int tmpint;
@@ -250,6 +318,17 @@ public class ManagerPage {
         UIController.loopManager();
     }
 
+    /**
+     * Handles the editing of an existing project by the manager.
+     * Prompts for the project ID to edit.
+     * If the project exists, prompts for new values for each field, allowing the user to press ENTER to skip
+     * and keep the existing value.
+     * Collects potentially updated details for:
+     * - Name, Neighbourhoods, Units/Prices for flat types, Open/Close dates, Officer slots, Visibility.
+     * Constructs a new {@link Project} object with potentially mixed old and new data.
+     * Delegates the update logic to {@link ManagerProjectController#editProject(String, Project)}.
+     * Loops back to the manager menu afterwards.
+     */
     public static void editProject() {
         String tmp;
         int tmpint;
@@ -373,6 +452,13 @@ public class ManagerPage {
         UIController.loopManager();
     }
 
+    /**
+     * Handles the deletion of a project by the manager.
+     * Prompts for the project ID to delete.
+     * Delegates the deletion logic to {@link ManagerProjectController#deleteProject(String)}.
+     * Catches and displays a message for {@link ProjectNotFoundException} if the project ID is invalid.
+     * Loops back to the manager menu afterwards.
+     */
     public static void deleteProject() {
         System.out.print("Project ID: ");
         String projectID = IOController.nextLine();
@@ -384,6 +470,13 @@ public class ManagerPage {
         UIController.loopManager();
     }
 
+    /**
+     * Toggles the visibility status of a project (Visible - Not Visible).
+     * Prompts for the project ID.
+     * Delegates the toggle logic to {@link ManagerProjectController#toggleVisibility(String)}.
+     * Catches and displays a message for {@link ProjectNotFoundException} if the project ID is invalid.
+     * Loops back to the manager menu afterwards.
+     */
     public static void toggleVisibility() {
         System.out.print("Project ID: ");
         String projectID = IOController.nextLine();
@@ -395,11 +488,21 @@ public class ManagerPage {
         UIController.loopManager();
     }
 
+    /**
+     * Displays the registration status of officers (details depend on controller implementation).
+     * Delegates the display logic to {@link ManagerProjectController#viewOfficerRegistrationStatus()}.
+     * Loops back to the manager menu afterwards.
+     */
     public static void viewOfficerRegistrationStatus() {
         ManagerProjectController.viewOfficerRegistrationStatus();
         UIController.loopManager();
     }
 
+    /**
+     * Generates a report based on project or request data (specifics depend on controller implementation).
+     * Delegates the report generation logic to {@link ManagerProjectController#generateReport()}.
+     * Loops back to the manager menu afterwards.
+     */
     public static void generateReport() {
         ManagerProjectController.generateReport();  
         UIController.loopManager();

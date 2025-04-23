@@ -14,8 +14,18 @@ import utils.Display;
 import utils.IOController;
 import utils.UIController;
 
+/**
+ * Represents the boundary layer for handling applicant interactions and displaying the applicant menu.
+ * This class provides static methods to navigate different applicant functionalities like viewing projects,
+ * applying, managing applications, handling queries, and setting filters.
+ */
 public class ApplicantPage {
 
+    /**
+     * Displays the main menu options available to the logged-in applicant.
+     * Reads the applicant's choice and navigates to the corresponding functionality.
+     * Handles invalid input and loops back to the main menu or exits the application.
+     */
     public static void allOptions() {
         UIController.clearPage();
         System.out.println(UIController.LINE_SEPARATOR);
@@ -75,22 +85,44 @@ public class ApplicantPage {
         }
     }
 
-   
+
+    /**
+     * Displays projects that the currently logged-in applicant is eligible to apply for,
+     * potentially based on filters or eligibility criteria handled by the ApplicantController.
+     * After displaying, loops back to the applicant menu.
+     */
     public static void viewApplicableProject() {
         ApplicantController.viewApplicableProject();
         UIController.loopApplicant();
     }
 
+    /**
+     * Displays the projects for which the currently logged-in applicant has submitted an application.
+     * After displaying, loops back to the applicant menu.
+     */
     public static void viewAppliedProject() {
         ApplicantController.viewAppliedProject();
         UIController.loopApplicant();
     }
 
+    /**
+     * Displays details of the applications submitted by the currently logged-in applicant.
+     * After displaying, loops back to the applicant menu.
+     */
     public static void viewAppliedApplication(){
         ApplicantController.viewAppliedApplication();
         UIController.loopApplicant();
     }
 
+    /**
+     * Handles the process for an applicant to apply for a specific project.
+     * Checks if the applicant has already applied for a project.
+     * Prompts for the project ID, checks project existence and applicant eligibility (age, marital status).
+     * Prompts for the desired flat type based on eligibility.
+     * Delegates the actual application logic to ApplicantController.
+     * Handles potential ProjectNotFoundException if the entered project ID is invalid.
+     * Loops back to the applicant menu afterwards.
+     */
     public static void applyProject() {
         Applicant applicant = ApplicantList.getInstance().getByID(AccountController.getUserID());
         if (applicant.getProject() != null) {
@@ -134,6 +166,14 @@ public class ApplicantPage {
         UIController.loopApplicant();
     }
 
+    /**
+     * Handles the process for an applicant to withdraw their application from a project.
+     * Prompts for the project ID from which to withdraw.
+     * Delegates the withdrawal logic to ApplicantController.
+     * Handles potential ProjectNotFoundException if the entered project ID is invalid or the applicant
+     * hasn't applied to that project.
+     * Loops back to the applicant menu afterwards.
+     */
     public static void withdrawApplication() {
         System.out.print("Enter the project ID to apply: ");
         String projectID = IOController.nextLine();
@@ -146,6 +186,13 @@ public class ApplicantPage {
         UIController.loopApplicant();
     }
 
+    /**
+     * Allows the applicant to submit a query regarding a specific project.
+     * Prompts for the project ID and checks if it exists.
+     * Prompts for the query text.
+     * Delegates the query submission logic to ApplicantController.
+     * Loops back to the applicant menu afterwards.
+     */
     public static void query() {
         System.out.print("Enter the project ID to enquiry: ");
         String projectID = IOController.nextLine();
@@ -160,11 +207,24 @@ public class ApplicantPage {
         UIController.loopApplicant();
     }
 
+    /**
+     * Displays the queries submitted by the currently logged-in applicant.
+     * Delegates the display logic to ApplicantController.
+     * Loops back to the applicant menu afterwards.
+     */
     public static void viewQuery() {
         ApplicantController.viewQuery();
         UIController.loopApplicant();
     }
 
+    /**
+     * Allows the applicant to edit an existing query they submitted.
+     * Prompts for the request ID (query ID) of the query to edit.
+     * Validates if the query exists and belongs to the applicant via ApplicantController.
+     * Prompts for the new query text.
+     * Delegates the editing logic to ApplicantController.
+     * Loops back to the applicant menu afterwards.
+     */
     public static void editQuery() {
         System.out.print("Enter the request ID to edit: ");
         String requestID = IOController.nextLine();
@@ -178,6 +238,12 @@ public class ApplicantPage {
         UIController.loopApplicant();
     }
 
+    /**
+     * Allows the applicant to delete an existing query they submitted.
+     * Prompts for the request ID (query ID) of the query to delete.
+     * Delegates the deletion logic (including necessary checks) to ApplicantController.
+     * Loops back to the applicant menu afterwards.
+     */
     public static void deleteQuery() {
         System.out.print("Enter the request ID to delete: ");
         String requestID = IOController.nextLine();

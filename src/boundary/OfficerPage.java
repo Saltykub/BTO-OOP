@@ -23,9 +23,20 @@ import utils.Display;
 import utils.IOController;
 import utils.UIController;
 
+/**
+ * Represents the boundary layer for handling interactions for users logged in as Officers.
+ * This page provides a combined menu allowing officers to perform actions both as an applicant
+ * (applying for projects, managing personal queries) and as an officer
+ * (registering for projects, managing applicant requests/enquiries, booking flats, generating receipts).
+ */
 public class OfficerPage {
 
-    // Page management methods
+    /**
+     * Displays the main menu options available to the logged-in officer.
+     * This menu includes options for both applicant-related actions and officer-specific duties.
+     * Reads the officer's choice and navigates to the corresponding functionality.
+     * Handles invalid input and loops back to the main menu or exits the application.
+     */
     public static void allOptions() {
         UIController.clearPage();
         System.out.println(UIController.LINE_SEPARATOR);
@@ -108,18 +119,38 @@ public class OfficerPage {
         }
     }
 
-    // ApplicantController Methods
+    // ========================================
+    // Applicant Actions (using ApplicantController)
+    // These methods allow the officer to act as an applicant.
+    // ========================================
 
+    /**
+     * Displays projects that the officer (acting as an applicant) is eligible to apply for.
+     * Delegates logic to {@link ApplicantController#viewApplicableProject()}.
+     * Loops back to the officer menu.
+     */
     public static void viewApplicableProject() {
         ApplicantController.viewApplicableProject();
         UIController.loopOfficer();
     }
 
+    /**
+     * Displays projects the officer (acting as an applicant) has applied for.
+     * Delegates logic to {@link ApplicantController#viewAppliedProject()}.
+     * Loops back to the officer menu.
+     */
     public static void viewAppliedProject() {
         ApplicantController.viewAppliedProject();
         UIController.loopOfficer();
     }
 
+    /**
+     * Handles the process for the officer (acting as an applicant) to apply for a specific project.
+     * Checks eligibility (if already applied, age, marital status). Prompts for project ID and flat type.
+     * Delegates application logic to {@link ApplicantController#applyProject(String, FlatType)}.
+     * Handles {@link ProjectNotFoundException}.
+     * Loops back to the officer menu.
+     */
     public static void applyProject() {
         Applicant applicant = ApplicantList.getInstance().getByID(AccountController.getUserID());
         if (applicant.getProject() != null) {
@@ -163,6 +194,13 @@ public class OfficerPage {
         UIController.loopOfficer();
     }
 
+    /**
+     * Handles the process for the officer (acting as an applicant) to withdraw their project application.
+     * Prompts for the project ID.
+     * Delegates withdrawal logic to {@link ApplicantController#withdrawApplication(String)}.
+     * Handles {@link ProjectNotFoundException}.
+     * Loops back to the officer menu.
+     */
     public static void withdrawApplication() {
         System.out.print("Enter the project ID to apply: ");
         String projectID = IOController.nextLine();
@@ -175,6 +213,12 @@ public class OfficerPage {
         UIController.loopOfficer();
     }
 
+    /**
+     * Allows the officer (acting as an applicant) to submit a personal query about a specific project.
+     * Prompts for project ID and query text. Checks if project exists.
+     * Delegates query submission to {@link ApplicantController#query(String, String)}.
+     * Loops back to the officer menu.
+     */
     public static void query() {
         System.out.print("Enter the project ID to enquiry: ");
         String projectID = IOController.nextLine();
@@ -189,11 +233,23 @@ public class OfficerPage {
         UIController.loopOfficer();
     }
 
+    /**
+     * Displays the personal queries submitted by the officer (acting as an applicant).
+     * Delegates display logic to {@link ApplicantController#viewQuery()}.
+     * Loops back to the officer menu.
+     */
     public static void viewQuery() {
         ApplicantController.viewQuery();
         UIController.loopOfficer();
     }
 
+    /**
+     * Allows the officer (acting as an applicant) to edit one of their own submitted queries.
+     * Prompts for the request ID of the query. Checks if the query belongs to the officer.
+     * Prompts for the new query text.
+     * Delegates editing logic to {@link ApplicantController#editQuery(String, String)}.
+     * Loops back to the officer menu.
+     */
     public static void editQuery() {
         System.out.print("Enter the request ID to edit: ");
         String requestID = IOController.nextLine();
@@ -207,6 +263,12 @@ public class OfficerPage {
         UIController.loopOfficer();
     }
 
+    /**
+     * Allows the officer (acting as an applicant) to delete one of their own submitted queries.
+     * Prompts for the request ID of the query.
+     * Delegates deletion logic to {@link ApplicantController#deleteQuery(String)}.
+     * Loops back to the officer menu.
+     */
     public static void deleteQuery() {
         System.out.print("Enter the request ID to delete: ");
         String requestID = IOController.nextLine();
@@ -216,6 +278,16 @@ public class OfficerPage {
 
     // OfficerRequestController Methods
 
+    // ========================================
+    // Officer Duties - Project Registration & Status
+    // ========================================
+
+    /**
+     * Allows the officer to register their interest in working on a specific project.
+     * Prompts for the project ID.
+     * Delegates registration logic to {@link OfficerRequestController#registerProject(String)}.
+     * Loops back to the officer menu.
+     */
     public static void registerProject() {
         System.out.print("Enter the project ID to register: ");
         String projectID = IOController.nextLine();
@@ -223,21 +295,46 @@ public class OfficerPage {
         UIController.loopOfficer();
     }
 
+    /**
+     * Displays the projects the officer is currently registered to work on.
+     * Delegates display logic to {@link OfficerRequestController#viewRegisteredProject()}.
+     * Loops back to the officer menu.
+     */
     public static void viewRegisteredProject() {
         OfficerRequestController.viewRegisteredProject();
         UIController.loopOfficer();
     }
 
+    /**
+     * Displays the status of the officer's applications to register for projects.
+     * Delegates display logic to {@link OfficerRequestController#viewRegistrationStatus()}.
+     * Loops back to the officer menu.
+     */
     public static void viewRegistrationStatus() {
         OfficerRequestController.viewRegistrationStatus();
         UIController.loopOfficer();
     }
+    // ========================================
+    // Officer Duties - Enquiry & Request Management
+    // ========================================
 
+    /**
+     * Displays enquiries assigned to or related to the currently logged-in officer.
+     * Delegates display logic to {@link OfficerRequestController#viewEnquiries()}.
+     * Loops back to the officer menu.
+     */
     public static void viewEnquiries() {
         OfficerRequestController.viewEnquiries();
         UIController.loopOfficer();
     }
 
+    /**
+     * Displays enquiries filtered by a specific project ID.
+     * Prompts for the project ID. Checks if the project exists.
+     * Delegates display logic to {@link OfficerRequestController#viewEnquiries(String)}.
+     * Handles {@link ProjectNotFoundException}.
+     * Loops back to the officer menu.
+     */
     public static void viewEnquiriesByProject() {
         System.out.print("Enter the project ID to view: ");
         String projectID = IOController.nextLine();
@@ -251,6 +348,17 @@ public class OfficerPage {
         UIController.loopOfficer();
     }
 
+    /**
+     * Handles the process for an officer to answer a specific enquiry.
+     * Prompts for the request ID. Performs validation checks:
+     * - Request existence.
+     * - Request type (must be Enquiry).
+     * - Enquiry status (must not be DONE).
+     * - Officer's association with the project (must be registered for the project).
+     * Prompts for the answer text if valid.
+     * Delegates answering logic to {@link OfficerRequestController#answerEnquiry(String, String)}.
+     * Loops back to the officer menu.
+     */
     public static void answerEnquiry() {
         System.out.print("Enter the request ID to answer: ");
         String requestID = IOController.nextLine();
@@ -282,18 +390,34 @@ public class OfficerPage {
         UIController.loopOfficer();
     }
 
-    // OfficerProjectController Methods
-
+    // ========================================
+    // Officer Duties - Applicant/Flat Management
+    // ========================================
+    /**
+     * Displays the registrable projects of applicants, filtered for projects the officer manages.
+     * Delegates display logic to {@link OfficerProjectController#viewRegistrableProject()}.
+     * Loops back to the officer menu.
+     */
     public static void viewRegistrableProject() {
         OfficerProjectController.viewRegistrableProject();
         UIController.loopOfficer();
     }
-
+    /**
+     * Displays the application status of applicants, filtered for projects the officer manages.
+     * Delegates display logic to {@link OfficerProjectController#viewApplicantApplicationStatus()}.
+     * Loops back to the officer menu.
+     */
     public static void viewApplicantApplicationStatus() {
         OfficerProjectController.viewApplicantApplicationStatus();
         UIController.loopOfficer();
     }
 
+    /**
+     * Initiates the process for booking a flat for a specific applicant.
+     * Prompts for the applicant's ID.
+     * Delegates booking logic to {@link OfficerProjectController#bookFlat(String)}.
+     * Loops back to the officer menu.
+     */
     public static void bookFlat() {
         System.out.print("Enter the applicant ID to book a flat: ");
         String applicantID = IOController.nextLine();
@@ -301,11 +425,26 @@ public class OfficerPage {
         UIController.loopOfficer();
     }
 
+    // ========================================
+    // Officer Duties - Receipt Generation
+    // ========================================
+
+    /**
+     * Generates a general receipt (details depend on controller implementation).
+     * Delegates generation logic to {@link OfficerProjectController#generateReceipt()}.
+     * Loops back to the officer menu.
+     */
     public static void generateReceipt() {
         OfficerProjectController.generateReceipt();
         UIController.loopOfficer();
     }
 
+    /**
+     * Generates a receipt specifically for an applicant.
+     * Prompts for the applicant's ID.
+     * Delegates generation logic to {@link OfficerProjectController#generateReceiptByApplicant(String)}.
+     * Loops back to the officer menu.
+     */
     public static void generateReceiptByApplicant() {
         System.out.print("Enter the applicant ID to generate receipt: ");
         String applicantID = IOController.nextLine();
@@ -313,6 +452,12 @@ public class OfficerPage {
         UIController.loopOfficer();
     }
 
+    /**
+     * Generates receipts related to a specific project.
+     * Prompts for the project ID.
+     * Delegates generation logic to {@link OfficerProjectController#generateReceiptByProject(String)}.
+     * Loops back to the officer menu.
+     */
     public static void generateReceiptByProject() {
         System.out.print("Enter the project ID to generate receipt: ");
         String projectID = IOController.nextLine();
