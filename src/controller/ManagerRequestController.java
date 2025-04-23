@@ -25,14 +25,29 @@ import entity.user.RegistrationStatus;
 import entity.user.UserType;
 import utils.Display;
 
+/**
+ * Controller responsible for handling request-related operations from a Manager's perspective.
+ * This includes viewing various request types (applications, withdrawals, registrations),
+ * viewing enquiries associated with the manager's projects, viewing all enquiries,
+ * and changing the status of different request types, often involving complex cascading logic.
+ * It operates using the context of the currently logged-in manager's ID.
+ */
 public class ManagerRequestController {
 
     private static String managerID;
-    
+
+    /**
+     * Sets the manager ID for the current session context.
+     * Subsequent manager-specific operations in this controller will use this ID.
+     *
+     * @param ID The user ID of the currently logged-in manager.
+     */
     public static void setManagerID(String ID) {
         managerID = ID;
     }
-    
+    /**
+     * Stores the user ID of the manager currently interacting with the system.
+    */
     public static void viewRequest() {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {
@@ -41,7 +56,17 @@ public class ManagerRequestController {
             }
         }
     }
-    
+
+    /**
+     * Displays specific types of requests using the APPLICANT display format.
+     * The behavior depends on the boolean parameter:
+     * - If {@code applicant} is true, displays BTO Applications and BTO Withdrawals.
+     * - If {@code applicant} is false, displays Officer Registrations.
+     * Note: The use of {@code UserType.APPLICANT} for display might be inconsistent, especially for Officer Registrations.
+     *
+     * @param applicant If true, display applicant-related requests (BTO Application/Withdrawal);
+     * if false, display officer-related requests (Registration).
+     */
     public static void viewRequest(boolean applicant) {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {
@@ -50,13 +75,27 @@ public class ManagerRequestController {
             }
         }
     }
-    
+
+    /**
+     * Changes the overall status (e.g., PENDING, DONE) of a specific request.
+     *
+     * @param requestID The ID of the request to update.
+     * @param status    The new {@link RequestStatus} to set.
+     */
     public static void changeRequestStatus(String requestID, RequestStatus status) {
         Request request = RequestList.getInstance().getByID(requestID);
         request.setRequestStatus(status);
         RequestList.getInstance().update(requestID, request);
     }
 
+    /**
+     * Changes the approval status (PENDING, SUCCESSFUL, UNSUCCESSFUL) for specific types of applications
+     * (BTO Application, BTO Withdrawal, Officer Registration) and triggers related cascading actions.
+     * Also updates the overall request status to DONE if the approval status is not PENDING.
+     *
+     * @param requestID The ID of the application request to update.
+     * @param status    The new {@link ApprovedStatus} to set.
+     */
     public static void changeApplicationStatus(String requestID, ApprovedStatus status) {
         Request request = RequestList.getInstance().getByID(requestID);
         if (request instanceof BTOApplication application) {
@@ -145,6 +184,11 @@ public class ManagerRequestController {
         else changeRequestStatus(requestID, RequestStatus.PENDING);
     }
 
+    /**
+     * Displays all enquiries associated with the projects managed by the currently set manager.
+     * Iterates through all requests, checks if it's an Enquiry, and if its project ID
+     * is in the current manager's list of managed projects.
+     */
     public static void viewEnquiries() {
         List<Request> list = RequestList.getInstance().getAll();
         Manager m = ManagerList.getInstance().getByID(managerID);
@@ -162,6 +206,10 @@ public class ManagerRequestController {
         if (!has) System.out.println("There is no enquiry.");
     }
 
+    /**
+     * Displays all Enquiry requests present in the system, regardless of the project or manager.
+     * Uses the {@link UserType#MANAGER} display format.
+     */
     public static void viewAllEnquiries() {
         List<Request> list = RequestList.getInstance().getAll();
         for (Request request : list) {

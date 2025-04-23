@@ -13,16 +13,34 @@ import utils.IOController;
 import utils.SortType;
 import utils.UIController;
 
+/**
+ * Controller responsible for managing filter and sort criteria for Project lists.
+ * It holds the current filter settings as static variables and provides methods
+ * to initialize, set up (via user input), display, and apply these filters to lists of Projects.
+ */
 public class FilterController {
-    
+
+    /** List of desired neighbourhood locations for filtering. Null or empty means no location filter. */
     public static List<String> location;
+    /** The minimum desired price for filtering. Null means no lower price bound. */
     public static Integer priceLowerBound;
+    /** The maximum desired price for filtering. Null means no upper price bound. */
     public static Integer priceUpperBound;
+    /** The specific {@link FlatType} to filter by. Null means no flat type filter (show projects with any available units). */
     public static FlatType flatType;
+    /** The earliest acceptable project open date for filtering. Null means no start date filter. */
     public static LocalDate startDate;
+    /** The latest acceptable project close date for filtering. Null means no end date filter. */
     public static LocalDate endDate;
+    /** The criteria used for sorting the filtered list (e.g., by NAME, PRICE, DATE). Defaults to NAME. */
     public static SortType sortType;
 
+    /**
+     * Initializes or resets all filter criteria to their default state.
+     * Sets location, price bounds, flat type, and dates to null.
+     * Sets the default sort type to {@link SortType#NAME}.
+     * Typically called at the start of a session or when resetting filters.
+     */
     public static void init() {
         location = null;
         priceLowerBound = null;
@@ -32,6 +50,10 @@ public class FilterController {
         sortType = SortType.NAME;
     }    
 
+    /**
+     * Displays the currently active filter and sort settings to the console.
+     * Only non-null filter values are displayed.
+     */
     public static void displayFilter() {
         System.out.println(UIController.LINE_SEPARATOR);
         System.out.println("Your Current Filter:");
@@ -45,6 +67,12 @@ public class FilterController {
         System.out.println(UIController.LINE_SEPARATOR);
     }
 
+    /**
+     * Retrieves Project objects based on a list of project IDs and then applies the current filters.
+     *
+     * @param IDList A list of project IDs to retrieve and filter.
+     * @return A list of {@link Project} objects corresponding to the IDs, after applying the filters defined in this controller.
+     */
     public static List<Project> filteredListFromID(List<String> IDList) {
         List<Project> ret = new ArrayList<>();
         for (String id : IDList) {
@@ -53,6 +81,18 @@ public class FilterController {
         return filteredList(ret);
     }
 
+    /**
+     * Applies the currently configured filters and sorting to a given list of Projects.
+     * Filters applied include:
+     * - Flat Type: Removes projects that have 0 units of the specified {@code flatType}. If {@code flatType} is null, it removes projects with 0 units of BOTH TWO_ROOM and THREE_ROOM.
+     * - Location: Keeps projects where at least one specified location name is contained within the project's neighbourhood list.
+     * - Price: Keeps projects where both TWO_ROOM and THREE_ROOM prices fall within the {@code priceLowerBound} and {@code priceUpperBound} (if bounds are set).
+     * - Date: Keeps projects where the open date is after {@code startDate} and the close date is before {@code endDate} (if dates are set).
+     * Sorts the filtered list based on the current {@code sortType}.
+     *
+     * @param project The initial list of {@link Project} objects to filter and sort.
+     * @return A new list containing the filtered and sorted Projects.
+     */
     public static List<Project> filteredList(List<Project> project) {
         // filter flatType
         List<Project> temp = new ArrayList<>(project);
@@ -92,7 +132,13 @@ public class FilterController {
             })
         .collect(Collectors.toList());
     }
-    
+
+    /**
+     * Provides a console interface for the user to set up or modify the filter criteria.
+     * Prompts the user for desired locations, price range, flat type, date range, and sort type.
+     * Updates the static filter variables in this controller based on user input.
+     * Allows skipping filters by pressing ENTER.
+     */
     public static void setup(){
         System.out.print("Number of location near by: ");
         List<String> l = new ArrayList<>();

@@ -15,13 +15,37 @@ import entity.user.User;
 import entity.user.UserType;
 import utils.Display;
 
+/**
+ * Controller responsible for handling project-related operations performed by an Officer.
+ * This includes viewing projects available for registration, viewing applicant statuses within assigned projects,
+ * booking flats for successful applicants, and generating receipts/reports related to booked flats.
+ * It operates using the context of the currently logged-in officer's ID.
+ */
 public class OfficerProjectController {
+    /**
+     * Stores the user ID of the officer currently interacting with the system.
+     * This ID is typically set by the {@link AccountController} upon successful login of an Officer.
+     */
     private static String officerID;
 
+    /**
+     * Sets the officer ID for the current session context.
+     * Subsequent officer-specific operations in this controller will use this ID.
+     *
+     * @param ID The user ID of the currently logged-in officer.
+     */
     public static void setOfficerID(String ID) {
         officerID = ID;
     }
 
+    /**
+     * Displays a list of projects that the current officer may be eligible to register for.
+     * Filters the global project list using {@link FilterController}.
+     * Further filters based on:
+     * - Project visibility.
+     * - Officer is not already an applicant for the project.
+     * - The project's dates do not overlap with any project the officer is already registered for.
+     */
     public static void viewRegistrableProject() {
         List<Project> list = ProjectList.getInstance().getAll();
         list = FilterController.filteredList(list);
@@ -44,6 +68,10 @@ public class OfficerProjectController {
         if (!has) System.out.println("There is no registrable project.");
     }
 
+    /**
+     * Displays the application status for all applicants across all projects the current officer is registered for.
+     * Checks if the officer is registered for any projects before proceeding.
+     */
     public static void viewApplicantApplicationStatus() {
         Officer officer = OfficerList.getInstance().getByID(officerID);
         List<String> list = officer.getOfficerProject();
@@ -63,7 +91,13 @@ public class OfficerProjectController {
             }
         }
     }
-    
+
+    /**
+     * Displays the application status for all applicants associated with a specific project ID.
+     * Note: This method does not explicitly check if the current officer is assigned to this project.
+     *
+     * @param projectID The ID of the project for which to view applicant statuses.
+     */
     public static void viewApplicantApplicationStatus(String projectID) {
         Project project = ProjectList.getInstance().getByID(projectID);
         Display.displayProject(project, UserType.OFFICER,null);
@@ -75,6 +109,12 @@ public class OfficerProjectController {
         } 
     }
 
+    /**
+     * Displays applicants with a specific {@link ApplicationStatus} across all projects
+     * the current officer is registered for.
+     *
+     * @param status The specific {@link ApplicationStatus} to filter by.
+     */
     public static void viewApplicantApplicationStatus(ApplicationStatus status) {
         Officer officer = OfficerList.getInstance().getByID(officerID);
         List<String> list = officer.getOfficerProject();
@@ -91,6 +131,13 @@ public class OfficerProjectController {
         }
     }
 
+    /**
+     * Displays applicants with a specific {@link ApplicationStatus} for a specific project ID.
+     * Note: This method does not explicitly check if the current officer is assigned to this project.
+     *
+     * @param projectID The ID of the project to filter by.
+     * @param status    The specific {@link ApplicationStatus} to filter by.
+     */
     public static void viewApplicantApplicationStatus(String projectID, ApplicationStatus status) {
         Project project = ProjectList.getInstance().getByID(projectID);
         Display.displayProject(project, UserType.OFFICER,null);
@@ -102,6 +149,19 @@ public class OfficerProjectController {
         } 
     }
 
+    /**
+     * Books a flat for a specified applicant.
+     * Performs checks:
+     * - Applicant ID is valid and corresponds to an Applicant (not Manager/Officer).
+     * - Applicant has applied to a project.
+     * - The current officer is registered for the applicant's project.
+     * - Applicant's status is SUCCESSFUL (not already BOOKED or PENDING/UNSUCCESSFUL).
+     * - The flat type applied for has available units.
+     * If checks pass, updates the project's available units, adds the applicant to the project's booked list,
+     * and updates the applicant's status to BOOKED.
+     *
+     * @param applicantID The ID of the applicant for whom to book the flat.
+     */
     public static void bookFlat(String applicantID) {
         // no need to pass project because applicant can has only 1 project 
         User user = ApplicantList.getInstance().getByID(applicantID);
@@ -137,6 +197,11 @@ public class OfficerProjectController {
         System.out.println("Successfully booked a flat for this applicant.");
     }
 
+    /**
+     * Generates a 'receipt' by displaying details of all applicants who have successfully BOOKED a flat
+     * across all projects the current officer is registered for.
+     * Also displays the project details for context.
+     */
     public static void generateReceipt() {
         Officer o = OfficerList.getInstance().getByID(officerID);
         List<String> projectId = o.getOfficerProject();
@@ -152,7 +217,14 @@ public class OfficerProjectController {
             Display.displayProject(p,UserType.OFFICER,null);
         }
     }
-    
+
+    /**
+     * Generates a 'receipt' for a specific applicant ID.
+     * Displays details if the applicant has BOOKED status and is associated with a project
+     * the current officer is registered for.
+     *
+     * @param applicantID The ID of the applicant for whom to generate the receipt.
+     */
     public static void generateReceiptByApplicant(String applicantID) {
         Officer o = OfficerList.getInstance().getByID(officerID);
         List<String> projectId = o.getOfficerProject();
@@ -172,6 +244,13 @@ public class OfficerProjectController {
         }
         System.out.println("Applicant not found in your registered project");
     }
+
+    /**
+     * Generates a 'receipt' by displaying details of all applicants who have successfully BOOKED a flat
+     * for a specific project ID, provided the current officer is registered for that project.
+     *
+     * @param projectID The ID of the project for which to generate receipts.
+     */
     public static void generateReceiptByProject(String projectID) {
         Officer o = OfficerList.getInstance().getByID(officerID);
         List<String> projectId = o.getOfficerProject();
@@ -192,7 +271,14 @@ public class OfficerProjectController {
         }
         System.out.println("Project not found in your registered project");
     }
-
+    /**
+     * Helper method to check if the officer is associated with any projects.
+     * Prints a message to the console if the officer is not registered for any projects.
+     * Suggestion: Could be made private if only used within this class.
+     *
+     * @param projectId The list of project IDs the officer is registered for.
+     * @return true if the list is not null and not empty, false otherwise.
+     */
     public static boolean checkValidProject(List<String> projectId){
         if(projectId.isEmpty()) {
             System.out.println("You don't have registered project");
