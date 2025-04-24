@@ -19,6 +19,7 @@ import entity.request.Request;
 import entity.request.RequestStatus;
 import entity.user.UserType;
 import exception.ProjectNotFoundException;
+import exception.UserNotFoundException;
 import utils.Display;
 import utils.IDController;
 import utils.IOController;
@@ -170,9 +171,11 @@ public class ManagerPage {
         System.out.print("Enter the manager ID to view thier created projects (Press ENTER to view yours): ");
         String managerID = IOController.nextLine();
         if (managerID.isEmpty()) managerID = AccountController.getUserID();
-        try{
+        try {
             ManagerProjectController.viewProjectList(managerID);
-        }  catch (ProjectNotFoundException e) {
+        } catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (ProjectNotFoundException e) {
             System.out.println("No projects found.");
         }
         UIController.loopManager();

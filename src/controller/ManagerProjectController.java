@@ -22,6 +22,7 @@ import entity.user.Officer;
 import entity.user.RegistrationStatus;
 import entity.user.UserType;
 import exception.ProjectNotFoundException;
+import exception.UserNotFoundException;
 import utils.Display;
 import utils.IOController;
 import utils.UIController;
@@ -192,8 +193,9 @@ public class ManagerProjectController {
      * @param managerID The ID of the manager whose projects are to be viewed.
      * @throws ProjectNotFoundException If the manager manages no projects, or if after filtering, no projects remain.
      */
-    public static void viewProjectList(String managerID) throws ProjectNotFoundException {
+    public static void viewProjectList(String managerID) throws UserNotFoundException, ProjectNotFoundException {
         Manager manager = ManagerList.getInstance().getByID(managerID);
+        if (manager == null) throw new UserNotFoundException();
         List<String> projects = manager.getProject();
         if(projects.isEmpty()) throw new ProjectNotFoundException();
         List<Project> list = FilterController.filteredListFromID(projects);
