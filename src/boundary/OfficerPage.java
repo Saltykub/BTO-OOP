@@ -379,7 +379,7 @@ public class OfficerPage {
             return;
         }
         List<String> projects = OfficerList.getInstance().getByID(AccountController.getUserID()).getOfficerProject();
-        if (!projects.contains(requestID)) {
+        if (!projects.contains(query.getProjectID())) {
             System.out.println("You are not allowed to change application status of other's project.");
             UIController.loopOfficer();
             return;

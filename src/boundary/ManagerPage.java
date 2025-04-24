@@ -148,7 +148,7 @@ public class ManagerPage {
             UIController.loopManager();
             return;
         }
-        if (!projects.contains(requestID)) {
+        if (!projects.contains(query.getProjectID())) {
             System.out.println("You are not allowed to change application status of other's project.");
             UIController.loopManager();
             return;
