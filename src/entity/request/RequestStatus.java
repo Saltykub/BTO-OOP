@@ -5,7 +5,15 @@ package entity.request;
  * This is distinct from specific approval statuses like {@link ApprovedStatus}.
  */
 public enum RequestStatus {
+    /**
+     * The request is currently awaiting processing, review, or further action.
+     */
     PENDING,
+
+    /**
+     * The request has been fully processed and is considered complete.
+     * No further action is required (e.g., an enquiry has been answered, an application approved/rejected).
+     */
     DONE;
     /**
      * Returns a string representation of the status, formatted with ANSI escape codes

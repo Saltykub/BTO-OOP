@@ -5,8 +5,17 @@ package entity.request;
  * This is distinct from the overall processing status (e.g., {@link RequestStatus}).
  */
 public enum ApprovedStatus {
+    /**
+     * The request is awaiting review and an approval decision (e.g., by a manager).
+     */
     PENDING,
+    /**
+     * The request has been explicitly approved.
+     */
     SUCCESSFUL,
+    /**
+     * The request has been explicitly rejected or deemed unsuccessful.
+     */
     UNSUCCESSFUL;
     /**
      * Returns a string representation of the approval status, formatted with ANSI escape codes

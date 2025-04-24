@@ -20,9 +20,24 @@ import exception.PasswordIncorrectException;
 import exception.UserNotFoundException;
 import utils.UIController;
 
+/**
+ * Controller responsible for managing user accounts and authentication.
+ * Handles registration, login, logout, password changes, password hashing,
+ * user lookup across different user types (Applicant, Officer, Manager),
+ * and stores the ID of the currently logged-in user.
+ */
 public class AccountController {
+    /**
+     * Stores the user ID of the currently logged-in user.
+     * Null if no user is logged in.
+     */
     private static String userID;
 
+    /**
+     * Gets the user ID of the currently authenticated user.
+     *
+     * @return The user ID string, or null if no user is logged in.
+     */
     public static String getUserID() {
         return userID;
     }

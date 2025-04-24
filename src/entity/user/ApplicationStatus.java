@@ -4,7 +4,22 @@ package entity.user;
  * Defines the possible states throughout the application lifecycle.
  */
 public enum ApplicationStatus {
-    PENDING, SUCCESSFUL, UNSUCCESSFUL, BOOKED;
+    /**
+     * The application has been submitted but is awaiting review or processing.
+     */
+    PENDING,
+    /**
+     * The application has been reviewed and approved; the applicant is eligible to proceed (e.g., book a flat).
+     */
+    SUCCESSFUL,
+    /**
+     * The application has been reviewed and rejected, or potentially withdrawn by the applicant after approval.
+     */
+    UNSUCCESSFUL,
+    /**
+     * The applicant has successfully booked a specific flat unit after their application was approved.
+     */
+    BOOKED;
     /**
      * Returns a string representation of the status, formatted with ANSI escape codes
      * for colored console output.

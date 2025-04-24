@@ -4,6 +4,13 @@ package entity.user;
  * Used primarily for determining eligibility for certain housing options or benefits.
  */
 public enum MaritalStatus {
+    /**
+     * Represents the 'Single' marital status.
+     */
     SINGLE,
+
+    /**
+     * Represents the 'Married' marital status.
+     */
     MARRIED
 }

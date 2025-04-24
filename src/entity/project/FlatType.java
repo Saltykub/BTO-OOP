@@ -4,6 +4,13 @@ package entity.project;
  * Used to categorize units, prices, and applicant eligibility.
  */
 public enum FlatType {
+    /**
+     * Represents a two-room flat type.
+     */
     TWO_ROOM,
+
+    /**
+     * Represents a three-room flat type.
+     */
     THREE_ROOM
 }

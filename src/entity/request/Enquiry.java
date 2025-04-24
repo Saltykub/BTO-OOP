@@ -55,6 +55,12 @@ public class Enquiry extends Request {
         return query;
     }
 
+    /**
+     * Sets the text content of the user's submitted query.
+     * Allows modification, for example, if the user edits their query before it's answered.
+     *
+     * @param query The new query string.
+     */
     public void setQuery(String query) {
         this.query = query;
     }

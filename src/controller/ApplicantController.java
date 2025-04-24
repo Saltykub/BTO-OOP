@@ -290,6 +290,8 @@ public class ApplicantController {
      * Edits the text content of an existing enquiry submitted by the current applicant.
      * First performs validation using {@link #checkQuery(String)}.
      * If validation passes, updates the enquiry in the RequestList with the new text.
+     * @param requestID The ID of the enquiry request to check.
+     * @param text The text content of the enquiry.
      */
     public static void editQuery(String requestID, String text) {
         if (!checkQuery(requestID)) return;
