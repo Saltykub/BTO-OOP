@@ -61,7 +61,7 @@ public class OfficerPage {
                 + "\n\t10. View Your Projects"
                 + "\n\t11. View Your Registration Application"
                 + "\n\t12. Register for Project as Officer"
-                + "\n\t13. View All Enquiries"
+                + "\n\t13. View Enquiries"
                 + "\n\t14. View Enquiry by ProjectID"
                 + "\n\t15. Answer Enquiries"
                 + "\n\t16. View Applicant Application Status"
